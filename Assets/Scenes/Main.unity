@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 5281877}
   - component: {fileID: 5281874}
   - component: {fileID: 5281878}
+  - component: {fileID: 5281875}
   m_Layer: 0
   m_Name: PlayerHandle
   m_TagString: Untagged
@@ -152,6 +153,19 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &5281875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5281873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_GeneratorAsset: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 9205b6d6281d251479f344698d3fa163, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &5281877
 Transform:
   m_ObjectHideFlags: 0
@@ -181,10 +195,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d8c816979207ad47ad8c8616405d5e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputEnable: 1
   keyUp: 119
   keyDown: 115
-  keyRight: 97
-  keyLeft: 100
+  keyLeft: 97
+  keyRight: 100
   dUp: 0
   dRight: 0
   targetDUp: 0
@@ -206,11 +221,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 100182, guid: 5a381a24bdd577b488da07a68787f65b, type: 3}
+    - target: {fileID: 100254, guid: 5a381a24bdd577b488da07a68787f65b, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 100254, guid: 5a381a24bdd577b488da07a68787f65b, type: 3}
+    - target: {fileID: 100182, guid: 5a381a24bdd577b488da07a68787f65b, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -576,7 +591,7 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 5655b3a075bdf2a48b0e152bdfab1720, type: 2}
     - target: {fileID: 9500000, guid: 2f9d958fbcd96e44ca35a77a15e3187a, type: 3}
       propertyPath: m_ApplyRootMotion
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f9d958fbcd96e44ca35a77a15e3187a, type: 3}
