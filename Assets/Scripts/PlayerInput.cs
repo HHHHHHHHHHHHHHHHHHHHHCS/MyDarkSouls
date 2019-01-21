@@ -4,15 +4,27 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
-    public bool inputEnable = true;
-    public KeyCode keyUp = KeyCode.W;
-    public KeyCode keyDown = KeyCode.S;
-    public KeyCode keyLeft = KeyCode.A;
-    public KeyCode keyRight = KeyCode.D;
-    public float dUp, dRight, targetDUp, targetDRight, velocityDUp, velocityDRight;
+    [Header("===== Keys Setting====")]
+    public KeyCode keyUp = KeyCode.W;//move up
+    public KeyCode keyDown = KeyCode.S;//move down
+    public KeyCode keyLeft = KeyCode.A;//move left
+    public KeyCode keyRight = KeyCode.D;//move right
+    public KeyCode keyA = KeyCode.LeftShift;//run
+    public KeyCode keyB = KeyCode.S;
+    public KeyCode keyC = KeyCode.A;
+    public KeyCode keyD = KeyCode.D;
 
+    [Header("===== Out Signals =====")]
+    private float dUp, dRight;
     public float dmag; //向前的量
     public Vector3 dVec; //旋转的角度
+    public bool isRun;//是否在跑
+
+    [Header("===== Others =====")]
+    public bool inputEnable = true;
+
+
+    public float targetDUp, targetDRight, velocityDUp, velocityDRight;
 
     private void Update()
     {
@@ -32,6 +44,8 @@ public class PlayerInput : MonoBehaviour
 
 
         dmag = Mathf.Sqrt(dUp * dUp + dRight * dRight);
-        dVec = dRight * transform.right + dUp * transform.forward;
+        dVec = (dRight * transform.right + dUp * transform.forward).normalized;
+
+        isRun = Input.GetKey(keyA);
     }
 }
