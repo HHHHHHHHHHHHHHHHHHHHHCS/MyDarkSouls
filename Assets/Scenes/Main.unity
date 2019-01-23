@@ -219,12 +219,14 @@ MonoBehaviour:
   keyLeft: 97
   keyRight: 100
   keyA: 304
-  keyB: 115
+  keyB: 32
   keyC: 97
   keyD: 100
   dmag: 0
   dVec: {x: 0, y: 0, z: 0}
   isRun: 0
+  jump: 0
+  lastJump: 0
   inputEnable: 1
   targetDUp: 0
   targetDRight: 0
