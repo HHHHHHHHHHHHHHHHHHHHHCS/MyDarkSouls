@@ -15,7 +15,10 @@ public class ActorController : MonoBehaviour
     private GameObject model;
     private Animator anim;
     private Rigidbody rigi;
-    private Vector3 movingVec;
+    private Vector3 planarVec;
+
+    private bool lockPlanar;
+
 
     private void Awake()
     {
@@ -36,15 +39,31 @@ public class ActorController : MonoBehaviour
 
         if (pi.dmag >= 0.1f)
         {
-            model.transform.forward = Vector3.Lerp(model.transform.forward, pi.dVec, 0.3f);
+            //角度建议用Slerp,避免出现死锁的情况
+            model.transform.forward = Vector3.Slerp(model.transform.forward, pi.dVec, 0.3f);
         }
 
-        movingVec = pi.dmag  * model.transform.forward * wakeSpeed * (pi.isRun ? runMultiplier : 1f);
+        if (!lockPlanar)
+        {
+            planarVec = pi.dmag * model.transform.forward * wakeSpeed * (pi.isRun ? runMultiplier : 1f);
+        }
     }
 
     private void FixedUpdate()
     {
-        //rigi.position += movingVec * Time.fixedDeltaTime;
-        rigi.velocity = new Vector3(movingVec.x, rigi.velocity.y, movingVec.z);
+        //rigi.position += planarVec * Time.fixedDeltaTime;
+        rigi.velocity = new Vector3(planarVec.x, rigi.velocity.y, planarVec.z);
+    }
+
+    private void OnJumpEnter()
+    {
+        pi.inputEnable = false;
+        lockPlanar = true;
+    }
+
+    private void OnJumpExit()
+    {
+        pi.inputEnable = true;
+        lockPlanar = false;
     }
 }
