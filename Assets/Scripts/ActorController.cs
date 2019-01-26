@@ -10,12 +10,14 @@ public class ActorController : MonoBehaviour
 
     public float wakeSpeed = 1.4f;
     public float runMultiplier = 2.75f;
+    public float jumpVelocity = 3.0f;
 
     private PlayerInput pi;
     private GameObject model;
     private Animator anim;
     private Rigidbody rigi;
-    private Vector3 planarVec;
+    private Vector3 planarVec; //跳跃 平面量
+    private Vector3 thrustVec; //跳跃 垂直量
 
     private bool lockPlanar;
 
@@ -51,13 +53,14 @@ public class ActorController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //rigi.position += planarVec * Time.fixedDeltaTime;
-        rigi.velocity = new Vector3(planarVec.x, rigi.velocity.y, planarVec.z);
+        rigi.velocity = new Vector3(planarVec.x, rigi.velocity.y, planarVec.z) + thrustVec;
+        thrustVec = Vector3.zero;
     }
 
     private void OnJumpEnter()
     {
         pi.inputEnable = false;
+        thrustVec = new Vector3(0, jumpVelocity, 0);
         lockPlanar = true;
     }
 
