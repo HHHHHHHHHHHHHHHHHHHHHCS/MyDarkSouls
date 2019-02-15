@@ -7,6 +7,7 @@ public class ActorController : MonoBehaviour
 {
     private readonly int forwardKey = Animator.StringToHash("forward");
     private readonly int jumpKey = Animator.StringToHash("jump");
+    private readonly int isGroundKey = Animator.StringToHash("isGround");
 
     public float wakeSpeed = 1.4f;
     public float runMultiplier = 2.75f;
@@ -68,5 +69,16 @@ public class ActorController : MonoBehaviour
     {
         pi.inputEnable = true;
         lockPlanar = false;
+    }
+
+    public void IsGround()
+    {
+        Debug.Log(1);
+        anim.SetBool(isGroundKey, true);
+    }
+
+    public void IsNotGround()
+    {
+        anim.SetBool(isGroundKey, false);
     }
 }
