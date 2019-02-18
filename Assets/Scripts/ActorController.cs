@@ -65,7 +65,7 @@ public class ActorController : MonoBehaviour
         lockPlanar = true;
     }
 
-    private void OnJumpExit()
+    public void OnGroundEnter()
     {
         pi.inputEnable = true;
         lockPlanar = false;
@@ -73,12 +73,17 @@ public class ActorController : MonoBehaviour
 
     public void IsGround()
     {
-        Debug.Log(1);
         anim.SetBool(isGroundKey, true);
     }
 
     public void IsNotGround()
     {
         anim.SetBool(isGroundKey, false);
+    }
+
+    public void OnFallEnter()
+    {
+        pi.inputEnable = false;
+        lockPlanar = true;
     }
 }
