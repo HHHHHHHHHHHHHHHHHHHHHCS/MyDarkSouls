@@ -12,6 +12,7 @@ public class ActorController : MonoBehaviour
     public float wakeSpeed = 1.4f;
     public float runMultiplier = 2.75f;
     public float jumpVelocity = 3.0f;
+    public float rollVelocity = 3.0f;
 
     private PlayerInput pi;
     private GameObject model;
@@ -34,6 +35,11 @@ public class ActorController : MonoBehaviour
     private void Update()
     {
         anim.SetFloat(forwardKey, pi.dmag * Mathf.Lerp(anim.GetFloat(forwardKey), pi.isRun ? 2.0f : 1f, 0.5f));
+
+        if (rigi.velocity.magnitude > 5.0f)
+        {
+            anim.SetTrigger("roll");
+        }
 
         if (pi.jump)
         {
@@ -83,6 +89,14 @@ public class ActorController : MonoBehaviour
 
     public void OnFallEnter()
     {
+        pi.inputEnable = false;
+        lockPlanar = true;
+    }
+
+    public void OnRollEnter()
+    {
+
+        thrustVec = new Vector3(0, rollVelocity, 0);
         pi.inputEnable = false;
         lockPlanar = true;
     }

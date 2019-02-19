@@ -170,6 +170,7 @@ MonoBehaviour:
   wakeSpeed: 1.4
   runMultiplier: 2.75
   jumpVelocity: 3
+  rollVelocity: 3
 --- !u!54 &5281876
 Rigidbody:
   m_ObjectHideFlags: 0
