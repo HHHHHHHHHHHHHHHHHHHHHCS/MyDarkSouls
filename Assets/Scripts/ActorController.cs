@@ -13,6 +13,7 @@ public class ActorController : MonoBehaviour
     public float runMultiplier = 2.75f;
     public float jumpVelocity = 3.0f;
     public float rollVelocity = 3.0f;
+    public float jabMultiplier = 1.0f;
 
     private PlayerInput pi;
     private GameObject model;
@@ -95,9 +96,19 @@ public class ActorController : MonoBehaviour
 
     public void OnRollEnter()
     {
-
         thrustVec = new Vector3(0, rollVelocity, 0);
         pi.inputEnable = false;
         lockPlanar = true;
+    }
+
+    public void OnJabEnter()
+    {
+        pi.inputEnable = false;
+        lockPlanar = true;
+    }
+
+    public void OnJabUpdate()
+    {
+        thrustVec = model.transform.forward * anim.GetFloat("jabVelocity") * jabMultiplier;
     }
 }

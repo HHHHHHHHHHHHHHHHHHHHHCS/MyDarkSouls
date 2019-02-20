@@ -171,6 +171,7 @@ MonoBehaviour:
   runMultiplier: 2.75
   jumpVelocity: 3
   rollVelocity: 3
+  jabMultiplier: 1
 --- !u!54 &5281876
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -522,7 +523,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 536b15d88129b8f48b5780eb4e8ba26a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: 0.1
+  offset: 0.3
 --- !u!1 &1974871230
 GameObject:
   m_ObjectHideFlags: 0
