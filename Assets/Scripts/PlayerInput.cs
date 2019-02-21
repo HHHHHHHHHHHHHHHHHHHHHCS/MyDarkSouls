@@ -9,16 +9,22 @@ public class PlayerInput : MonoBehaviour
     public KeyCode keyLeft = KeyCode.A; //move left
     public KeyCode keyRight = KeyCode.D; //move right
     public KeyCode keyA = KeyCode.LeftShift; //run
-    public KeyCode keyB = KeyCode.Space;
+    public KeyCode keyB = KeyCode.Space; //jump roll jab
     public KeyCode keyC = KeyCode.A;
     public KeyCode keyD = KeyCode.D;
+    public KeyCode keyJUp = KeyCode.UpArrow; //camera up
+    public KeyCode keyJDown = KeyCode.DownArrow; //camera down
+    public KeyCode keyJLeft = KeyCode.LeftArrow; //camera left
+    public KeyCode keyJRight = KeyCode.RightArrow; //camera right
 
-    [Header("===== Out Signals =====")] private float dUp, dRight;
+    [Header("===== Out Signals =====")] private float dUp, dRight; //上下左右的量
     public float dmag; //向前的量
     public Vector3 dVec; //旋转的角度
     public bool isRun; //是否在跑
     public bool jump; //是否在跳跃
-    public bool lastJump; //最后的跳跃
+    public bool lastJump; //最后是否按下了跳跃
+    public float jUp, jRight; //镜头上下左右
+
 
     [Header("===== Others =====")] public bool inputEnable = true;
 
@@ -27,6 +33,9 @@ public class PlayerInput : MonoBehaviour
 
     private void Update()
     {
+        jUp = (Input.GetKey(keyJUp) ? 1.0f : 0f)- (Input.GetKey(keyJDown) ? 1.0f : 0f);
+        jRight = (Input.GetKey(keyJRight) ? 1.0f : 0f) - (Input.GetKey(keyJLeft) ? 1.0f : 0f);
+
         if (inputEnable)
         {
             targetDUp = (Input.GetKey(keyUp) ? 1 : 0) - (Input.GetKey(keyDown) ? 1 : 0);
