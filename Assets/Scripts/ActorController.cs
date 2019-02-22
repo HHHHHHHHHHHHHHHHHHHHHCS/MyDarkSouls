@@ -16,20 +16,20 @@ public class ActorController : MonoBehaviour
     public float jabMultiplier = 1.0f;
 
     private PlayerInput pi;
-    private GameObject model;
     private Animator anim;
     private Rigidbody rigi;
     private Vector3 planarVec; //跳跃 平面量
     private Vector3 thrustVec; //跳跃 垂直量
+    private bool lockPlanar; //锁移动的量
 
-    private bool lockPlanar;
+    public GameObject Model { get; private set; }
 
 
     private void Awake()
     {
         pi = transform.GetComponent<PlayerInput>();
-        model = transform.Find("ybot").gameObject;
-        anim = model.GetComponent<Animator>();
+        Model = transform.Find("ybot").gameObject;
+        anim = Model.GetComponent<Animator>();
         rigi = transform.GetComponent<Rigidbody>();
     }
 
@@ -50,12 +50,12 @@ public class ActorController : MonoBehaviour
         if (pi.dmag >= 0.1f)
         {
             //角度建议用Slerp,避免出现死锁的情况
-            model.transform.forward = Vector3.Slerp(model.transform.forward, pi.dVec, 0.3f);
+            Model.transform.forward = Vector3.Slerp(Model.transform.forward, pi.dVec, 0.3f);
         }
 
         if (!lockPlanar)
         {
-            planarVec = pi.dmag * model.transform.forward * wakeSpeed * (pi.isRun ? runMultiplier : 1f);
+            planarVec = pi.dmag * Model.transform.forward * wakeSpeed * (pi.isRun ? runMultiplier : 1f);
         }
     }
 
@@ -109,6 +109,6 @@ public class ActorController : MonoBehaviour
 
     public void OnJabUpdate()
     {
-        thrustVec = model.transform.forward * anim.GetFloat("jabVelocity") * jabMultiplier;
+        thrustVec = Model.transform.forward * anim.GetFloat("jabVelocity") * jabMultiplier;
     }
 }
