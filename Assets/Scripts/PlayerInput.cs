@@ -4,26 +4,30 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
-    [Header("===== Keys Setting====")] public KeyCode keyUp = KeyCode.W; //move up
+    [Header("===== Keys Setting====")]
+    public KeyCode keyUp = KeyCode.W; //move up
     public KeyCode keyDown = KeyCode.S; //move down
     public KeyCode keyLeft = KeyCode.A; //move left
     public KeyCode keyRight = KeyCode.D; //move right
     public KeyCode keyA = KeyCode.LeftShift; //run
     public KeyCode keyB = KeyCode.Space; //jump roll jab
-    public KeyCode keyC = KeyCode.A;
+    public KeyCode keyC = KeyCode.K;
     public KeyCode keyD = KeyCode.D;
     public KeyCode keyJUp = KeyCode.UpArrow; //camera up
     public KeyCode keyJDown = KeyCode.DownArrow; //camera down
     public KeyCode keyJLeft = KeyCode.LeftArrow; //camera left
     public KeyCode keyJRight = KeyCode.RightArrow; //camera right
 
-    [Header("===== Out Signals =====")] private float dUp, dRight; //上下左右的量
+    [Header("===== Out Signals =====")]
+    private float dUp, dRight; //上下左右的量
     public float dmag; //向前的量
     public Vector3 dVec; //旋转的角度
     public bool isRun; //是否在跑
     public bool jump; //是否在跳跃
     public bool lastJump; //最后是否按下了跳跃
     public float jUp, jRight; //镜头上下左右
+    public bool attack; //是否在攻击
+    private bool lastAttack; //最后是否按下了攻击
 
 
     [Header("===== Others =====")] public bool inputEnable = true;
@@ -61,6 +65,7 @@ public class PlayerInput : MonoBehaviour
         isRun = Input.GetKey(keyA);
 
         bool newJump = Input.GetKey(keyB);
+        //这个的作用是要抬起按下,在重新赋值
         if (newJump != lastJump && newJump)
         {
             jump = true;
@@ -69,8 +74,18 @@ public class PlayerInput : MonoBehaviour
         {
             jump = false;
         }
-
         lastJump = newJump;
+
+        bool newAttack = Input.GetKey(keyC);
+        if (newAttack != lastAttack && newAttack)
+        {
+            attack = true;
+        }
+        else
+        {
+            attack = false;
+        }
+        lastAttack = newAttack;
     }
 
     /// <summary>

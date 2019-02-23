@@ -8,6 +8,8 @@ public class ActorController : MonoBehaviour
     private readonly int forwardKey = Animator.StringToHash("forward");
     private readonly int jumpKey = Animator.StringToHash("jump");
     private readonly int isGroundKey = Animator.StringToHash("isGround");
+    private readonly int rollKey = Animator.StringToHash("roll");
+    private readonly int attackKey = Animator.StringToHash("attack");
 
     public float wakeSpeed = 1.4f;
     public float runMultiplier = 2.75f;
@@ -22,6 +24,8 @@ public class ActorController : MonoBehaviour
     private Vector3 thrustVec; //跳跃 垂直量
     private bool lockPlanar; //锁移动的量
 
+    private int attackLayer; //攻击的Layer
+
     public GameObject Model { get; private set; }
 
 
@@ -31,6 +35,8 @@ public class ActorController : MonoBehaviour
         Model = transform.Find("ybot").gameObject;
         anim = Model.GetComponent<Animator>();
         rigi = transform.GetComponent<Rigidbody>();
+
+        attackLayer = anim.GetLayerIndex("attack");
     }
 
     private void Update()
@@ -39,12 +45,17 @@ public class ActorController : MonoBehaviour
 
         if (rigi.velocity.magnitude > 5.0f)
         {
-            anim.SetTrigger("roll");
+            anim.SetTrigger(rollKey);
         }
 
         if (pi.jump)
         {
             anim.SetTrigger(jumpKey);
+        }
+
+        if (pi.attack)
+        {
+            anim.SetTrigger(attackKey);
         }
 
         if (pi.dmag >= 0.1f)
@@ -110,5 +121,16 @@ public class ActorController : MonoBehaviour
     public void OnJabUpdate()
     {
         thrustVec = Model.transform.forward * anim.GetFloat("jabVelocity") * jabMultiplier;
+    }
+
+    public void OnAttack1hAEnter()
+    {
+        anim.SetLayerWeight(attackLayer, 1.0f);
+
+    }
+
+    public void OnAttackIdle()
+    {
+        anim.SetLayerWeight(attackLayer, 0f);
     }
 }

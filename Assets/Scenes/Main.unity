@@ -224,7 +224,7 @@ MonoBehaviour:
   keyRight: 100
   keyA: 304
   keyB: 32
-  keyC: 97
+  keyC: 107
   keyD: 100
   keyJUp: 273
   keyJDown: 274
@@ -237,6 +237,7 @@ MonoBehaviour:
   lastJump: 0
   jUp: 0
   jRight: 0
+  attack: 0
   inputEnable: 1
   targetDUp: 0
   targetDRight: 0
