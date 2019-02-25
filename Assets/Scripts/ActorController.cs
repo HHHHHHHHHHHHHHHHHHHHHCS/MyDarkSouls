@@ -17,12 +17,20 @@ public class ActorController : MonoBehaviour
     public float rollVelocity = 3.0f;
     public float jabMultiplier = 1.0f;
 
+    [Space(10)]
+    [Header("===== Friction Settings ====")]
+    public PhysicMaterial frictionOne;
+    public PhysicMaterial frctionZero;
+
+
     private PlayerInput pi;
     private Animator anim;
     private Rigidbody rigi;
     private Vector3 planarVec; //跳跃 平面量
-    private Vector3 thrustVec; //跳跃 垂直量
+    private Vector3 thrustVec; //偏移的量
     private bool lockPlanar; //锁移动的量
+    private bool canAttack = true; //是否可以攻击
+    private CapsuleCollider capCol; //玩家的碰撞盒
 
     private int attackLayer; //攻击的Layer
 
@@ -35,6 +43,7 @@ public class ActorController : MonoBehaviour
         Model = transform.Find("ybot").gameObject;
         anim = Model.GetComponent<Animator>();
         rigi = transform.GetComponent<Rigidbody>();
+        capCol = transform.GetComponent<CapsuleCollider>();
 
         attackLayer = anim.GetLayerIndex("attack");
     }
@@ -51,9 +60,11 @@ public class ActorController : MonoBehaviour
         if (pi.jump)
         {
             anim.SetTrigger(jumpKey);
+            canAttack = false;
+
         }
 
-        if (pi.attack)
+        if (pi.attack&&CheckState("ground")&&canAttack)
         {
             anim.SetTrigger(attackKey);
         }
@@ -76,6 +87,11 @@ public class ActorController : MonoBehaviour
         thrustVec = Vector3.zero;
     }
 
+    private bool CheckState(string stateName, string layerName = "Base Layer")
+    {
+        return anim.GetCurrentAnimatorStateInfo(anim.GetLayerIndex(layerName)).IsName(stateName);
+    }
+
     private void OnJumpEnter()
     {
         pi.inputEnable = false;
@@ -87,6 +103,13 @@ public class ActorController : MonoBehaviour
     {
         pi.inputEnable = true;
         lockPlanar = false;
+        canAttack = true;
+        capCol.material = frictionOne;
+    }
+
+    public void OnGroundExit()
+    {
+        capCol.material = frctionZero;
     }
 
     public void IsGround()
@@ -125,12 +148,19 @@ public class ActorController : MonoBehaviour
 
     public void OnAttack1hAEnter()
     {
+        pi.inputEnable = false;
         anim.SetLayerWeight(attackLayer, 1.0f);
 
     }
 
+    public void OnAttack1hAUpdate()
+    {
+        thrustVec = Model.transform.forward * anim.GetFloat("attack1hVelocity") ;
+    }
+
     public void OnAttackIdle()
     {
+        pi.inputEnable = true;
         anim.SetLayerWeight(attackLayer, 0f);
     }
 }

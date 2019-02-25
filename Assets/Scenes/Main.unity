@@ -169,9 +169,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wakeSpeed: 1.4
   runMultiplier: 2.75
-  jumpVelocity: 3
+  jumpVelocity: 4
   rollVelocity: 3
   jabMultiplier: 1
+  frictionOne: {fileID: 13400000, guid: 58dd671c5159c2244ba9ba5edb92f7e2, type: 2}
+  frctionZero: {fileID: 13400000, guid: db6f635065ce7814188cb67552d08395, type: 2}
 --- !u!54 &5281876
 Rigidbody:
   m_ObjectHideFlags: 0
