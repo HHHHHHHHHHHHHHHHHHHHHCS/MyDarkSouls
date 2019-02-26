@@ -31,6 +31,7 @@ public class ActorController : MonoBehaviour
     private bool lockPlanar; //锁移动的量
     private bool canAttack = true; //是否可以攻击
     private CapsuleCollider capCol; //玩家的碰撞盒
+    private float lerpTarget;
 
     private int attackLayer; //攻击的Layer
 
@@ -149,18 +150,23 @@ public class ActorController : MonoBehaviour
     public void OnAttack1hAEnter()
     {
         pi.inputEnable = false;
-        anim.SetLayerWeight(attackLayer, 1.0f);
-
+        lerpTarget = 1.0f;
     }
 
     public void OnAttack1hAUpdate()
     {
         thrustVec = Model.transform.forward * anim.GetFloat("attack1hVelocity") ;
+        anim.SetLayerWeight(attackLayer, Mathf.Lerp(anim.GetLayerWeight(attackLayer), lerpTarget, 0.4f));
     }
 
-    public void OnAttackIdle()
+    public void OnAttackIdleEnter()
     {
         pi.inputEnable = true;
-        anim.SetLayerWeight(attackLayer, 0f);
+        lerpTarget = 0f;
+    }
+
+    public void OnAttackIdleUpdate()
+    {
+        anim.SetLayerWeight(attackLayer, Mathf.Lerp(anim.GetLayerWeight(attackLayer), lerpTarget, 0.4f));
     }
 }
