@@ -31,7 +31,8 @@ public class ActorController : MonoBehaviour
     private bool lockPlanar; //锁移动的量
     private bool canAttack = true; //是否可以攻击
     private CapsuleCollider capCol; //玩家的碰撞盒
-    private float lerpTarget;
+    private float lerpTarget; // 动画层过渡用
+    private Vector3 deltaPos; // 动画位置偏移用
 
     private int attackLayer; //攻击的Layer
 
@@ -84,8 +85,10 @@ public class ActorController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        rigi.position += deltaPos;
         rigi.velocity = new Vector3(planarVec.x, rigi.velocity.y, planarVec.z) + thrustVec;
         thrustVec = Vector3.zero;
+        deltaPos = Vector3.zero;
     }
 
     private bool CheckState(string stateName, string layerName = "Base Layer")
@@ -168,5 +171,15 @@ public class ActorController : MonoBehaviour
     public void OnAttackIdleUpdate()
     {
         anim.SetLayerWeight(attackLayer, Mathf.Lerp(anim.GetLayerWeight(attackLayer), lerpTarget, 0.4f));
+    }
+
+    public void OnUpdateRM(object _deltaPos)
+    {
+        if (CheckState("attack1hC", "attack"))
+        {
+            deltaPos += (Vector3)_deltaPos;
+
+        }
+
     }
 }

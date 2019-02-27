@@ -1,8 +1,8 @@
-﻿ using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TriggerControl : MonoBehaviour
+public class RootMotionControl : MonoBehaviour
 {
     private Animator anim;
 
@@ -11,8 +11,9 @@ public class TriggerControl : MonoBehaviour
         anim = transform.GetComponent<Animator>();
     }
 
-    public void ResetTrigger(string triggerName)
+    private void OnAnimatorMove()
     {
-        anim.ResetTrigger(triggerName);
+        SendMessageUpwards("OnUpdateRM", anim.deltaPosition);
+
     }
 }
