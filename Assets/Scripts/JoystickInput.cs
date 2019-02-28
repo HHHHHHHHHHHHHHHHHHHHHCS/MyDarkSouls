@@ -2,21 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInput : MonoBehaviour
+public class JoystickInput : MonoBehaviour
 {
-    [Header("===== Keys Setting====")]
-    public KeyCode keyUp = KeyCode.W; //move up
-    public KeyCode keyDown = KeyCode.S; //move down
-    public KeyCode keyLeft = KeyCode.A; //move left
-    public KeyCode keyRight = KeyCode.D; //move right
-    public KeyCode keyA = KeyCode.LeftShift; //run
-    public KeyCode keyB = KeyCode.Space; //jump roll jab
-    public KeyCode keyC = KeyCode.K;
-    public KeyCode keyD = KeyCode.D;
-    public KeyCode keyJUp = KeyCode.UpArrow; //camera up
-    public KeyCode keyJDown = KeyCode.DownArrow; //camera down
-    public KeyCode keyJLeft = KeyCode.LeftArrow; //camera left
-    public KeyCode keyJRight = KeyCode.RightArrow; //camera right
+    [Header("===== Joystick Setting =====")]
+    public string axisX = "AxisX";
+    public string axisY = "AxisY";
+    public string axisJRight = "Axis3";
+    public string axisJUp = "Axis5";
+    public string btnA = "btnA";
+    public string btnB = "btnB";
+    public string btnC = "btnC";
+    public string btnD = "btnD";
 
     [Header("===== Out Signals =====")]
     private float dUp, dRight; //上下左右的量
@@ -36,13 +32,13 @@ public class PlayerInput : MonoBehaviour
 
     private void Update()
     {
-        jUp = (Input.GetKey(keyJUp) ? 1.0f : 0f)- (Input.GetKey(keyJDown) ? 1.0f : 0f);
-        jRight = (Input.GetKey(keyJRight) ? 1.0f : 0f) - (Input.GetKey(keyJLeft) ? 1.0f : 0f);
+        jUp = Input.GetAxis(axisJUp);
+        jRight = Input.GetAxis(axisJRight);
 
         if (inputEnable)
         {
-            targetDUp = (Input.GetKey(keyUp) ? 1 : 0) - (Input.GetKey(keyDown) ? 1 : 0);
-            targetDRight = (Input.GetKey(keyRight) ? 1 : 0) - (Input.GetKey(keyLeft) ? 1 : 0);
+            targetDUp = Input.GetAxis(axisY);
+            targetDRight = Input.GetAxis(axisX);
         }
         else
         {
@@ -53,7 +49,6 @@ public class PlayerInput : MonoBehaviour
         dUp = Mathf.SmoothDamp(dUp, targetDUp, ref velocityDUp, 0.1f);
         dRight = Mathf.SmoothDamp(dRight, targetDRight, ref velocityDRight, 0.1f);
 
-
         Vector2 tempDAxis = SquareToCircle(dRight, dUp);
         float tempDright = tempDAxis.x;
         float tempDUp = tempDAxis.y;
@@ -61,9 +56,9 @@ public class PlayerInput : MonoBehaviour
         dmag = Mathf.Sqrt(tempDUp * tempDUp + tempDright * tempDright);
         dVec = tempDright * transform.right + tempDUp * transform.forward;
 
-        isRun = Input.GetKey(keyA);
+        isRun = Input.GetButton(btnA);
 
-        bool newJump = Input.GetKey(keyB);
+        bool newJump = Input.GetButton(btnB);
         //这个的作用是要抬起按下,在重新赋值
         if (newJump != lastJump && newJump)
         {
@@ -75,7 +70,7 @@ public class PlayerInput : MonoBehaviour
         }
         lastJump = newJump;
 
-        bool newAttack = Input.GetKey(keyC);
+        bool newAttack = Input.GetButton(btnC);
         if (newAttack != lastAttack && newAttack)
         {
             attack = true;
