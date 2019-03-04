@@ -215,12 +215,24 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5281873}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_GeneratorAsset: {fileID: 0}
   m_Script: {fileID: 11500000, guid: 9d8c816979207ad47ad8c8616405d5e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dmag: 0
+  dVec: {x: 0, y: 0, z: 0}
+  isRun: 0
+  jump: 0
+  jUp: 0
+  jRight: 0
+  attack: 0
+  inputEnable: 1
+  targetDUp: 0
+  targetDRight: 0
+  velocityDUp: 0
+  velocityDRight: 0
   keyUp: 119
   keyDown: 115
   keyLeft: 97
@@ -233,19 +245,6 @@ MonoBehaviour:
   keyJDown: 274
   keyJLeft: 276
   keyJRight: 275
-  dmag: 0
-  dVec: {x: 0, y: 0, z: 0}
-  isRun: 0
-  jump: 0
-  lastJump: 0
-  jUp: 0
-  jRight: 0
-  attack: 0
-  inputEnable: 1
-  targetDUp: 0
-  targetDRight: 0
-  velocityDUp: 0
-  velocityDRight: 0
 --- !u!114 &5281879
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -253,19 +252,16 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5281873}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_GeneratorAsset: {fileID: 0}
   m_Script: {fileID: 11500000, guid: 2089d738f3ee26e40918cefb9720ccd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  axisX: AxisX
-  axisY: AxisY
   dmag: 0
   dVec: {x: 0, y: 0, z: 0}
   isRun: 0
   jump: 0
-  lastJump: 0
   jUp: 0
   jRight: 0
   attack: 0
@@ -274,6 +270,14 @@ MonoBehaviour:
   targetDRight: 0
   velocityDUp: 0
   velocityDRight: 0
+  axisX: AxisX
+  axisY: AxisY
+  axisJRight: Axis3
+  axisJUp: Axis5
+  btnA: btnA
+  btnB: btnB
+  btnC: btnC
+  btnD: btnD
 --- !u!4 &31371925 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400080, guid: 2f9d958fbcd96e44ca35a77a15e3187a,

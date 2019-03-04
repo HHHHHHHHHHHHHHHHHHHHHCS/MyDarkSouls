@@ -23,7 +23,7 @@ public class ActorController : MonoBehaviour
     public PhysicMaterial frctionZero;
 
 
-    private PlayerInput pi;
+    private IUserInput pi;
     private Animator anim;
     private Rigidbody rigi;
     private Vector3 planarVec; //跳跃 平面量
@@ -41,7 +41,16 @@ public class ActorController : MonoBehaviour
 
     private void Awake()
     {
-        pi = transform.GetComponent<PlayerInput>();
+        var inputs = transform.GetComponents<IUserInput>();
+        foreach (var item in inputs)
+        {
+            if (item.enabled)
+            {
+                pi = item;
+                break;
+            }
+        }
+
         Model = transform.Find("ybot").gameObject;
         anim = Model.GetComponent<Animator>();
         rigi = transform.GetComponent<Rigidbody>();

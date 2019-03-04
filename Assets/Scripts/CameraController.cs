@@ -10,7 +10,7 @@ public class CameraController : MonoBehaviour
 
     private Transform playerHandle;
     private Transform cameraHandle;
-    private PlayerInput pi;
+    private KeyboardInput pi;
     private float tempEulerX;
     private Transform model;
     private Transform camera;
@@ -21,7 +21,7 @@ public class CameraController : MonoBehaviour
     {
         cameraHandle = transform;
         playerHandle = cameraHandle.transform.parent;
-        pi = playerHandle.GetComponent<PlayerInput>();
+        pi = playerHandle.GetComponent<KeyboardInput>();
         tempEulerX = cameraHandle.eulerAngles.x;
 
         camera = Camera.main.transform;
