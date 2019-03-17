@@ -10,6 +10,7 @@ public class CameraController : MonoBehaviour
 
     private Transform playerHandle;
     private Transform cameraHandle;
+    private Transform cameraPos;
     private KeyboardInput pi;
     private float tempEulerX;
     private Transform model;
@@ -24,6 +25,8 @@ public class CameraController : MonoBehaviour
         pi = playerHandle.GetComponent<KeyboardInput>();
         tempEulerX = cameraHandle.eulerAngles.x;
 
+        cameraPos = transform.Find("CameraPos").transform;
+
         camera = Camera.main.transform;
         camera.position = transform.position;
     }
@@ -31,6 +34,8 @@ public class CameraController : MonoBehaviour
     private void Start()
     {
         model = playerHandle.GetComponent<ActorController>().Model.transform;
+
+        FixedUpdate();
     }
 
 
@@ -54,7 +59,8 @@ public class CameraController : MonoBehaviour
 
         model.transform.eulerAngles = tempModelEuler;
 
-        camera.position = Vector3.SmoothDamp(camera.transform.position, transform.position, ref cameraDampVelocity, cameraDampValue);
-        camera.transform.eulerAngles = transform.eulerAngles;
+        camera.position = Vector3.SmoothDamp(camera.transform.position, cameraPos.position, ref cameraDampVelocity, cameraDampValue);
+        //camera.transform.eulerAngles = transform.eulerAngles;
+        camera.transform.LookAt(transform);
     }
 }

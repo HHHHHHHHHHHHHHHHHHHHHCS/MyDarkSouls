@@ -17,9 +17,9 @@ public class ActorController : MonoBehaviour
     public float rollVelocity = 3.0f;
     public float jabMultiplier = 1.0f;
 
-    [Space(10)]
-    [Header("===== Friction Settings ====")]
+    [Space(10)] [Header("===== Friction Settings ====")]
     public PhysicMaterial frictionOne;
+
     public PhysicMaterial frctionZero;
 
 
@@ -72,10 +72,9 @@ public class ActorController : MonoBehaviour
         {
             anim.SetTrigger(jumpKey);
             canAttack = false;
-
         }
 
-        if (pi.attack&&CheckState("ground")&&canAttack)
+        if (pi.attack && CheckState("ground") && canAttack)
         {
             anim.SetTrigger(attackKey);
         }
@@ -167,7 +166,7 @@ public class ActorController : MonoBehaviour
 
     public void OnAttack1hAUpdate()
     {
-        thrustVec = Model.transform.forward * anim.GetFloat("attack1hVelocity") ;
+        thrustVec = Model.transform.forward * anim.GetFloat("attack1hVelocity");
         anim.SetLayerWeight(attackLayer, Mathf.Lerp(anim.GetLayerWeight(attackLayer), lerpTarget, 0.4f));
     }
 
@@ -186,9 +185,8 @@ public class ActorController : MonoBehaviour
     {
         if (CheckState("attack1hC", "attack"))
         {
-            deltaPos += (Vector3)_deltaPos;
-
+            //deltaPos += (deltaPos + (Vector3) _deltaPos) / 2.0f;
+            deltaPos += (0.6f*deltaPos + 0.4f*(Vector3)_deltaPos) / 1.0f;
         }
-
     }
 }
