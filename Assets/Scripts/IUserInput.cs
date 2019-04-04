@@ -10,7 +10,8 @@ public abstract class IUserInput:MonoBehaviour
     public float dmag; //向前的量
     public Vector3 dVec; //旋转的角度
     public bool isRun; //是否在跑
-    public bool jump; //是否在跳跃
+    public bool isJump; //是否在跳跃
+    public bool isDefense; //是否在防御
     protected bool lastJump; //最后是否按下了跳跃
     public float jUp, jRight; //镜头上下左右
     public bool attack; //是否在攻击

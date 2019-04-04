@@ -224,7 +224,8 @@ MonoBehaviour:
   dmag: 0
   dVec: {x: 0, y: 0, z: 0}
   isRun: 0
-  jump: 0
+  isJump: 0
+  isDefense: 0
   jUp: 0
   jRight: 0
   attack: 0
@@ -239,8 +240,8 @@ MonoBehaviour:
   keyRight: 100
   keyA: 304
   keyB: 32
-  keyC: 107
-  keyD: 100
+  keyC: 106
+  keyD: 107
   keyJUp: 273
   keyJDown: 274
   keyJLeft: 276
@@ -261,7 +262,8 @@ MonoBehaviour:
   dmag: 0
   dVec: {x: 0, y: 0, z: 0}
   isRun: 0
-  jump: 0
+  isJump: 0
+  isDefense: 0
   jUp: 0
   jRight: 0
   attack: 0
@@ -274,10 +276,12 @@ MonoBehaviour:
   axisY: AxisY
   axisJRight: Axis3
   axisJUp: Axis5
-  btnA: btnA
-  btnB: btnB
-  btnC: btnC
-  btnD: btnD
+  btn0: btn0
+  btn1: btn1
+  btn2: btn2
+  btn3: btn3
+  btnLB: btnLB
+  btnLT: btnLT
 --- !u!4 &31371925 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400080, guid: 2f9d958fbcd96e44ca35a77a15e3187a,
@@ -302,7 +306,7 @@ GameObject:
   - component: {fileID: 479026045}
   - component: {fileID: 479026044}
   - component: {fileID: 479026043}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -577,7 +581,7 @@ GameObject:
   - component: {fileID: 979001221}
   - component: {fileID: 979001220}
   - component: {fileID: 979001219}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sheid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -593,7 +597,7 @@ Transform:
   m_GameObject: {fileID: 979001217}
   m_LocalRotation: {x: 0, y: 0, z: 0.052335896, w: 0.9986295}
   m_LocalPosition: {x: -0.231, y: 0.071, z: -0.056}
-  m_LocalScale: {x: 1.2, y: 0.05, z: 0.6}
+  m_LocalScale: {x: 0.8, y: 0.05, z: 0.6}
   m_Children: []
   m_Father: {fileID: 1835124722}
   m_RootOrder: 0
@@ -779,6 +783,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef64bb42eaed6c4eb80b202ad4c8e0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1416613965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1416613962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_GeneratorAsset: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: cf89c7c4a494bb74ea36507cfab574f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eulerAngles: {x: -33, y: -75, z: -5}
 --- !u!1 &1564216799
 GameObject:
   m_ObjectHideFlags: 0

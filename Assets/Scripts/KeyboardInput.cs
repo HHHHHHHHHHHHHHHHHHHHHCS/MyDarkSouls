@@ -9,10 +9,10 @@ public class KeyboardInput : IUserInput
     public KeyCode keyDown = KeyCode.S; //move down
     public KeyCode keyLeft = KeyCode.A; //move left
     public KeyCode keyRight = KeyCode.D; //move right
-    public KeyCode keyA = KeyCode.LeftShift; //run
-    public KeyCode keyB = KeyCode.Space; //jump roll jab
-    public KeyCode keyC = KeyCode.K;
-    public KeyCode keyD = KeyCode.D;
+    public KeyCode keyA = KeyCode.LeftShift; //isRun
+    public KeyCode keyB = KeyCode.Space; //isJump roll jab
+    public KeyCode keyC = KeyCode.J; //isAttack
+    public KeyCode keyD = KeyCode.K; //isDefense
     public KeyCode keyJUp = KeyCode.UpArrow; //camera up
     public KeyCode keyJDown = KeyCode.DownArrow; //camera down
     public KeyCode keyJLeft = KeyCode.LeftArrow; //camera left
@@ -46,16 +46,17 @@ public class KeyboardInput : IUserInput
         dVec = tempDright * transform.right + tempDUp * transform.forward;
 
         isRun = Input.GetKey(keyA);
+        isDefense = Input.GetKey(keyD);
 
         bool newJump = Input.GetKey(keyB);
         //这个的作用是要抬起按下,在重新赋值
         if (newJump != lastJump && newJump)
         {
-            jump = true;
+            isJump = true;
         }
         else
         {
-            jump = false;
+            isJump = false;
         }
         lastJump = newJump;
 
