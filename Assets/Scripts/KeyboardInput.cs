@@ -18,10 +18,29 @@ public class KeyboardInput : IUserInput
     public KeyCode keyJLeft = KeyCode.LeftArrow; //camera left
     public KeyCode keyJRight = KeyCode.RightArrow; //camera right
 
+    [Header("===== Mouse Settings =====")]
+    public bool mouseEnable = false; //mouse rotate camera enable?
+    public float mouseSensitivityX = 1f; //mouse rotate camera X speed
+    public float mouseSensitivityY = 1f; //mouse rotate camera Y speed
+    public string mouseRotateX = "Mouse X"; //mouse move X
+    public string mouseRotateY = "Mouse Y"; //mouse move Y
+    public KeyCode mouseAttack = KeyCode.Mouse0; //mouse attack
+    public KeyCode mouseDefense = KeyCode.Mouse1; //mouse Defense
+
+
     private void Update()
     {
-        jUp = (Input.GetKey(keyJUp) ? 1.0f : 0f)- (Input.GetKey(keyJDown) ? 1.0f : 0f);
-        jRight = (Input.GetKey(keyJRight) ? 1.0f : 0f) - (Input.GetKey(keyJLeft) ? 1.0f : 0f);
+        if (mouseEnable)
+        {
+            jUp = Input.GetAxis("Mouse Y") * mouseSensitivityY;
+            jRight = Input.GetAxis("Mouse X") * mouseSensitivityX;
+        }
+        else
+        {
+            jUp = (Input.GetKey(keyJUp) ? 1.0f : 0f) - (Input.GetKey(keyJDown) ? 1.0f : 0f);
+            jRight = (Input.GetKey(keyJRight) ? 1.0f : 0f) - (Input.GetKey(keyJLeft) ? 1.0f : 0f);
+        }
+
 
         if (inputEnable)
         {
@@ -46,7 +65,7 @@ public class KeyboardInput : IUserInput
         dVec = tempDright * transform.right + tempDUp * transform.forward;
 
         isRun = Input.GetKey(keyA);
-        isDefense = Input.GetKey(keyD);
+        isDefense = Input.GetKey(mouseEnable ? mouseDefense : keyD);
 
         bool newJump = Input.GetKey(keyB);
         //这个的作用是要抬起按下,在重新赋值
@@ -58,9 +77,10 @@ public class KeyboardInput : IUserInput
         {
             isJump = false;
         }
+
         lastJump = newJump;
 
-        bool newAttack = Input.GetKey(keyC);
+        bool newAttack = Input.GetKey(mouseEnable ? mouseAttack : keyC);
         if (newAttack != lastAttack && newAttack)
         {
             attack = true;
@@ -69,7 +89,7 @@ public class KeyboardInput : IUserInput
         {
             attack = false;
         }
+
         lastAttack = newAttack;
     }
-
 }

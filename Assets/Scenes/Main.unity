@@ -246,6 +246,13 @@ MonoBehaviour:
   keyJDown: 274
   keyJLeft: 276
   keyJRight: 275
+  mouseEnable: 1
+  mouseSensitivityX: 1
+  mouseSensitivityY: 1
+  mouseRotateX: Mouse X
+  mouseRotateY: Mouse Y
+  mouseAttack: 323
+  mouseDefense: 324
 --- !u!114 &5281879
 MonoBehaviour:
   m_ObjectHideFlags: 0

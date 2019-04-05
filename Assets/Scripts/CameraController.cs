@@ -29,6 +29,8 @@ public class CameraController : MonoBehaviour
 
         camera = Camera.main.transform;
         camera.position = transform.position;
+
+        Cursor.lockState = CursorLockMode.Locked; //hide mouse cursor 
     }
 
     private void Start()
