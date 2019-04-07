@@ -9,15 +9,23 @@ public class JoystickInput : IUserInput
     public string axisY = "AxisY";
     public string axisJRight = "Axis3";
     public string axisJUp = "Axis5";
-    public string btn0 = "btn0";
-    public string btn1 = "btn1";
-    public string btn2 = "btn2";
-    public string btn3 = "btn3";
+    public string btnA = "btn0";
+    public string btnB = "btn1";
+    public string btnC = "btn2";
+    public string btnD = "btn3";
     public string btnLB = "btnLB";
     public string btnLT = "btnLT";
 
+    public MyButton buttonA = new MyButton();
+    public MyButton buttonB = new MyButton();
+    public MyButton buttonC = new MyButton();
+    public MyButton buttonD = new MyButton();
+    public MyButton buttonLB = new MyButton();
+    public MyButton buttonLT = new MyButton();
+
     private void Update()
     {
+
         jUp = Input.GetAxis(axisJUp);
         jRight = Input.GetAxis(axisJRight);
 
@@ -42,32 +50,10 @@ public class JoystickInput : IUserInput
         dmag = Mathf.Sqrt(tempDUp * tempDUp + tempDright * tempDright);
         dVec = tempDright * transform.right + tempDUp * transform.forward;
 
-        isRun = Input.GetButton(btn0);
-        isDefense = Input.GetButton(btnLB);
-
-        bool newJump = Input.GetButton(btn1);
-        //这个的作用是要抬起按下,在重新赋值
-        if (newJump != lastJump && newJump)
-        {
-            isJump = true;
-        }
-        else
-        {
-            isJump = false;
-        }
-        lastJump = newJump;
-
-
-        bool newAttack = Input.GetButton(btn2);
-        if (newAttack != lastAttack && newAttack)
-        {
-            attack = true;
-        }
-        else
-        {
-            attack = false;
-        }
-        lastAttack = newAttack;
+        isRun = buttonA.IsPressing;
+        isDefense = buttonLB.IsPressing;
+        isJump = buttonLB.OnPressed;
+        attack = buttonC.OnPressed;
     }
 
 
