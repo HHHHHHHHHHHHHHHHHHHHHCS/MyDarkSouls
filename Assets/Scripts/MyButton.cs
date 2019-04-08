@@ -4,15 +4,46 @@ using UnityEngine;
 
 public class MyButton
 {
-    public bool IsPressing = false; //是否正在按下
-    public bool OnPressed = false; //是否第一次按下
-    public bool OnReleased = false; //是否第一次抬起
+    /// <summary>
+    /// 是否正在按下
+    /// </summary>
+    public bool IsPressing = false;
+
+    /// <summary>
+    /// 是否第一次按下
+    /// </summary>
+    public bool OnPressed = false;
+
+    /// <summary>
+    /// 是否第一次抬起
+    /// </summary>
+    public bool OnReleased = false;
+
+    /// <summary>
+    /// 是否双击 
+    /// </summary>
+    public bool IsDoubleClick => IsExtending && OnPressed;
+
+    /// <summary>
+    /// 扩展计时器是否在跑
+    /// </summary>
+    public bool IsExtending = false;
+
+
+    [Header("==== Settings =====")]
+    public float extendingDuration = 0.15f;
+
+
 
     private bool curState = false;
     private bool lastState = false;
 
+    private MyTimer extTimer = new MyTimer();
+
     public void Tick(bool input)
     {
+        extTimer.Tick();
+
         curState = input;
 
         IsPressing = curState;
@@ -28,9 +59,17 @@ public class MyButton
             else
             {
                 OnReleased = true;
+                StartTimer(extTimer, extendingDuration);
             }
         }
 
         lastState = curState;
+        IsExtending = extTimer.state == MyTimer.State.Run;
+    }
+
+    private void StartTimer(MyTimer timer,float duration)
+    {
+        timer.duration = duration;
+        timer.Go();
     }
 }
