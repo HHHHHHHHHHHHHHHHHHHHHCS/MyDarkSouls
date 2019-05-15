@@ -25,6 +25,12 @@ public class JoystickInput : IUserInput
 
     private void Update()
     {
+        buttonA.Tick(Input.GetButton(btnA));
+        buttonB.Tick(Input.GetButton(btnB));
+        buttonC.Tick(Input.GetButton(btnC));
+        buttonD.Tick(Input.GetButton(btnD));
+        buttonLB.Tick(Input.GetButton(btnLB));
+        buttonLT.Tick(Input.GetButton(btnLT));
 
         jUp = Input.GetAxis(axisJUp);
         jRight = Input.GetAxis(axisJRight);
