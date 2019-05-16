@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class KeyboardInput : IUserInput
 {
-    [Header("===== Keys Setting====")]
-    public KeyCode keyUp = KeyCode.W; //move up
+    [Header("===== Keys Setting====")] public KeyCode keyUp = KeyCode.W; //move up
     public KeyCode keyDown = KeyCode.S; //move down
     public KeyCode keyLeft = KeyCode.A; //move left
     public KeyCode keyRight = KeyCode.D; //move right
@@ -18,8 +17,7 @@ public class KeyboardInput : IUserInput
     public KeyCode keyJLeft = KeyCode.LeftArrow; //camera left
     public KeyCode keyJRight = KeyCode.RightArrow; //camera right
 
-    [Header("===== Mouse Settings =====")]
-    public bool mouseEnable = false; //mouse rotate camera enable?
+    [Header("===== Mouse Settings =====")] public bool mouseEnable = false; //mouse rotate camera enable?
     public float mouseSensitivityX = 1f; //mouse rotate camera X speed
     public float mouseSensitivityY = 1f; //mouse rotate camera Y speed
     public string mouseRotateX = "Mouse X"; //mouse move X
@@ -27,9 +25,19 @@ public class KeyboardInput : IUserInput
     public KeyCode mouseAttack = KeyCode.Mouse0; //mouse attack
     public KeyCode mouseDefense = KeyCode.Mouse1; //mouse Defense
 
+    public MyButton buttonA = new MyButton();
+    public MyButton buttonB = new MyButton();
+    public MyButton buttonC = new MyButton();
+    public MyButton buttonD = new MyButton();
+
 
     private void Update()
     {
+        buttonA.Tick(Input.GetKey(keyA));
+        buttonB.Tick(Input.GetKey(keyB));
+        buttonC.Tick(Input.GetKey(mouseEnable ? mouseAttack : keyC));
+        buttonD.Tick(Input.GetKey(mouseEnable ? mouseDefense : keyD));
+
         if (mouseEnable)
         {
             jUp = Input.GetAxis("Mouse Y") * mouseSensitivityY;
@@ -64,32 +72,9 @@ public class KeyboardInput : IUserInput
         dmag = Mathf.Sqrt(tempDUp * tempDUp + tempDright * tempDright);
         dVec = tempDright * transform.right + tempDUp * transform.forward;
 
-        isRun = Input.GetKey(keyA);
-        isDefense = Input.GetKey(mouseEnable ? mouseDefense : keyD);
-
-        bool newJump = Input.GetKey(keyB);
-        //这个的作用是要抬起按下,在重新赋值
-        if (newJump != lastJump && newJump)
-        {
-            isJump = true;
-        }
-        else
-        {
-            isJump = false;
-        }
-
-        lastJump = newJump;
-
-        bool newAttack = Input.GetKey(mouseEnable ? mouseAttack : keyC);
-        if (newAttack != lastAttack && newAttack)
-        {
-            attack = true;
-        }
-        else
-        {
-            attack = false;
-        }
-
-        lastAttack = newAttack;
+        isRun = buttonA.IsPressing;
+        isDefense = buttonD.IsPressing;
+        isJump = buttonB.OnPressed;
+        attack = buttonC.OnPressed;
     }
 }

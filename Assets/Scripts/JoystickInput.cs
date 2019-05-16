@@ -58,7 +58,7 @@ public class JoystickInput : IUserInput
 
         isRun = buttonA.IsPressing;
         isDefense = buttonLB.IsPressing;
-        isJump = buttonLB.OnPressed;
+        isJump = buttonB.OnPressed;
         attack = buttonC.OnPressed;
     }
 
