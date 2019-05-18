@@ -64,12 +64,13 @@ public class ActorController : MonoBehaviour
         anim.SetFloat(forwardKey, pi.dmag * Mathf.Lerp(anim.GetFloat(forwardKey), pi.isRun ? 2.0f : 1f, 0.5f));
         anim.SetBool("defense",pi.isDefense);
 
-        if (rigi.velocity.magnitude > 5.0f)
+        if (pi.roll||rigi.velocity.magnitude>7f)
         {
             anim.SetTrigger(rollKey);
+            canAttack = false;
         }
 
-        if (pi.isJump)
+        if (pi.jump)
         {
             anim.SetTrigger(jumpKey);
             canAttack = false;

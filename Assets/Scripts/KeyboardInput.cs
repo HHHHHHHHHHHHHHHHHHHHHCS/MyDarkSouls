@@ -9,7 +9,7 @@ public class KeyboardInput : IUserInput
     public KeyCode keyLeft = KeyCode.A; //move left
     public KeyCode keyRight = KeyCode.D; //move right
     public KeyCode keyA = KeyCode.LeftShift; //isRun
-    public KeyCode keyB = KeyCode.Space; //isJump roll jab
+    public KeyCode keyB = KeyCode.Space; //jump roll jab
     public KeyCode keyC = KeyCode.J; //isAttack
     public KeyCode keyD = KeyCode.K; //isDefense
     public KeyCode keyJUp = KeyCode.UpArrow; //camera up
@@ -66,15 +66,19 @@ public class KeyboardInput : IUserInput
 
 
         Vector2 tempDAxis = SquareToCircle(dRight, dUp);
-        float tempDright = tempDAxis.x;
+        float tempDRight = tempDAxis.x;
         float tempDUp = tempDAxis.y;
 
-        dmag = Mathf.Sqrt(tempDUp * tempDUp + tempDright * tempDright);
-        dVec = tempDright * transform.right + tempDUp * transform.forward;
+        dmag = Mathf.Sqrt(tempDUp * tempDUp + tempDRight * tempDRight);
+        dVec = tempDRight * transform.right + tempDUp * transform.forward;
 
-        isRun = buttonA.IsPressing;
+        //玩家长按跑动要么在双击期间
+        isRun = (buttonA.IsPressing && !buttonA.IsDelaying) || buttonA.IsExtending;
         isDefense = buttonD.IsPressing;
-        isJump = buttonB.OnPressed;
+        //双击跳跃
+        jump = buttonA.OnPressed && buttonA.IsExtending;
+        //短按翻滚
+        roll = buttonA.OnReleased && buttonA.IsDelaying;
         attack = buttonC.OnPressed;
     }
 }

@@ -6,6 +6,7 @@ public class JoystickInput : IUserInput
 {
     [Header("===== Joystick Setting =====")]
     public string axisX = "AxisX";
+
     public string axisY = "AxisY";
     public string axisJRight = "Axis3";
     public string axisJUp = "Axis5";
@@ -56,11 +57,13 @@ public class JoystickInput : IUserInput
         dmag = Mathf.Sqrt(tempDUp * tempDUp + tempDright * tempDright);
         dVec = tempDright * transform.right + tempDUp * transform.forward;
 
-        isRun = buttonA.IsPressing;
+        //玩家长按跑动要么在双击期间
+        isRun = (buttonA.IsPressing && !buttonA.IsDelaying) || buttonA.IsExtending;
         isDefense = buttonLB.IsPressing;
-        isJump = buttonB.OnPressed;
+        //双击跳跃
+        jump = buttonA.OnPressed && buttonA.IsExtending;
+        //短按翻滚
+        roll = buttonA.OnReleased && buttonA.IsDelaying;
         attack = buttonC.OnPressed;
     }
-
-
 }

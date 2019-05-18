@@ -25,24 +25,30 @@ public class MyButton
     public bool IsDoubleClick => IsExtending && OnPressed;
 
     /// <summary>
-    /// 扩展计时器是否在跑
+    /// 双击时器是否在跑
     /// </summary>
     public bool IsExtending = false;
 
     /// <summary>
-    /// 延迟计时器是否在跑
+    /// 长按计时器是否在跑
     /// </summary>
     public bool IsDelaying = false;
 
 
     [Header("==== Settings =====")] public float extendingDuration = 0.15f;
-    public float delayingDuration = 1.0f;
+    public float delayingDuration = 0.15f;
 
 
     private bool curState = false;
     private bool lastState = false;
 
+    /// <summary>
+    /// 双击计时器
+    /// </summary>
     private MyTimer extTimer = new MyTimer();
+    /// <summary>
+    /// 长按计时器
+    /// </summary>
     private MyTimer delayingTimer = new MyTimer();
 
     public void Tick(bool input)
