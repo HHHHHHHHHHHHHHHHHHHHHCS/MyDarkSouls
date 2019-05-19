@@ -12,7 +12,7 @@ public abstract class IUserInput:MonoBehaviour
     public bool isRun; //是否在跑
     public bool jump; //是否在跳跃
     public bool isDefense; //是否在防御
-    protected bool lastJump; //最后是否按下了跳跃
+    public bool islock; //是否开启了锁定
     public float jUp, jRight; //镜头上下左右
     public bool attack; //是否在攻击
     public bool roll; //是否在翻滚

@@ -15,6 +15,7 @@ public class CameraController : MonoBehaviour
     private float tempEulerX;
     private Transform model;
     private Transform camera;
+    private Transform lockTarget;
 
     private Vector3 cameraDampVelocity;
 
@@ -64,5 +65,38 @@ public class CameraController : MonoBehaviour
         camera.position = Vector3.SmoothDamp(camera.transform.position, cameraPos.position, ref cameraDampVelocity, cameraDampValue);
         //camera.transform.eulerAngles = transform.eulerAngles;
         camera.transform.LookAt(transform);
+    }
+
+    public void LockUnlock()
+    {
+        if (!lockTarget)
+        {
+            //try to lock
+            var modelOrigin1 = model.transform.position;
+            var modelOrigin2 = modelOrigin1 + Vector3.up;
+            var boxCenter = modelOrigin2 + model.forward * 5f;
+            Collider[] cols = Physics.OverlapBox(boxCenter, new Vector3(0.5f, 0.5f, 5f),model.rotation);
+            foreach (var item in cols)
+            {
+                if (item.CompareTag("Enemy"))
+                {
+                    lockTarget = item.transform;
+                }
+            }
+        }
+        else
+        {
+            lockTarget = null;
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (!model)
+            return;
+        var modelOrigin1 = model.transform.position;
+        var modelOrigin2 = modelOrigin1 + Vector3.up;
+        var boxCenter = modelOrigin2 + model.forward * 5f;
+        Gizmos.DrawCube(boxCenter, new Vector3(0.5f,0.5f,5f));
     }
 }

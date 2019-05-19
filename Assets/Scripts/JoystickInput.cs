@@ -16,6 +16,7 @@ public class JoystickInput : IUserInput
     public string btnD = "btn3";
     public string btnLB = "btnLB";
     public string btnLT = "btnLT";
+    public string btnJStick = "btn11";
 
     public MyButton buttonA = new MyButton();
     public MyButton buttonB = new MyButton();
@@ -23,6 +24,7 @@ public class JoystickInput : IUserInput
     public MyButton buttonD = new MyButton();
     public MyButton buttonLB = new MyButton();
     public MyButton buttonLT = new MyButton();
+    public MyButton buttonJStick = new MyButton();
 
     private void Update()
     {
@@ -32,6 +34,7 @@ public class JoystickInput : IUserInput
         buttonD.Tick(Input.GetButton(btnD));
         buttonLB.Tick(Input.GetButton(btnLB));
         buttonLT.Tick(Input.GetButton(btnLT));
+        buttonJStick.Tick(Input.GetButton(btnJStick));
 
         jUp = Input.GetAxis(axisJUp);
         jRight = Input.GetAxis(axisJRight);
@@ -59,6 +62,8 @@ public class JoystickInput : IUserInput
 
         //玩家长按跑动要么在双击期间
         isRun = (buttonA.IsPressing && !buttonA.IsDelaying) || buttonA.IsExtending;
+        //玩家锁定
+        islock = buttonJStick.OnPressed;
         isDefense = buttonLB.IsPressing;
         //双击跳跃
         jump = buttonA.OnPressed && buttonA.IsExtending;

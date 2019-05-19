@@ -16,6 +16,7 @@ public class KeyboardInput : IUserInput
     public KeyCode keyJDown = KeyCode.DownArrow; //camera down
     public KeyCode keyJLeft = KeyCode.LeftArrow; //camera left
     public KeyCode keyJRight = KeyCode.RightArrow; //camera right
+    public KeyCode keyJStick = KeyCode.CapsLock; //camera islock
 
     [Header("===== Mouse Settings =====")] public bool mouseEnable = false; //mouse rotate camera enable?
     public float mouseSensitivityX = 1f; //mouse rotate camera X speed
@@ -29,6 +30,7 @@ public class KeyboardInput : IUserInput
     public MyButton buttonB = new MyButton();
     public MyButton buttonC = new MyButton();
     public MyButton buttonD = new MyButton();
+    public MyButton buttonJStick = new MyButton();
 
 
     private void Update()
@@ -37,6 +39,7 @@ public class KeyboardInput : IUserInput
         buttonB.Tick(Input.GetKey(keyB));
         buttonC.Tick(Input.GetKey(mouseEnable ? mouseAttack : keyC));
         buttonD.Tick(Input.GetKey(mouseEnable ? mouseDefense : keyD));
+        buttonJStick.Tick(Input.GetKey(keyJStick));
 
         if (mouseEnable)
         {
@@ -74,6 +77,8 @@ public class KeyboardInput : IUserInput
 
         //玩家长按跑动要么在双击期间
         isRun = (buttonA.IsPressing && !buttonA.IsDelaying) || buttonA.IsExtending;
+        //玩家锁定
+        islock = buttonJStick.OnPressed;
         isDefense = buttonD.IsPressing;
         //双击跳跃
         jump = buttonA.OnPressed && buttonA.IsExtending;

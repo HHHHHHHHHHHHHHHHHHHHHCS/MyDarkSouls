@@ -38,6 +38,8 @@ public class ActorController : MonoBehaviour
 
     public GameObject Model { get; private set; }
 
+    public CameraController Camcon { get; private set; }
+
 
     private void Awake()
     {
@@ -52,6 +54,7 @@ public class ActorController : MonoBehaviour
         }
 
         Model = transform.Find("ybot").gameObject;
+        Camcon = transform.Find("CameraHandle").GetComponent<CameraController>();
         anim = Model.GetComponent<Animator>();
         rigi = transform.GetComponent<Rigidbody>();
         capCol = transform.GetComponent<CapsuleCollider>();
@@ -62,9 +65,14 @@ public class ActorController : MonoBehaviour
     private void Update()
     {
         anim.SetFloat(forwardKey, pi.dmag * Mathf.Lerp(anim.GetFloat(forwardKey), pi.isRun ? 2.0f : 1f, 0.5f));
-        anim.SetBool("defense",pi.isDefense);
+        anim.SetBool("defense", pi.isDefense);
 
-        if (pi.roll||rigi.velocity.magnitude>7f)
+        if (pi.islock)
+        {
+            Camcon.LockUnlock();
+        }
+
+        if (pi.roll || rigi.velocity.magnitude > 7f)
         {
             anim.SetTrigger(rollKey);
             canAttack = false;
@@ -188,7 +196,7 @@ public class ActorController : MonoBehaviour
         if (CheckState("attack1hC", "attack"))
         {
             //deltaPos += (deltaPos + (Vector3) _deltaPos) / 2.0f;
-            deltaPos += (0.6f*deltaPos + 0.4f*(Vector3)_deltaPos) / 1.0f;
+            deltaPos += (0.6f * deltaPos + 0.4f * (Vector3) _deltaPos) / 1.0f;
         }
     }
 }
