@@ -89,16 +89,28 @@ public class ActorController : MonoBehaviour
             anim.SetTrigger(attackKey);
         }
 
-        if (pi.dmag >= 0.1f)
+        if (!Camcon.lockState)
         {
-            //角度建议用Slerp,避免出现死锁的情况
-            Model.transform.forward = Vector3.Slerp(Model.transform.forward, pi.dVec, 0.3f);
+            if (pi.dmag >= 0.1f)
+            {
+                //角度建议用Slerp,避免出现死锁的情况
+                Model.transform.forward = Vector3.Slerp(Model.transform.forward, pi.dVec, 0.3f);
+            }
+
+            if (!lockPlanar)
+            {
+                planarVec = pi.dmag * Model.transform.forward * wakeSpeed * (pi.isRun ? runMultiplier : 1f);
+            }
+        }
+        else
+        {
+            Model.transform.forward = transform.forward;
+            if(!lockPlanar)
+            {
+                planarVec = pi.dVec * wakeSpeed * (pi.isRun ? runMultiplier : 1.0f);
+            }
         }
 
-        if (!lockPlanar)
-        {
-            planarVec = pi.dmag * Model.transform.forward * wakeSpeed * (pi.isRun ? runMultiplier : 1f);
-        }
     }
 
     private void FixedUpdate()

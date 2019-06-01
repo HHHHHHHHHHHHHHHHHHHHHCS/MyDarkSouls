@@ -11,6 +11,8 @@ public class CameraController : MonoBehaviour
     public float verticalSpeed = 80.0f;
     public float cameraDampValue = 0.05f;
 
+    public bool lockState;
+
     private Transform playerHandle;
     private Transform cameraHandle;
     private Transform cameraPos;
@@ -132,6 +134,7 @@ public class CameraController : MonoBehaviour
     private void SetLockDot()
     {
         lockDot.enabled = LockTarget;
+        lockState = lockDot;
     }
 
     
