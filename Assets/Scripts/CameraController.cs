@@ -133,18 +133,17 @@ public class CameraController : MonoBehaviour
 
     private void SetLockDot()
     {
-        lockDot.enabled = LockTarget;
-        lockState = lockDot;
+        lockState = lockDot.enabled = LockTarget;
     }
 
-    
-    private void OnDrawGizmos()
+
+    private void _OnDrawGizmos()
     {
         if (!model)
             return;
         var modelOrigin1 = model.transform.position;
         var modelOrigin2 = modelOrigin1 + Vector3.up;
         var boxCenter = modelOrigin2 + model.forward * 5f;
-        Gizmos.DrawCube(boxCenter, new Vector3(0.5f,0.5f,5f));
+        Gizmos.DrawCube(boxCenter, new Vector3(0.5f, 0.5f, 5f));
     }
 }

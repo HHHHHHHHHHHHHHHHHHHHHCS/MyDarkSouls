@@ -10,6 +10,7 @@ public class ActorController : MonoBehaviour
     private readonly int isGroundKey = Animator.StringToHash("isGround");
     private readonly int rollKey = Animator.StringToHash("roll");
     private readonly int attackKey = Animator.StringToHash("attack");
+    private readonly int rightKey = Animator.StringToHash("right");
 
     public float wakeSpeed = 1.4f;
     public float runMultiplier = 2.75f;
@@ -72,6 +73,18 @@ public class ActorController : MonoBehaviour
             Camcon.LockUnlock();
         }
 
+        if (!Camcon.lockState)
+        {
+            anim.SetFloat(forwardKey, pi.dmag * Mathf.Lerp(anim.GetFloat(forwardKey), pi.isRun ? 2.0f : 1.0f, 0.5f));
+            anim.SetFloat(rightKey, 0);
+        }
+        else
+        {
+            var localDVec = transform.InverseTransformVector(pi.dVec);
+            anim.SetFloat(forwardKey, localDVec.z * (pi.isRun ? 2.0f : 1.0f));
+            anim.SetFloat(rightKey, localDVec.x * (pi.isRun ? 2.0f : 1.0f));
+        }
+
         if (pi.roll || rigi.velocity.magnitude > 7f)
         {
             anim.SetTrigger(rollKey);
@@ -105,12 +118,11 @@ public class ActorController : MonoBehaviour
         else
         {
             Model.transform.forward = transform.forward;
-            if(!lockPlanar)
+            if (!lockPlanar)
             {
                 planarVec = pi.dVec * wakeSpeed * (pi.isRun ? runMultiplier : 1.0f);
             }
         }
-
     }
 
     private void FixedUpdate()
