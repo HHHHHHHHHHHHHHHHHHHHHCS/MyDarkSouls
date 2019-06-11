@@ -20,11 +20,11 @@ public class CameraController : MonoBehaviour
     private float tempEulerX;
     private Transform model;
     private Transform camera;
-    private Transform lockTarget;
+    private LockTargetCls lockTarget;
 
     private Vector3 cameraDampVelocity;
 
-    public Transform LockTarget
+    public LockTargetCls LockTarget
     {
         get => lockTarget;
         set
@@ -60,7 +60,7 @@ public class CameraController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!LockTarget)
+        if (LockTarget == null)
         {
             Vector3 tempModelEuler = model.transform.eulerAngles;
 
@@ -82,7 +82,7 @@ public class CameraController : MonoBehaviour
         }
         else
         {
-            Vector3 tempForward = LockTarget.position - transform.position;
+            Vector3 tempForward = LockTarget.ts.position - transform.position;
             tempForward.y = 0;
             playerHandle.transform.forward = tempForward;
         }
@@ -96,44 +96,39 @@ public class CameraController : MonoBehaviour
 
     public void LockUnlock()
     {
-        if (!LockTarget)
+        //try to lock
+        var modelOrigin1 = model.transform.position;
+        var modelOrigin2 = modelOrigin1 + Vector3.up;
+        var boxCenter = modelOrigin2 + model.forward * 5f;
+        Collider[] cols = Physics.OverlapBox(boxCenter, new Vector3(0.5f, 0.5f, 5f), model.rotation);
+
+        if (cols.Length == 0)
         {
-            //try to lock
-            var modelOrigin1 = model.transform.position;
-            var modelOrigin2 = modelOrigin1 + Vector3.up;
-            var boxCenter = modelOrigin2 + model.forward * 5f;
-            Collider[] cols = Physics.OverlapBox(boxCenter, new Vector3(0.5f, 0.5f, 5f), model.rotation);
+            LockTarget = null;
+            return;
+        }
 
-            if (cols.Length == 0)
+        foreach (var item in cols)
+        {
+            if (item.CompareTag("Enemy"))
             {
-                LockTarget = null;
-                return;
-            }
-
-            foreach (var item in cols)
-            {
-                if (item.CompareTag("Enemy"))
+                if (LockTarget != null && item.transform == LockTarget.ts)
                 {
-                    if (item == LockTarget)
-                    {
-                        LockTarget = null;
-                        return;
-                    }
-
-                    LockTarget = item.transform;
+                    LockTarget = null;
+                    return;
+                }
+                else
+                {
+                    LockTarget = new LockTargetCls(item.transform);
                     return;
                 }
             }
-        }
-        else
-        {
-            LockTarget = null;
         }
     }
 
     private void SetLockDot()
     {
-        lockState = lockDot.enabled = LockTarget;
+        lockState = lockDot.enabled = LockTarget != null;
     }
 
 
@@ -145,5 +140,17 @@ public class CameraController : MonoBehaviour
         var modelOrigin2 = modelOrigin1 + Vector3.up;
         var boxCenter = modelOrigin2 + model.forward * 5f;
         Gizmos.DrawCube(boxCenter, new Vector3(0.5f, 0.5f, 5f));
+    }
+
+
+    public class LockTargetCls
+    {
+        public Transform ts;
+        public float halfHeight;
+
+        public LockTargetCls(Transform _ts)
+        {
+            ts = _ts;
+        }
     }
 }
