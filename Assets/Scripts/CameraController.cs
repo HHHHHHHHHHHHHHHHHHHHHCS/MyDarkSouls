@@ -119,7 +119,7 @@ public class CameraController : MonoBehaviour
                 }
                 else
                 {
-                    LockTarget = new LockTargetCls(item.transform);
+                    LockTarget = new LockTargetCls(item.transform, item.bounds.extents.y / 2);
                     return;
                 }
             }
@@ -148,9 +148,10 @@ public class CameraController : MonoBehaviour
         public Transform ts;
         public float halfHeight;
 
-        public LockTargetCls(Transform _ts)
+        public LockTargetCls(Transform _ts,float _halfHeight)
         {
             ts = _ts;
+            halfHeight = _halfHeight;
         }
     }
 }
