@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,7 +20,8 @@ public class CameraController : MonoBehaviour
     private KeyboardInput pi;
     private float tempEulerX;
     private Transform model;
-    private Transform camera;
+    private Camera camera;
+    private Transform cameraTS;
     private LockTargetCls lockTarget;
 
     private Vector3 cameraDampVelocity;
@@ -43,8 +45,9 @@ public class CameraController : MonoBehaviour
 
         cameraPos = transform.Find("CameraPos").transform;
 
-        camera = Camera.main.transform;
-        camera.position = transform.position;
+        camera = Camera.main;
+        cameraTS = camera.transform;
+        cameraTS.position = transform.position;
 
         Cursor.lockState = CursorLockMode.Locked; //hide mouse cursor 
         SetLockDot();
@@ -55,6 +58,16 @@ public class CameraController : MonoBehaviour
         model = playerHandle.GetComponent<ActorController>().Model.transform;
 
         FixedUpdate();
+    }
+
+    private void Update()
+    {
+        if (LockTarget != null)
+        {
+            var pos = camera.WorldToScreenPoint(LockTarget.GetHalfPos);
+            pos.z = 0;
+            lockDot.rectTransform.position = pos;
+        }
     }
 
 
@@ -82,16 +95,17 @@ public class CameraController : MonoBehaviour
         }
         else
         {
-            Vector3 tempForward = LockTarget.ts.position - transform.position;
+            Vector3 tempForward = LockTarget.target.position - transform.position;
             tempForward.y = 0;
             playerHandle.transform.forward = tempForward;
+            cameraTS.LookAt(LockTarget.target.position);
         }
 
 
-        camera.position = Vector3.SmoothDamp(camera.transform.position, cameraPos.position, ref cameraDampVelocity,
+        cameraTS.position = Vector3.SmoothDamp(cameraTS.transform.position, cameraPos.position, ref cameraDampVelocity,
             cameraDampValue);
-        //camera.transform.eulerAngles = transform.eulerAngles;
-        camera.transform.LookAt(transform);
+        //cameraTS.transform.eulerAngles = transform.eulerAngles;
+        cameraTS.transform.LookAt(transform);
     }
 
     public void LockUnlock()
@@ -112,14 +126,14 @@ public class CameraController : MonoBehaviour
         {
             if (item.CompareTag("Enemy"))
             {
-                if (LockTarget != null && item.transform == LockTarget.ts)
+                if (LockTarget != null && item.transform == LockTarget.target)
                 {
                     LockTarget = null;
                     return;
                 }
                 else
                 {
-                    LockTarget = new LockTargetCls(item.transform, item.bounds.extents.y / 2);
+                    LockTarget = new LockTargetCls(item.transform, item.bounds.extents.y);
                     return;
                 }
             }
@@ -132,8 +146,15 @@ public class CameraController : MonoBehaviour
     }
 
 
-    private void _OnDrawGizmos()
+    private void OnDrawGizmos()
     {
+        if (LockTarget==null)
+        {
+            return;
+
+        }
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(LockTarget.GetHalfPos,0.1f);
         if (!model)
             return;
         var modelOrigin1 = model.transform.position;
@@ -145,12 +166,15 @@ public class CameraController : MonoBehaviour
 
     public class LockTargetCls
     {
-        public Transform ts;
+        public Transform target;
         public float halfHeight;
 
-        public LockTargetCls(Transform _ts,float _halfHeight)
+        public Vector3 GetHalfPos => new Vector3(target.position.x, target.position.y + halfHeight, target.position.z);
+
+
+        public LockTargetCls(Transform _target, float _halfHeight)
         {
-            ts = _ts;
+            target = _target;
             halfHeight = _halfHeight;
         }
     }
