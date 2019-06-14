@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -67,6 +68,10 @@ public class CameraController : MonoBehaviour
             var pos = camera.WorldToScreenPoint(LockTarget.GetHalfPos);
             pos.z = 0;
             lockDot.rectTransform.position = pos;
+            if (Vector3.Distance(model.transform.position, lockTarget.target.transform.position) > 10f)
+            {
+                LockTarget = null;
+            }
         }
     }
 
@@ -116,7 +121,8 @@ public class CameraController : MonoBehaviour
         var boxCenter = modelOrigin2 + model.forward * 5f;
         Collider[] cols = Physics.OverlapBox(boxCenter, new Vector3(0.5f, 0.5f, 5f), model.rotation);
 
-        if (cols.Length == 0)
+        cols = cols.Where(x => x.CompareTag("Enemy")).ToArray();
+        if (cols.Length == 0 || (cols.Length == 1 && cols[0].transform == LockTarget?.target))
         {
             LockTarget = null;
             return;
@@ -124,18 +130,11 @@ public class CameraController : MonoBehaviour
 
         foreach (var item in cols)
         {
-            if (item.CompareTag("Enemy"))
+            if (item.CompareTag("Enemy") && item.transform != LockTarget?.target)
             {
-                if (LockTarget != null && item.transform == LockTarget.target)
-                {
-                    LockTarget = null;
-                    return;
-                }
-                else
-                {
-                    LockTarget = new LockTargetCls(item.transform, item.bounds.extents.y);
-                    return;
-                }
+                Debug.Log(item.transform);
+                LockTarget = new LockTargetCls(item.transform, item.bounds.extents.y);
+                return;
             }
         }
     }
@@ -148,13 +147,13 @@ public class CameraController : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if (LockTarget==null)
+        if (LockTarget == null)
         {
             return;
-
         }
+
         Gizmos.color = Color.red;
-        Gizmos.DrawSphere(LockTarget.GetHalfPos,0.1f);
+        Gizmos.DrawSphere(LockTarget.GetHalfPos, 0.1f);
         if (!model)
             return;
         var modelOrigin1 = model.transform.position;

@@ -16,7 +16,7 @@ public class KeyboardInput : IUserInput
     public KeyCode keyJDown = KeyCode.DownArrow; //camera down
     public KeyCode keyJLeft = KeyCode.LeftArrow; //camera left
     public KeyCode keyJRight = KeyCode.RightArrow; //camera right
-    public KeyCode keyJStick = KeyCode.CapsLock; //camera islock
+    public KeyCode keyJStick = KeyCode.Tab; //camera islock
 
     [Header("===== Mouse Settings =====")] public bool mouseEnable = false; //mouse rotate camera enable?
     public float mouseSensitivityX = 1f; //mouse rotate camera X speed
