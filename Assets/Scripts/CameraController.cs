@@ -21,7 +21,7 @@ public class CameraController : MonoBehaviour
     private KeyboardInput pi;
     private float tempEulerX;
     private Transform model;
-    private Camera camera;
+    private Camera mainCamera;
     private Transform cameraTS;
     private LockTargetCls lockTarget;
 
@@ -46,8 +46,8 @@ public class CameraController : MonoBehaviour
 
         cameraPos = transform.Find("CameraPos").transform;
 
-        camera = Camera.main;
-        cameraTS = camera.transform;
+        mainCamera = Camera.main;
+        cameraTS = mainCamera.transform;
         cameraTS.position = transform.position;
 
         Cursor.lockState = CursorLockMode.Locked; //hide mouse cursor 
@@ -65,7 +65,7 @@ public class CameraController : MonoBehaviour
     {
         if (LockTarget != null)
         {
-            var pos = camera.WorldToScreenPoint(LockTarget.GetHalfPos);
+            var pos = mainCamera.WorldToScreenPoint(LockTarget.GetHalfPos);
             pos.z = 0;
             lockDot.rectTransform.position = pos;
             if (Vector3.Distance(model.transform.position, lockTarget.target.transform.position) > 10f)

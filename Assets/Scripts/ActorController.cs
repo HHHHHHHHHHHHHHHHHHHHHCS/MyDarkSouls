@@ -35,7 +35,7 @@ public class ActorController : MonoBehaviour
     private float lerpTarget; // 动画层过渡用
     private Vector3 deltaPos; // 动画位置偏移用
 
-    private int attackLayer; //攻击的Layer
+    //private int attackLayer; //攻击的Layer
 
     public GameObject Model { get; private set; }
 
@@ -60,7 +60,7 @@ public class ActorController : MonoBehaviour
         rigi = transform.GetComponent<Rigidbody>();
         capCol = transform.GetComponent<CapsuleCollider>();
 
-        attackLayer = anim.GetLayerIndex("attack");
+        //attackLayer = anim.GetLayerIndex("attack");
     }
 
     private void Update()
@@ -97,7 +97,7 @@ public class ActorController : MonoBehaviour
             canAttack = false;
         }
 
-        if (pi.attack && CheckState("ground") && canAttack)
+        if (pi.attack && (CheckState("ground") || CheckStateTag("attack")) && canAttack)
         {
             anim.SetTrigger(attackKey);
         }
@@ -136,6 +136,11 @@ public class ActorController : MonoBehaviour
     private bool CheckState(string stateName, string layerName = "Base Layer")
     {
         return anim.GetCurrentAnimatorStateInfo(anim.GetLayerIndex(layerName)).IsName(stateName);
+    }
+
+    private bool CheckStateTag(string tagName, string layerName = "Base Layer")
+    {
+        return anim.GetCurrentAnimatorStateInfo(anim.GetLayerIndex(layerName)).IsTag(tagName);
     }
 
     private void OnJumpEnter()
@@ -201,7 +206,7 @@ public class ActorController : MonoBehaviour
     public void OnAttack1hAUpdate()
     {
         thrustVec = Model.transform.forward * anim.GetFloat("attack1hVelocity");
-        anim.SetLayerWeight(attackLayer, Mathf.Lerp(anim.GetLayerWeight(attackLayer), lerpTarget, 0.4f));
+        //anim.SetLayerWeight(attackLayer, Mathf.Lerp(anim.GetLayerWeight(attackLayer), lerpTarget, 0.4f));
     }
 
     public void OnAttackIdleEnter()
@@ -212,12 +217,12 @@ public class ActorController : MonoBehaviour
 
     public void OnAttackIdleUpdate()
     {
-        anim.SetLayerWeight(attackLayer, Mathf.Lerp(anim.GetLayerWeight(attackLayer), lerpTarget, 0.4f));
+        //anim.SetLayerWeight(attackLayer, Mathf.Lerp(anim.GetLayerWeight(attackLayer), lerpTarget, 0.4f));
     }
 
     public void OnUpdateRM(object _deltaPos)
     {
-        if (CheckState("attack1hC", "attack"))
+        if (CheckState("attack1hC"))
         {
             //deltaPos += (deltaPos + (Vector3) _deltaPos) / 2.0f;
             deltaPos += (0.6f * deltaPos + 0.4f * (Vector3) _deltaPos) / 1.0f;
