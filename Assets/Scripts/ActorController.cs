@@ -11,6 +11,8 @@ public class ActorController : MonoBehaviour
     private readonly int rollKey = Animator.StringToHash("roll");
     private readonly int attackKey = Animator.StringToHash("attack");
     private readonly int rightKey = Animator.StringToHash("right");
+    private readonly int r0l1Key = Animator.StringToHash("R0L1");
+
 
     public float wakeSpeed = 1.4f;
     public float runMultiplier = 2.75f;
@@ -36,6 +38,7 @@ public class ActorController : MonoBehaviour
     private Vector3 deltaPos; // 动画位置偏移用
 
     //private int attackLayer; //攻击的Layer
+    private bool leftIsShield = true;//左手是否是盾
 
     public GameObject Model { get; private set; }
 
@@ -97,8 +100,16 @@ public class ActorController : MonoBehaviour
             canAttack = false;
         }
 
-        if (pi.attack && (CheckState("ground") || CheckStateTag("attack")) && canAttack)
+        if ((pi.leftAttack||pi.rightAttack) && (CheckState("ground") || CheckStateTag("attack")) && canAttack)
         {
+            if (pi.leftAttack)
+            {
+                anim.SetBool(r0l1Key, false);
+            }
+            else if (pi.rightAttack)
+            {
+                anim.SetBool(r0l1Key, true);
+            }
             anim.SetTrigger(attackKey);
         }
 

@@ -16,6 +16,8 @@ public class JoystickInput : IUserInput
     public string btnD = "btn3";
     public string btnLB = "btnLB";
     public string btnLT = "btnLT";
+    public string btnRB = "btnRB";
+    public string btnRT = "btnRT";
     public string btnJStick = "btn11";
 
     public MyButton buttonA = new MyButton();
@@ -24,6 +26,8 @@ public class JoystickInput : IUserInput
     public MyButton buttonD = new MyButton();
     public MyButton buttonLB = new MyButton();
     public MyButton buttonLT = new MyButton();
+    public MyButton buttonRB = new MyButton();
+    public MyButton buttonRT = new MyButton();
     public MyButton buttonJStick = new MyButton();
 
     private void Update()
@@ -64,11 +68,17 @@ public class JoystickInput : IUserInput
         isRun = (buttonA.IsPressing && !buttonA.IsDelaying) || buttonA.IsExtending;
         //玩家锁定
         islock = buttonJStick.OnPressed;
-        isDefense = buttonLB.IsPressing;
         //双击跳跃
         jump = buttonA.OnPressed && buttonA.IsExtending;
         //短按翻滚
         roll = buttonA.OnReleased && buttonA.IsDelaying;
-        attack = buttonC.OnPressed;
+
+
+        isDefense = buttonLB.IsPressing;
+        leftAttack = buttonLB.OnPressed;
+        lt = buttonLT.OnPressed;
+        rightAttack = buttonRB.OnPressed;
+        rt = buttonRT.OnPressed;
+
     }
 }

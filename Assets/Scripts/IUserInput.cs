@@ -11,12 +11,16 @@ public abstract class IUserInput:MonoBehaviour
     public Vector3 dVec; //旋转的角度
     public bool isRun; //是否在跑
     public bool jump; //是否在跳跃
-    public bool isDefense; //是否在防御
     public bool islock; //是否开启了锁定
     public float jUp, jRight; //镜头上下左右
-    public bool attack; //是否在攻击
+    //public bool attack; //是否在攻击
     public bool roll; //是否在翻滚
 
+    public bool isDefense; //是否在防御
+    public bool leftAttack;//是否左手攻击
+    public bool lt;
+    public bool rightAttack;//是否右手攻击
+    public bool rt;
 
     [Header("===== Others =====")]
     public bool inputEnable = true;

@@ -10,8 +10,8 @@ public class KeyboardInput : IUserInput
     public KeyCode keyRight = KeyCode.D; //move right
     public KeyCode keyA = KeyCode.LeftShift; //isRun
     public KeyCode keyB = KeyCode.Space; //jump roll jab
-    public KeyCode keyC = KeyCode.J; //isAttack
-    public KeyCode keyD = KeyCode.K; //isDefense
+    public KeyCode keyC = KeyCode.J; //leftAttack
+    public KeyCode keyD = KeyCode.K; //rightAttack
     public KeyCode keyJUp = KeyCode.UpArrow; //camera up
     public KeyCode keyJDown = KeyCode.DownArrow; //camera down
     public KeyCode keyJLeft = KeyCode.LeftArrow; //camera left
@@ -23,8 +23,8 @@ public class KeyboardInput : IUserInput
     public float mouseSensitivityY = 1f; //mouse rotate camera Y speed
     public string mouseRotateX = "Mouse X"; //mouse move X
     public string mouseRotateY = "Mouse Y"; //mouse move Y
-    public KeyCode mouseAttack = KeyCode.Mouse0; //mouse attack
-    public KeyCode mouseDefense = KeyCode.Mouse1; //mouse Defense
+    public KeyCode mouseLeftAttack = KeyCode.Mouse0; //mouse leftAttack
+    public KeyCode mouseRightAttack = KeyCode.Mouse1; //mouse rightAttack
 
     public MyButton buttonA = new MyButton();
     public MyButton buttonB = new MyButton();
@@ -37,8 +37,8 @@ public class KeyboardInput : IUserInput
     {
         buttonA.Tick(Input.GetKey(keyA));
         buttonB.Tick(Input.GetKey(keyB));
-        buttonC.Tick(Input.GetKey(mouseEnable ? mouseAttack : keyC));
-        buttonD.Tick(Input.GetKey(mouseEnable ? mouseDefense : keyD));
+        buttonC.Tick(Input.GetKey(mouseEnable ? mouseLeftAttack : keyC));
+        buttonD.Tick(Input.GetKey(mouseEnable ? mouseRightAttack : keyD));
         buttonJStick.Tick(Input.GetKey(keyJStick));
 
         if (mouseEnable)
@@ -79,11 +79,13 @@ public class KeyboardInput : IUserInput
         isRun = (buttonA.IsPressing && !buttonA.IsDelaying) || buttonA.IsExtending;
         //玩家锁定
         islock = buttonJStick.OnPressed;
-        isDefense = buttonD.IsPressing;
         //双击跳跃
         jump = buttonA.OnPressed && buttonA.IsExtending;
         //短按翻滚
         roll = buttonA.OnReleased && buttonA.IsDelaying;
-        attack = buttonC.OnPressed;
+
+        isDefense = buttonD.IsPressing;
+        leftAttack = buttonD.OnPressed;
+        rightAttack = buttonC.OnPressed;
     }
 }
