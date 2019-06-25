@@ -8,15 +8,17 @@ public class LeftArmAnimFix : MonoBehaviour
 
     public Vector3 eulerAngles;
     private Animator anim;
+    private ActorController ac;
 
     private void Awake()
     {
         anim = GetComponent<Animator>();
+        ac = GetComponentInParent<ActorController>();
     }
 
     private void OnAnimatorIK(int layerIndex)
     {
-        if (!anim.GetBool(defenseKey))
+        if (ac.leftIsShield && !anim.GetBool(defenseKey))
         {
             Transform leftLowArm = anim.GetBoneTransform(HumanBodyBones.LeftLowerArm);
             leftLowArm.localEulerAngles += eulerAngles;

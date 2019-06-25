@@ -38,7 +38,7 @@ public class ActorController : MonoBehaviour
     private Vector3 deltaPos; // 动画位置偏移用
 
     //private int attackLayer; //攻击的Layer
-    private bool leftIsShield = true;//左手是否是盾
+    public bool leftIsShield = true; //左手是否是盾
 
     public GameObject Model { get; private set; }
 
@@ -100,18 +100,31 @@ public class ActorController : MonoBehaviour
             canAttack = false;
         }
 
-        if ((pi.leftAttack||pi.rightAttack) && (CheckState("ground") || CheckStateTag("attack")) && canAttack)
+        if ((pi.leftAttack || pi.rightAttack) && (CheckState("ground") || CheckStateTag("attack")) && canAttack)
         {
             if (pi.leftAttack)
             {
-                anim.SetBool(r0l1Key, false);
+                anim.SetBool(r0l1Key, true);
             }
             else if (pi.rightAttack)
             {
-                anim.SetBool(r0l1Key, true);
+                anim.SetBool(r0l1Key, false);
             }
-            anim.SetTrigger(attackKey);
+
+            if (!(pi.leftAttack && leftIsShield))
+            {
+                anim.SetTrigger(attackKey);
+            }
         }
+
+        float weight = 0;
+        if (CheckState("ground") && leftIsShield)
+        {
+            weight = pi.isDefense ? 1 : 0;
+        }
+
+        anim.SetLayerWeight(anim.GetLayerIndex("defense"), weight);
+
 
         if (!Camcon.lockState)
         {
