@@ -18,7 +18,7 @@ public class CameraController : MonoBehaviour
     private Transform playerHandle;
     private Transform cameraHandle;
     private Transform cameraPos;
-    private KeyboardInput pi;
+    private IUserInput pi;
     private float tempEulerX;
     private Transform model;
     private Camera mainCamera;
@@ -41,7 +41,7 @@ public class CameraController : MonoBehaviour
     {
         cameraHandle = transform;
         playerHandle = cameraHandle.transform.parent;
-        pi = playerHandle.GetComponent<KeyboardInput>();
+        pi = playerHandle.GetComponent<IUserInput>();
         tempEulerX = cameraHandle.eulerAngles.x;
 
         cameraPos = transform.Find("CameraPos").transform;

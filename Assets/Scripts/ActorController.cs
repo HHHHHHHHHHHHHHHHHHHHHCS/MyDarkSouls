@@ -58,7 +58,7 @@ public class ActorController : MonoBehaviour
         }
 
         Model = transform.Find("ybot").gameObject;
-        Camcon = transform.Find("CameraHandle").GetComponent<CameraController>();
+        Camcon = transform.Find("CameraHandle")?.GetComponent<CameraController>();
         anim = Model.GetComponent<Animator>();
         rigi = transform.GetComponent<Rigidbody>();
         capCol = transform.GetComponent<CapsuleCollider>();
@@ -71,22 +71,28 @@ public class ActorController : MonoBehaviour
         anim.SetFloat(forwardKey, pi.dmag * Mathf.Lerp(anim.GetFloat(forwardKey), pi.isRun ? 2.0f : 1f, 0.5f));
         anim.SetBool("defense", pi.isDefense);
 
-        if (pi.islock)
+
+        if (Camcon)
         {
-            Camcon.LockUnlock();
+            if (pi.islock)
+            {
+                Camcon.LockUnlock();
+            }
+
+            if (!Camcon.lockState)
+            {
+                anim.SetFloat(forwardKey,
+                    pi.dmag * Mathf.Lerp(anim.GetFloat(forwardKey), pi.isRun ? 2.0f : 1.0f, 0.5f));
+                anim.SetFloat(rightKey, 0);
+            }
+            else
+            {
+                var localDVec = transform.InverseTransformVector(pi.dVec);
+                anim.SetFloat(forwardKey, localDVec.z * (pi.isRun ? 2.0f : 1.0f));
+                anim.SetFloat(rightKey, localDVec.x * (pi.isRun ? 2.0f : 1.0f));
+            }
         }
 
-        if (!Camcon.lockState)
-        {
-            anim.SetFloat(forwardKey, pi.dmag * Mathf.Lerp(anim.GetFloat(forwardKey), pi.isRun ? 2.0f : 1.0f, 0.5f));
-            anim.SetFloat(rightKey, 0);
-        }
-        else
-        {
-            var localDVec = transform.InverseTransformVector(pi.dVec);
-            anim.SetFloat(forwardKey, localDVec.z * (pi.isRun ? 2.0f : 1.0f));
-            anim.SetFloat(rightKey, localDVec.x * (pi.isRun ? 2.0f : 1.0f));
-        }
 
         if (pi.roll || rigi.velocity.magnitude > 7f)
         {
@@ -126,25 +132,28 @@ public class ActorController : MonoBehaviour
         anim.SetLayerWeight(anim.GetLayerIndex("defense"), weight);
 
 
-        if (!Camcon.lockState)
+        if (Camcon)
         {
-            if (pi.dmag >= 0.1f)
+            if (!Camcon.lockState)
             {
-                //角度建议用Slerp,避免出现死锁的情况
-                Model.transform.forward = Vector3.Slerp(Model.transform.forward, pi.dVec, 0.3f);
-            }
+                if (pi.dmag >= 0.1f)
+                {
+                    //角度建议用Slerp,避免出现死锁的情况
+                    Model.transform.forward = Vector3.Slerp(Model.transform.forward, pi.dVec, 0.3f);
+                }
 
-            if (!lockPlanar)
-            {
-                planarVec = pi.dmag * Model.transform.forward * wakeSpeed * (pi.isRun ? runMultiplier : 1f);
+                if (!lockPlanar)
+                {
+                    planarVec = pi.dmag * Model.transform.forward * wakeSpeed * (pi.isRun ? runMultiplier : 1f);
+                }
             }
-        }
-        else
-        {
-            Model.transform.forward = transform.forward;
-            if (!lockPlanar)
+            else
             {
-                planarVec = pi.dVec * wakeSpeed * (pi.isRun ? runMultiplier : 1.0f);
+                Model.transform.forward = transform.forward;
+                if (!lockPlanar)
+                {
+                    planarVec = pi.dVec * wakeSpeed * (pi.isRun ? runMultiplier : 1.0f);
+                }
             }
         }
     }
