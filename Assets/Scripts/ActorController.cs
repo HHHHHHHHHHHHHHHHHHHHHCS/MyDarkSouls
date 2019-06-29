@@ -34,7 +34,9 @@ public class ActorController : MonoBehaviour
     private bool lockPlanar; //锁移动的量
     private bool canAttack = true; //是否可以攻击
     private CapsuleCollider capCol; //玩家的碰撞盒
+#pragma warning disable 414
     private float lerpTarget; // 动画层过渡用
+#pragma warning restore 414
     private Vector3 deltaPos; // 动画位置偏移用
 
     //private int attackLayer; //攻击的Layer
@@ -58,7 +60,7 @@ public class ActorController : MonoBehaviour
         }
 
         Model = transform.Find("ybot").gameObject;
-        Camcon = transform.Find("CameraHandle")?.GetComponent<CameraController>();
+        Camcon = transform.Find("CameraHandle").GetComponent<CameraController>();
         anim = Model.GetComponent<Animator>();
         rigi = transform.GetComponent<Rigidbody>();
         capCol = transform.GetComponent<CapsuleCollider>();
@@ -72,25 +74,22 @@ public class ActorController : MonoBehaviour
         anim.SetBool("defense", pi.isDefense);
 
 
-        if (Camcon)
+        if (pi.islock)
         {
-            if (pi.islock)
-            {
-                Camcon.LockUnlock();
-            }
+            Camcon.LockUnlock();
+        }
 
-            if (!Camcon.lockState)
-            {
-                anim.SetFloat(forwardKey,
-                    pi.dmag * Mathf.Lerp(anim.GetFloat(forwardKey), pi.isRun ? 2.0f : 1.0f, 0.5f));
-                anim.SetFloat(rightKey, 0);
-            }
-            else
-            {
-                var localDVec = transform.InverseTransformVector(pi.dVec);
-                anim.SetFloat(forwardKey, localDVec.z * (pi.isRun ? 2.0f : 1.0f));
-                anim.SetFloat(rightKey, localDVec.x * (pi.isRun ? 2.0f : 1.0f));
-            }
+        if (!Camcon.lockState)
+        {
+            anim.SetFloat(forwardKey,
+                pi.dmag * Mathf.Lerp(anim.GetFloat(forwardKey), pi.isRun ? 2.0f : 1.0f, 0.5f));
+            anim.SetFloat(rightKey, 0);
+        }
+        else
+        {
+            var localDVec = transform.InverseTransformVector(pi.dVec);
+            anim.SetFloat(forwardKey, localDVec.z * (pi.isRun ? 2.0f : 1.0f));
+            anim.SetFloat(rightKey, localDVec.x * (pi.isRun ? 2.0f : 1.0f));
         }
 
 
@@ -132,28 +131,25 @@ public class ActorController : MonoBehaviour
         anim.SetLayerWeight(anim.GetLayerIndex("defense"), weight);
 
 
-        if (Camcon)
+        if (!Camcon.lockState)
         {
-            if (!Camcon.lockState)
+            if (pi.dmag >= 0.1f)
             {
-                if (pi.dmag >= 0.1f)
-                {
-                    //角度建议用Slerp,避免出现死锁的情况
-                    Model.transform.forward = Vector3.Slerp(Model.transform.forward, pi.dVec, 0.3f);
-                }
-
-                if (!lockPlanar)
-                {
-                    planarVec = pi.dmag * Model.transform.forward * wakeSpeed * (pi.isRun ? runMultiplier : 1f);
-                }
+                //角度建议用Slerp,避免出现死锁的情况
+                Model.transform.forward = Vector3.Slerp(Model.transform.forward, pi.dVec, 0.3f);
             }
-            else
+
+            if (!lockPlanar)
             {
-                Model.transform.forward = transform.forward;
-                if (!lockPlanar)
-                {
-                    planarVec = pi.dVec * wakeSpeed * (pi.isRun ? runMultiplier : 1.0f);
-                }
+                planarVec = pi.dmag * Model.transform.forward * wakeSpeed * (pi.isRun ? runMultiplier : 1f);
+            }
+        }
+        else
+        {
+            Model.transform.forward = transform.forward;
+            if (!lockPlanar)
+            {
+                planarVec = pi.dVec * wakeSpeed * (pi.isRun ? runMultiplier : 1.0f);
             }
         }
     }

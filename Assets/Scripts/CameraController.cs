@@ -14,6 +14,7 @@ public class CameraController : MonoBehaviour
     public float cameraDampValue = 0.05f;
 
     public bool lockState;
+    public bool isAI = true;
 
     private Transform playerHandle;
     private Transform cameraHandle;
@@ -44,14 +45,17 @@ public class CameraController : MonoBehaviour
         pi = playerHandle.GetComponent<IUserInput>();
         tempEulerX = cameraHandle.eulerAngles.x;
 
-        cameraPos = transform.Find("CameraPos").transform;
+        if (!isAI)
+        {
+            cameraPos = transform.Find("CameraPos").transform;
 
-        mainCamera = Camera.main;
-        cameraTS = mainCamera.transform;
-        cameraTS.position = transform.position;
+            mainCamera = Camera.main;
+            cameraTS = mainCamera.transform;
+            cameraTS.position = transform.position;
 
-        Cursor.lockState = CursorLockMode.Locked; //hide mouse cursor 
-        SetLockDot();
+            Cursor.lockState = CursorLockMode.Locked; //hide mouse cursor 
+            SetLockDot();
+        }
     }
 
     private void Start()
@@ -65,9 +69,13 @@ public class CameraController : MonoBehaviour
     {
         if (LockTarget != null)
         {
-            var pos = mainCamera.WorldToScreenPoint(LockTarget.GetHalfPos);
-            pos.z = 0;
-            lockDot.rectTransform.position = pos;
+            if (!isAI)
+            {
+                var pos = mainCamera.WorldToScreenPoint(LockTarget.GetHalfPos);
+                pos.z = 0;
+                lockDot.rectTransform.position = pos;
+            }
+
             if (Vector3.Distance(model.transform.position, lockTarget.target.transform.position) > 10f)
             {
                 LockTarget = null;
@@ -103,14 +111,20 @@ public class CameraController : MonoBehaviour
             Vector3 tempForward = LockTarget.target.position - transform.position;
             tempForward.y = 0;
             playerHandle.transform.forward = tempForward;
-            cameraTS.LookAt(LockTarget.target.position);
+            if (!isAI)
+            {
+                cameraTS.LookAt(LockTarget.target.position);
+            }
         }
 
-
-        cameraTS.position = Vector3.SmoothDamp(cameraTS.transform.position, cameraPos.position, ref cameraDampVelocity,
-            cameraDampValue);
-        //cameraTS.transform.eulerAngles = transform.eulerAngles;
-        cameraTS.transform.LookAt(transform);
+        if (!isAI)
+        {
+            cameraTS.position = Vector3.SmoothDamp(cameraTS.transform.position, cameraPos.position,
+                ref cameraDampVelocity,
+                cameraDampValue);
+            //cameraTS.transform.eulerAngles = transform.eulerAngles;
+            cameraTS.transform.LookAt(transform);
+        }
     }
 
     public void LockUnlock()
@@ -130,9 +144,8 @@ public class CameraController : MonoBehaviour
 
         foreach (var item in cols)
         {
-            if (item.CompareTag("Enemy") && item.transform != LockTarget?.target)
+            if (item.transform != LockTarget?.target)
             {
-                Debug.Log(item.transform);
                 LockTarget = new LockTargetCls(item.transform, item.bounds.extents.y);
                 return;
             }
@@ -141,7 +154,11 @@ public class CameraController : MonoBehaviour
 
     private void SetLockDot()
     {
-        lockState = lockDot.enabled = LockTarget != null;
+        lockState = LockTarget != null;
+        if (!isAI)
+        {
+            lockDot.enabled = lockState;
+        }
     }
 
 
@@ -159,6 +176,7 @@ public class CameraController : MonoBehaviour
         var modelOrigin1 = model.transform.position;
         var modelOrigin2 = modelOrigin1 + Vector3.up;
         var boxCenter = modelOrigin2 + model.forward * 5f;
+        Gizmos.matrix = Matrix4x4.Rotate(Quaternion.Euler(model.forward));
         Gizmos.DrawCube(boxCenter, new Vector3(0.5f, 0.5f, 5f));
     }
 
