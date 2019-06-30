@@ -37,4 +37,10 @@ public abstract class IUserInput:MonoBehaviour
         output.y = y * Mathf.Sqrt(1 - (x * x) / 2.0f);
         return output;
     }
+
+    protected void UpdateDmagDevc(float dUp2, float dRight2)
+    {
+        dmag = Mathf.Sqrt(dUp2 * dUp2 + dRight2 * dRight2);
+        dVec = dUp2 * transform.forward + dRight2 * transform.right;
+    }
 }

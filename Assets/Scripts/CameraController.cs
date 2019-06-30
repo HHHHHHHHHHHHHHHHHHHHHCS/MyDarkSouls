@@ -135,7 +135,7 @@ public class CameraController : MonoBehaviour
         var boxCenter = modelOrigin2 + model.forward * 5f;
         Collider[] cols = Physics.OverlapBox(boxCenter, new Vector3(0.5f, 0.5f, 5f), model.rotation);
 
-        cols = cols.Where(x => x.CompareTag("Enemy")).ToArray();
+        cols = cols.Where(x => x.CompareTag(isAI?"Player":"Enemy")).ToArray();
         if (cols.Length == 0 || (cols.Length == 1 && cols[0].transform == LockTarget?.target))
         {
             LockTarget = null;
