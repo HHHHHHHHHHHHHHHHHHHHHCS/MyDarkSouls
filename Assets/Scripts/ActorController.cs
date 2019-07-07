@@ -29,8 +29,8 @@ public class ActorController : MonoBehaviour
     private IUserInput pi;
     private Animator anim;
     private Rigidbody rigi;
-    private Vector3 planarVec; //跳跃 平面量
-    private Vector3 thrustVec; //偏移的量
+    private Vector3 planarVec; //平面移动的量
+    private Vector3 thrustVec; //高度移动的量
     private bool lockPlanar; //锁移动的量
     private bool canAttack = true; //是否可以攻击
     private CapsuleCollider capCol; //玩家的碰撞盒
@@ -256,5 +256,21 @@ public class ActorController : MonoBehaviour
             //deltaPos += (deltaPos + (Vector3) _deltaPos) / 2.0f;
             deltaPos += (0.6f * deltaPos + 0.4f * (Vector3) _deltaPos) / 1.0f;
         }
+    }
+
+    public void IssueTrigger(string name)
+    {
+        anim.SetTrigger(name);
+    }
+
+    public void OnHitEnter()
+    {
+        pi.inputEnable = false;
+        planarVec = Vector3.zero;
+    }
+
+    public void OnHitExit()
+    {
+        pi.enabled = true;
     }
 }

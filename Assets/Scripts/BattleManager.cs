@@ -26,4 +26,9 @@ public class BattleManager : MonoBehaviour
         defCol.radius = 0.25f;
         defCol.isTrigger = true;
     }
+
+    public void AcceptSender(GameObject go)
+    {
+        actorManager.DoDamage();
+    }
 }
