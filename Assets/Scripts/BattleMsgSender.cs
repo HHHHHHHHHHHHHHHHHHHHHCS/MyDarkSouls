@@ -10,12 +10,6 @@ public class BattleMsgSender : MonoBehaviour
 
     public BattleManager battleManager;
 
-
-
-    private void Awake()
-    {
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag(weaponTag))

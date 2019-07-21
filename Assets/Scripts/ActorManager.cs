@@ -7,9 +7,12 @@ public class ActorManager : MonoBehaviour
 {
     private ActorController actorController;
     private BattleManager battleManager;
+    private WeaponManager weaponManager;
 
     private void Awake()
     {
+        actorController = GetComponent<ActorController>();
+
         battleManager = GetComponent<BattleManager>();
         if (!battleManager)
         {
@@ -17,7 +20,14 @@ public class ActorManager : MonoBehaviour
         }
 
         battleManager.actorManager = this;
-        actorController = GetComponent<ActorController>();
+
+        weaponManager = GetComponent<WeaponManager>();
+        if (!weaponManager)
+        {
+            weaponManager = gameObject.AddComponent<WeaponManager>();
+        }
+
+        weaponManager.actorManager = this;
     }
 
 
