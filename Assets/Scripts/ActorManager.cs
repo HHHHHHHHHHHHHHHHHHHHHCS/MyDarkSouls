@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class ActorManager : MonoBehaviour
 {
-    private ActorController actorController;
+    [HideInInspector]
+    public ActorController actorController;
     private BattleManager battleManager;
     private WeaponManager weaponManager;
 
@@ -33,6 +34,7 @@ public class ActorManager : MonoBehaviour
 
     public void DoDamage()
     {
-        actorController.IssueTrigger("hit");
+        //actorController
+        actorController.IssueTrigger("die");
     }
 }

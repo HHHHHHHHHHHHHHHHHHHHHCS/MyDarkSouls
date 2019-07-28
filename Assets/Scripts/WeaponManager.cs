@@ -6,9 +6,9 @@ using UnityEngine;
 public class WeaponManager : MonoBehaviour
 {
     public ActorManager actorManager;
-    public GameObject leftHandle, rightHandle;
+    private GameObject leftHandle, rightHandle;
 
-    private Collider weaponCollider;
+    private Collider weaponColliderL, weaponColliderR;
     private WeaponMsgSender sender;
 
     private void Awake()
@@ -19,18 +19,32 @@ public class WeaponManager : MonoBehaviour
         {
             sender = senderTs.gameObject.AddComponent<WeaponMsgSender>();
         }
+
         sender.weaponManager = this;
 
-        weaponCollider = rightHandle.transform.GetChild(0).GetComponent<Collider>();
+        leftHandle = transform.DeepFind("LWeaponHandle").gameObject;
+        rightHandle = transform.DeepFind("RWeaponHandle").gameObject;
+
+        weaponColliderL = rightHandle.transform.GetChild(0).GetComponent<Collider>();
+        weaponColliderR = rightHandle.transform.GetChild(0).GetComponent<Collider>();
     }
 
     public void WeaponEnable()
     {
-        weaponCollider.enabled = true;
+        if (actorManager.actorController.CheckState("attackL"))
+        {
+            weaponColliderL.enabled = true;
+        }
+        else
+        {
+            weaponColliderR.enabled = true;
+
+        }
     }
 
     public void WeaponDisable()
     {
-        weaponCollider.enabled = false;
+        weaponColliderL.enabled = false;
+        weaponColliderR.enabled = false;
     }
 }

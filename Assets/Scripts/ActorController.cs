@@ -105,7 +105,8 @@ public class ActorController : MonoBehaviour
             canAttack = false;
         }
 
-        if ((pi.leftAttack || pi.rightAttack) && (CheckState("ground") || CheckStateTag("attack")) && canAttack)
+        if ((pi.leftAttack || pi.rightAttack) &&
+            (CheckState("ground") || CheckStateTag("attackR") || CheckStateTag("attackL")) && canAttack)
         {
             if (pi.leftAttack)
             {
@@ -162,12 +163,12 @@ public class ActorController : MonoBehaviour
         deltaPos = Vector3.zero;
     }
 
-    private bool CheckState(string stateName, string layerName = "Base Layer")
+    public bool CheckState(string stateName, string layerName = "Base Layer")
     {
         return anim.GetCurrentAnimatorStateInfo(anim.GetLayerIndex(layerName)).IsName(stateName);
     }
 
-    private bool CheckStateTag(string tagName, string layerName = "Base Layer")
+    public bool CheckStateTag(string tagName, string layerName = "Base Layer")
     {
         return anim.GetCurrentAnimatorStateInfo(anim.GetLayerIndex(layerName)).IsTag(tagName);
     }
@@ -272,5 +273,10 @@ public class ActorController : MonoBehaviour
     public void OnHitExit()
     {
         pi.enabled = true;
+    }
+
+    public void OnAttackExit()
+    {
+        anim.GetComponent<WeaponMsgSender>().WeaponDisable();
     }
 }

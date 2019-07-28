@@ -754,7 +754,7 @@ GameObject:
   m_Component:
   - component: {fileID: 480858053}
   m_Layer: 0
-  m_Name: WeaponHandle
+  m_Name: RWeaponHandle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1151,7 +1151,7 @@ GameObject:
   m_Component:
   - component: {fileID: 814803850}
   m_Layer: 0
-  m_Name: WeaponHand
+  m_Name: LWeaponHandle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2151,7 +2151,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1835124722}
   m_Layer: 0
-  m_Name: WeaponHand
+  m_Name: LWeaponHandle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2567,7 +2567,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2049714804}
   m_Layer: 0
-  m_Name: WeaponHandle
+  m_Name: RWeaponHandle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
