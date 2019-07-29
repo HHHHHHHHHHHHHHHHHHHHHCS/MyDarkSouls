@@ -57,6 +57,8 @@ public class ActorManager : MonoBehaviour
             actorController.Camcon.LockUnlock();
         }
 
+        actorController.pi.enabled = false;
         actorController.Camcon.enabled = false;
+        battleManager.DisableMsgSender();
     }
 }

@@ -413,7 +413,7 @@ ModelImporter:
     second: //RootNode
   - first:
       74: 7400000
-    second: jab
+    second: mixamo.com
   - first:
       95: 9500000
     second: //RootNode
@@ -446,7 +446,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: jab
+      name: mixamo.com
       takeName: mixamo.com
       internalID: 7400000
       firstFrame: 0
@@ -535,6 +535,8 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -547,7 +549,7 @@ ModelImporter:
   importAnimation: 1
   copyAvatar: 1
   humanDescription:
-    serializedVersion: 3
+    serializedVersion: 2
     human:
     - boneName: mixamorig:Hips
       humanName: Hips
@@ -1340,7 +1342,6 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 0.01
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 1

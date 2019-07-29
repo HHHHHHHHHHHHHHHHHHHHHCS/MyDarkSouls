@@ -17,4 +17,10 @@ public class BattleMsgSender : MonoBehaviour
             battleManager.AcceptSender(other.gameObject);
         }
     }
+
+    public void DoDisable()
+    {
+        GetComponent<Collider>().enabled = false;
+        enabled = false;
+    }
 }

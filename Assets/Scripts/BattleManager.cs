@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BattleManager : IActorManager
 {
-    private BattleMsgSender msgSender;
+    public BattleMsgSender msgSender;
     private CapsuleCollider defCol;
 
     private void Awake()
@@ -29,5 +29,10 @@ public class BattleManager : IActorManager
     public void AcceptSender(GameObject go)
     {
         actorManager.TryDoDamage();
+    }
+
+    public void DisableMsgSender()
+    {
+        msgSender.DoDisable();
     }
 }
