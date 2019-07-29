@@ -3,9 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponManager : MonoBehaviour
+public class WeaponManager : IActorManager
 {
-    public ActorManager actorManager;
     private GameObject leftHandle, rightHandle;
 
     private Collider weaponColliderL, weaponColliderR;

@@ -26,7 +26,7 @@ public class ActorController : MonoBehaviour
     public PhysicMaterial frctionZero;
 
 
-    private IUserInput pi;
+    public IUserInput pi;
     private Animator anim;
     private Rigidbody rigi;
     private Vector3 planarVec; //平面移动的量

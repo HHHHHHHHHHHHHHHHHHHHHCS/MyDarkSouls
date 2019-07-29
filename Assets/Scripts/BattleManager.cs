@@ -3,9 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BattleManager : MonoBehaviour
+public class BattleManager : IActorManager
 {
-    public ActorManager actorManager;
     private BattleMsgSender msgSender;
     private CapsuleCollider defCol;
 
@@ -29,6 +28,6 @@ public class BattleManager : MonoBehaviour
 
     public void AcceptSender(GameObject go)
     {
-        actorManager.DoDamage();
+        actorManager.TryDoDamage();
     }
 }

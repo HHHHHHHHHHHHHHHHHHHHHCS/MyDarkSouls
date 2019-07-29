@@ -137,6 +137,7 @@ GameObject:
   - component: {fileID: 5281881}
   - component: {fileID: 5281880}
   - component: {fileID: 5281882}
+  - component: {fileID: 5281883}
   m_Layer: 0
   m_Name: PlayerHandle
   m_TagString: Player
@@ -329,6 +330,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6466b61d9a4ddc945bfd8219e7221bfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actorController: {fileID: 0}
 --- !u!114 &5281882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -342,8 +344,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actorManager: {fileID: 0}
-  leftHandle: {fileID: 1835124721}
-  rightHandle: {fileID: 2049714803}
+--- !u!114 &5281883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5281873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 066bb06fd0624db41b449f3440cd480e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actorManager: {fileID: 0}
+  hp: 25
 --- !u!4 &31371925 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400080, guid: 2f9d958fbcd96e44ca35a77a15e3187a,
@@ -790,6 +804,8 @@ GameObject:
   - component: {fileID: 615876196}
   - component: {fileID: 615876198}
   - component: {fileID: 615876202}
+  - component: {fileID: 615876204}
+  - component: {fileID: 615876203}
   m_Layer: 0
   m_Name: EnemyHandle
   m_TagString: Enemy
@@ -859,6 +875,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6466b61d9a4ddc945bfd8219e7221bfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actorController: {fileID: 0}
 --- !u!54 &615876199
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -919,8 +936,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actorManager: {fileID: 0}
-  leftHandle: {fileID: 814803849}
-  rightHandle: {fileID: 480858052}
+--- !u!114 &615876203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 615876195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 066bb06fd0624db41b449f3440cd480e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actorManager: {fileID: 0}
+  hp: 15
+--- !u!114 &615876204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 615876195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1878148ebc0df94bac627ffe1deea4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actorManager: {fileID: 0}
 --- !u!1 &653834122
 GameObject:
   m_ObjectHideFlags: 0
