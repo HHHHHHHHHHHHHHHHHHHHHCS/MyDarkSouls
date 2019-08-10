@@ -34,7 +34,28 @@ public class ActorManager : MonoBehaviour
 
     public void TryDoDamage()
     {
-        DoDamage();
+        if (stateManager.isDefense)
+        {
+            OnBlocked();
+        }
+        else
+        {
+            if (stateManager.hp <= 0)
+            {
+            }
+            else
+            {
+                DoDamage();
+                if (stateManager.hp > 0)
+                {
+                    OnHit();
+                }
+                else
+                {
+                    OnDie();
+                }
+            }
+        }
     }
 
     public void DoDamage()
@@ -42,22 +63,26 @@ public class ActorManager : MonoBehaviour
         stateManager.AddHp(-5);
     }
 
+    public void OnBlocked()
+    {
+        actorController.IssueTrigger("blocked");
+    }
+
     public void OnHit()
     {
         actorController.IssueTrigger("hit");
-
     }
 
     public void OnDie()
     {
         actorController.IssueTrigger("die");
-        actorController.pi.inputEnable = false;
+        actorController.pi.enabled = false;
+
         if (actorController.Camcon.lockState)
         {
             actorController.Camcon.LockUnlock();
         }
 
-        actorController.pi.enabled = false;
         actorController.Camcon.enabled = false;
         battleManager.DisableMsgSender();
     }

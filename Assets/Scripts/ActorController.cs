@@ -124,7 +124,7 @@ public class ActorController : MonoBehaviour
         }
 
         float weight = 0;
-        if (CheckState("ground") && leftIsShield)
+        if ((CheckState("ground")|| CheckState("blocked")) && leftIsShield)
         {
             weight = pi.isDefense ? 1 : 0;
         }
@@ -278,5 +278,16 @@ public class ActorController : MonoBehaviour
     public void OnAttackExit()
     {
         anim.GetComponent<WeaponMsgSender>().WeaponDisable();
+    }
+
+    public void OnBlockedEnter()
+    {
+        pi.inputEnable = false;
+    }
+
+    public void OnDieEnter()
+    {
+        pi.inputEnable = false;
+        planarVec = Vector3.zero;
     }
 }
