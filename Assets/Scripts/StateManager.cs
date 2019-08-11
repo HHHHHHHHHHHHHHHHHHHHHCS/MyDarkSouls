@@ -8,8 +8,7 @@ public class StateManager : IActorManager
     public int maxHp = 30;
     public int hp = 15;
 
-    [Header("1st order state flags")]
-    public bool isGround;
+    [Header("1st order state flags")] public bool isGround;
     public bool isJump;
     public bool isFall;
     public bool isRoll;
@@ -22,6 +21,7 @@ public class StateManager : IActorManager
 
     [Header("2nd order state flags")]
     public bool isAllowDefense;
+    public bool isImmortal;
 
     private void Update()
     {
@@ -31,19 +31,18 @@ public class StateManager : IActorManager
         isRoll = actorManager.actorController.CheckState("roll");
         isJab = actorManager.actorController.CheckState("jab");
         isAttack = actorManager.actorController.CheckStateTag("attackR")
-            || actorManager.actorController.CheckStateTag("attackL");
+                   || actorManager.actorController.CheckStateTag("attackL");
         isHit = actorManager.actorController.CheckState("hit");
         isDie = actorManager.actorController.CheckState("die");
         isBlocked = actorManager.actorController.CheckState("blocked");
 
         isAllowDefense = isGround || isBlocked;
-        isDefense = isAllowDefense&& actorManager.actorController.CheckState("defense", "defense");
+        isDefense = isAllowDefense && actorManager.actorController.CheckState("defense", "defense");
+        isImmortal = isRoll || isJab;
     }
 
     public void AddHp(int value)
     {
         hp = Mathf.Clamp(hp + value, 0, maxHp);
-
-
     }
 }

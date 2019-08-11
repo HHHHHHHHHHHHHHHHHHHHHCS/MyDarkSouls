@@ -8,8 +8,8 @@ public class KeyboardInput : IUserInput
     public KeyCode keyDown = KeyCode.S; //move down
     public KeyCode keyLeft = KeyCode.A; //move left
     public KeyCode keyRight = KeyCode.D; //move right
-    public KeyCode keyA = KeyCode.LeftShift; //isRun
-    public KeyCode keyB = KeyCode.Space; //jump roll jab
+    public KeyCode keyA = KeyCode.LeftShift; //isRun jump roll jab
+    public KeyCode keyB = KeyCode.Space; //jump
     public KeyCode keyC = KeyCode.J; //leftAttack
     public KeyCode keyD = KeyCode.K; //rightAttack
     public KeyCode keyJUp = KeyCode.UpArrow; //camera up
@@ -80,7 +80,7 @@ public class KeyboardInput : IUserInput
         //玩家锁定
         islock = buttonJStick.OnPressed;
         //双击跳跃
-        jump = buttonA.OnPressed && buttonA.IsExtending;
+        jump = (buttonA.OnPressed && buttonA.IsExtending)||buttonB.OnPressed;
         //短按翻滚
         roll = buttonA.OnReleased && buttonA.IsDelaying;
 

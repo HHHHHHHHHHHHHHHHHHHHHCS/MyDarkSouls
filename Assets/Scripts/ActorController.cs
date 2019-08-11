@@ -7,6 +7,7 @@ public class ActorController : MonoBehaviour
 {
     private readonly int forwardKey = Animator.StringToHash("forward");
     private readonly int jumpKey = Animator.StringToHash("jump");
+    private readonly int jumpRollKey = Animator.StringToHash("jumpRoll");
     private readonly int isGroundKey = Animator.StringToHash("isGround");
     private readonly int rollKey = Animator.StringToHash("roll");
     private readonly int attackKey = Animator.StringToHash("attack");
@@ -70,7 +71,6 @@ public class ActorController : MonoBehaviour
 
     private void Update()
     {
-        anim.SetFloat(forwardKey, pi.dmag * Mathf.Lerp(anim.GetFloat(forwardKey), pi.isRun ? 2.0f : 1f, 0.5f));
         anim.SetBool("defense", pi.isDefense);
 
 
@@ -82,12 +82,13 @@ public class ActorController : MonoBehaviour
         if (!Camcon.lockState)
         {
             anim.SetFloat(forwardKey,
-                pi.dmag * Mathf.Lerp(anim.GetFloat(forwardKey), pi.isRun ? 2.0f : 1.0f, 0.5f));
+                pi.dmag * Mathf.Lerp(anim.GetFloat(forwardKey), pi.isRun ? 2.0f : 1.0f, 0.33f));
             anim.SetFloat(rightKey, 0);
         }
         else
         {
             var localDVec = transform.InverseTransformVector(pi.dVec);
+
             anim.SetFloat(forwardKey, localDVec.z * (pi.isRun ? 2.0f : 1.0f));
             anim.SetFloat(rightKey, localDVec.x * (pi.isRun ? 2.0f : 1.0f));
         }
@@ -102,6 +103,10 @@ public class ActorController : MonoBehaviour
         if (pi.jump)
         {
             anim.SetTrigger(jumpKey);
+            if (anim.GetFloat(forwardKey) > 1.5f)
+            {
+                anim.SetTrigger(jumpRollKey);
+            }
             canAttack = false;
         }
 
@@ -124,7 +129,7 @@ public class ActorController : MonoBehaviour
         }
 
         float weight = 0;
-        if ((CheckState("ground")|| CheckState("blocked")) && leftIsShield)
+        if ((CheckState("ground") || CheckState("blocked")) && leftIsShield)
         {
             weight = pi.isDefense ? 1 : 0;
         }
