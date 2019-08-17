@@ -290,6 +290,18 @@ public class ActorController : MonoBehaviour
         pi.inputEnable = false;
     }
 
+    public void OnStunnedEnter()
+    {
+        pi.inputEnable = false;
+        planarVec = Vector3.zero;
+    }
+
+    public void OnCounterBackEnter()
+    {
+        pi.inputEnable = false;
+        planarVec = Vector3.zero;
+    }
+
     public void OnDieEnter()
     {
         pi.inputEnable = false;
