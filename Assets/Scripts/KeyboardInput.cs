@@ -17,6 +17,8 @@ public class KeyboardInput : IUserInput
     public KeyCode keyJLeft = KeyCode.LeftArrow; //camera left
     public KeyCode keyJRight = KeyCode.RightArrow; //camera right
     public KeyCode keyJStick = KeyCode.Tab; //camera islock
+    public KeyCode keyJLT = KeyCode.Q; //
+    public KeyCode keyJRT = KeyCode.E; //
 
     [Header("===== Mouse Settings =====")] public bool mouseEnable = false; //mouse rotate camera enable?
     public float mouseSensitivityX = 1f; //mouse rotate camera X speed
@@ -31,6 +33,9 @@ public class KeyboardInput : IUserInput
     public MyButton buttonC = new MyButton();
     public MyButton buttonD = new MyButton();
     public MyButton buttonJStick = new MyButton();
+    public MyButton buttonJLT = new MyButton();
+    public MyButton buttonJRT = new MyButton();
+
 
 
     private void Update()
@@ -40,6 +45,9 @@ public class KeyboardInput : IUserInput
         buttonC.Tick(Input.GetKey(mouseEnable ? mouseLeftAttack : keyC));
         buttonD.Tick(Input.GetKey(mouseEnable ? mouseRightAttack : keyD));
         buttonJStick.Tick(Input.GetKey(keyJStick));
+        buttonJLT.Tick(Input.GetKey(keyJLT));
+        buttonJRT.Tick(Input.GetKey(keyJRT));
+
 
         if (mouseEnable)
         {
@@ -85,7 +93,13 @@ public class KeyboardInput : IUserInput
         roll = buttonA.OnReleased && buttonA.IsDelaying;
 
         isDefense = buttonD.IsPressing;
+
         leftAttack = buttonD.OnPressed;
+        lb = buttonD.OnPressed;
+        lt = buttonJLT.OnPressed;
+
         rightAttack = buttonC.OnPressed;
+        rb = buttonC.OnPressed;
+        rt = buttonJRT.OnPressed;
     }
 }

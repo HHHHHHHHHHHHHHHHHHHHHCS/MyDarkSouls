@@ -19,8 +19,10 @@ public abstract class IUserInput:MonoBehaviour
     public bool isDefense; //是否在防御
     public bool leftAttack;//是否左手攻击
     public bool lt;
+    public bool lb;
     public bool rightAttack;//是否右手攻击
     public bool rt;
+    public bool rb;
 
     [Header("===== Others =====")]
     public bool inputEnable = true;

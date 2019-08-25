@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponMsgSender : MonoBehaviour
+public class WeaponSender : MonoBehaviour
 {
     public WeaponManager weaponManager;
 

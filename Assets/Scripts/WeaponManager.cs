@@ -8,21 +8,26 @@ public class WeaponManager : IActorManager
     private GameObject leftHandle, rightHandle;
 
     private Collider weaponColliderL, weaponColliderR;
-    private WeaponMsgSender sender;
+    private WeaponSender sender;
+    private WeaponController wlC, wrC;
 
     private void Awake()
     {
         var senderTs = transform.Find("ybot");
-        sender = senderTs.GetComponent<WeaponMsgSender>();
+        sender = senderTs.GetComponent<WeaponSender>();
         if (!sender)
         {
-            sender = senderTs.gameObject.AddComponent<WeaponMsgSender>();
+            sender = senderTs.gameObject.AddComponent<WeaponSender>();
         }
 
         sender.weaponManager = this;
 
         leftHandle = transform.DeepFind("LWeaponHandle").gameObject;
         rightHandle = transform.DeepFind("RWeaponHandle").gameObject;
+
+
+        wlC = BindWeaponController(leftHandle);
+        wrC = BindWeaponController(rightHandle);
 
         weaponColliderL = rightHandle.transform.GetChild(0).GetComponent<Collider>();
         weaponColliderR = rightHandle.transform.GetChild(0).GetComponent<Collider>();
@@ -39,6 +44,21 @@ public class WeaponManager : IActorManager
             weaponColliderR.enabled = true;
 
         }
+    }
+
+
+    public WeaponController BindWeaponController(GameObject targetObj)
+    {
+        WeaponController tempWC;
+        tempWC = targetObj.GetComponent<WeaponController>();
+        if (tempWC == null)
+        {
+            tempWC = targetObj.AddComponent<WeaponController>();
+        }
+
+        tempWC.weaponManager = this;
+
+        return tempWC;
     }
 
     public void WeaponDisable()

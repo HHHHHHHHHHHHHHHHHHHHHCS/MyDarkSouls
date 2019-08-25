@@ -75,10 +75,13 @@ public class JoystickInput : IUserInput
 
 
         isDefense = buttonLB.IsPressing;
-        leftAttack = buttonLB.OnPressed;
-        lt = buttonLT.OnPressed;
-        rightAttack = buttonRB.OnPressed;
-        rt = buttonRT.OnPressed;
 
+        leftAttack = buttonLB.OnPressed;
+        lb = buttonLB.OnPressed;
+        lt = buttonLT.OnPressed;
+
+        rightAttack = buttonRB.OnPressed;
+        rb = buttonRB.OnPressed;
+        rt = buttonRT.OnPressed;
     }
 }

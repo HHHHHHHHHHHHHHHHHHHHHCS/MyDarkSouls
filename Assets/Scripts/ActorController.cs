@@ -125,6 +125,24 @@ public class ActorController : MonoBehaviour
             if (!(pi.leftAttack && leftIsShield))
             {
                 anim.SetTrigger(attackKey);
+            }  
+        }
+
+        if ((pi.rt || pi.lt) && (CheckState("ground") || CheckState("attackR") || CheckState("attackL") && canAttack))
+        {
+            if (pi.rt)
+            {
+
+            }
+            else
+            {
+                if (leftIsShield)
+                {
+                    anim.SetTrigger("counterBack");
+                }
+                else
+                {
+                }
             }
         }
 
@@ -282,7 +300,7 @@ public class ActorController : MonoBehaviour
 
     public void OnAttackExit()
     {
-        anim.GetComponent<WeaponMsgSender>().WeaponDisable();
+        anim.GetComponent<WeaponSender>().WeaponDisable();
     }
 
     public void OnBlockedEnter()
