@@ -32,9 +32,17 @@ public class ActorManager : MonoBehaviour
         return temp;
     }
 
-    public void TryDoDamage()
+    public void TryDoDamage(WeaponController wc)
     {
-        if (stateManager.isImmortal)
+        if (stateManager.isCounterBackSucceed)
+        {
+            wc.weaponManager.actorManager.Stunned();
+        }
+        else if (stateManager.isCounterBackFailure)
+        {
+            HitOrDie(false);
+        }
+        else if (stateManager.isImmortal)
         {//无敌状态
 
         }
@@ -44,22 +52,36 @@ public class ActorManager : MonoBehaviour
         }
         else
         {
-            if (stateManager.hp <= 0)
+            HitOrDie(true);
+        }
+
+    }
+
+    public void HitOrDie(bool doHitAnim)
+    {
+        if (stateManager.hp <= 0)
+        {
+        }
+        else
+        {
+            DoDamage();
+            if (stateManager.hp > 0)
             {
-            }
-            else
-            {
-                DoDamage();
-                if (stateManager.hp > 0)
+                if (doHitAnim)
                 {
                     OnHit();
                 }
-                else
-                {
-                    OnDie();
-                }
+            }
+            else
+            {
+                OnDie();
             }
         }
+    }
+
+    public void Stunned()
+    {
+        actorController.IssueTrigger("stunned");
     }
 
     public void DoDamage()
@@ -89,5 +111,11 @@ public class ActorManager : MonoBehaviour
 
         actorController.Camcon.enabled = false;
         battleManager.DisableMsgSender();
+    }
+
+
+    public void SetIsCounterBack(bool value)
+    {
+        stateManager.isCounterBackEnabled = value;
     }
 }

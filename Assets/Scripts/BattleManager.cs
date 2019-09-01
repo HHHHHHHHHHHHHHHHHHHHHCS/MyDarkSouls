@@ -28,7 +28,9 @@ public class BattleManager : IActorManager
 
     public void AcceptSender(GameObject go)
     {
-        actorManager.TryDoDamage();
+        var wc = go.transform.parent.GetComponent<WeaponController>();
+
+        actorManager.TryDoDamage(wc);
     }
 
     public void DisableMsgSender()

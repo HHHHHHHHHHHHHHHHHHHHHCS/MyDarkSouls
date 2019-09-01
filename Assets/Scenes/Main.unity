@@ -236,8 +236,10 @@ MonoBehaviour:
   isDefense: 0
   leftAttack: 0
   lt: 0
+  lb: 0
   rightAttack: 0
   rt: 0
+  rb: 0
   inputEnable: 1
   targetDUp: 0
   targetDRight: 0
@@ -256,6 +258,8 @@ MonoBehaviour:
   keyJLeft: 276
   keyJRight: 275
   keyJStick: 9
+  keyJLT: 113
+  keyJRT: 101
   mouseEnable: 1
   mouseSensitivityX: 1
   mouseSensitivityY: 1
@@ -286,8 +290,10 @@ MonoBehaviour:
   isDefense: 0
   leftAttack: 0
   lt: 0
+  lb: 0
   rightAttack: 0
   rt: 0
+  rb: 0
   inputEnable: 1
   targetDUp: 0
   targetDRight: 0
@@ -359,8 +365,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actorManager: {fileID: 0}
-  maxHp: 30
-  hp: 25
+  maxHp: 100
+  hp: 100
   isGround: 0
   isJump: 0
   isFall: 0
@@ -371,8 +377,12 @@ MonoBehaviour:
   isDie: 0
   isBlocked: 0
   isDefense: 0
+  isCounterBack: 0
+  isCounterBackEnabled: 0
   isAllowDefense: 0
   isImmortal: 0
+  isCounterBackSucceed: 0
+  isCounterBackFailure: 0
 --- !u!4 &31371925 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400080, guid: 2f9d958fbcd96e44ca35a77a15e3187a,
@@ -872,8 +882,10 @@ MonoBehaviour:
   isDefense: 0
   leftAttack: 0
   lt: 0
+  lb: 0
   rightAttack: 0
   rt: 0
+  rb: 0
   inputEnable: 1
   targetDUp: 0
   targetDRight: 0
@@ -977,8 +989,12 @@ MonoBehaviour:
   isDie: 0
   isBlocked: 0
   isDefense: 0
+  isCounterBack: 0
+  isCounterBackEnabled: 0
   isAllowDefense: 0
   isImmortal: 0
+  isCounterBackSucceed: 0
+  isCounterBackFailure: 0
 --- !u!114 &615876204
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -33,20 +33,6 @@ public class WeaponManager : IActorManager
         weaponColliderR = rightHandle.transform.GetChild(0).GetComponent<Collider>();
     }
 
-    public void WeaponEnable()
-    {
-        if (actorManager.actorController.CheckState("attackL"))
-        {
-            weaponColliderL.enabled = true;
-        }
-        else
-        {
-            weaponColliderR.enabled = true;
-
-        }
-    }
-
-
     public WeaponController BindWeaponController(GameObject targetObj)
     {
         WeaponController tempWC;
@@ -61,9 +47,32 @@ public class WeaponManager : IActorManager
         return tempWC;
     }
 
+    public void WeaponEnable()
+    {
+        if (actorManager.actorController.CheckState("attackL"))
+        {
+            weaponColliderL.enabled = true;
+        }
+        else
+        {
+            weaponColliderR.enabled = true;
+        }
+    }
+
+
     public void WeaponDisable()
     {
         weaponColliderL.enabled = false;
         weaponColliderR.enabled = false;
+    }
+
+    public void CounterBackEnable()
+    {
+        actorManager.SetIsCounterBack(true);
+    }
+
+    public void CounterBackDisable()
+    {
+        actorManager.SetIsCounterBack(false);
     }
 }

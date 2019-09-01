@@ -6,7 +6,7 @@ using UnityEngine;
 public class StateManager : IActorManager
 {
     public int maxHp = 30;
-    public int hp = 15;
+    public int hp = 30;
 
     [Header("1st order state flags")] public bool isGround;
     public bool isJump;
@@ -18,10 +18,13 @@ public class StateManager : IActorManager
     public bool isDie;
     public bool isBlocked;
     public bool isDefense;
+    public bool isCounterBack; //盾反状态
+    public bool isCounterBackEnabled; //盾反事件
 
-    [Header("2nd order state flags")]
-    public bool isAllowDefense;
+    [Header("2nd order state flags")] public bool isAllowDefense;
     public bool isImmortal;
+    public bool isCounterBackSucceed;
+    public bool isCounterBackFailure;
 
     private void Update()
     {
@@ -35,10 +38,14 @@ public class StateManager : IActorManager
         isHit = actorManager.actorController.CheckState("hit");
         isDie = actorManager.actorController.CheckState("die");
         isBlocked = actorManager.actorController.CheckState("blocked");
+        isCounterBack = actorManager.actorController.CheckState("counterBack");
+
 
         isAllowDefense = isGround || isBlocked;
         isDefense = isAllowDefense && actorManager.actorController.CheckState("defense", "defense");
         isImmortal = isRoll || isJab;
+        isCounterBackSucceed = isCounterBackEnabled;
+        isCounterBackFailure = isCounterBack && !isCounterBackEnabled;
     }
 
     public void AddHp(int value)

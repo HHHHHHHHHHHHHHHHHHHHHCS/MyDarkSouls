@@ -15,4 +15,14 @@ public class WeaponSender : MonoBehaviour
     {
         weaponManager.WeaponDisable();
     }
+
+    public void CounterBackEnable()
+    {
+        weaponManager.CounterBackEnable();
+    }
+
+    public void CounterBackDisable()
+    {
+        weaponManager.CounterBackDisable();
+    }
 }
