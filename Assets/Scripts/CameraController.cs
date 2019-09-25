@@ -80,6 +80,11 @@ public class CameraController : MonoBehaviour
             {
                 LockTarget = null;
             }
+
+            if (lockTarget.am && lockTarget.am.StateManager.isDie)
+            {//TODO:
+                LockTarget = null;
+            }
         }
     }
 
@@ -135,7 +140,7 @@ public class CameraController : MonoBehaviour
         var boxCenter = modelOrigin2 + model.forward * 5f;
         Collider[] cols = Physics.OverlapBox(boxCenter, new Vector3(0.5f, 0.5f, 5f), model.rotation);
 
-        cols = cols.Where(x => x.CompareTag(isAI?"Player":"Enemy")).ToArray();
+        cols = cols.Where(x => x.CompareTag(isAI ? "Player" : "Enemy")).ToArray();
         if (cols.Length == 0 || (cols.Length == 1 && cols[0].transform == LockTarget?.target))
         {
             LockTarget = null;
@@ -185,6 +190,7 @@ public class CameraController : MonoBehaviour
     {
         public Transform target;
         public float halfHeight;
+        public ActorManager am;
 
         public Vector3 GetHalfPos => new Vector3(target.position.x, target.position.y + halfHeight, target.position.z);
 
@@ -193,6 +199,7 @@ public class CameraController : MonoBehaviour
         {
             target = _target;
             halfHeight = _halfHeight;
+            am = target.GetComponent<ActorManager>();
         }
     }
 }

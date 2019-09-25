@@ -365,8 +365,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actorManager: {fileID: 0}
-  maxHp: 100
-  hp: 100
+  maxHp: 1000
+  hp: 1000
   isGround: 0
   isJump: 0
   isFall: 0

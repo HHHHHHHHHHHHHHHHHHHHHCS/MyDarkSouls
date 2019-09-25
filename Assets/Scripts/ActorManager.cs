@@ -10,6 +10,8 @@ public class ActorManager : MonoBehaviour
     private WeaponManager weaponManager;
     private StateManager stateManager;
 
+    public StateManager StateManager => stateManager;
+
     private void Awake()
     {
         actorController = GetComponent<ActorController>();
