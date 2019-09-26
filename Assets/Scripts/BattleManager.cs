@@ -28,9 +28,23 @@ public class BattleManager : IActorManager
 
     public void AcceptSender(GameObject go)
     {
-        var wc = go.transform.parent.GetComponent<WeaponController>();
+        var targetWc = go.transform.parent.GetComponent<WeaponController>();
 
-        actorManager.TryDoDamage(wc);
+        GameObject attacker = targetWc.weaponManager.actorManager.actorController.Model;
+        GameObject receiver = actorManager.actorController.Model;
+
+        Vector3 attackingDir = receiver.transform.position - attacker.transform.position;
+        attackingDir.y = 0;
+
+        Vector3 forward = attacker.transform.forward;
+        forward.y = 0;
+
+        float attackingAngle = Vector3.Angle(attackingDir, forward);
+        //TODO:
+        if (attackingAngle <= 45f)
+        {
+            actorManager.TryDoDamage(targetWc);
+        }
     }
 
     public void DisableMsgSender()

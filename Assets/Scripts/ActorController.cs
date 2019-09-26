@@ -291,6 +291,7 @@ public class ActorController : MonoBehaviour
     {
         pi.inputEnable = false;
         planarVec = Vector3.zero;
+        anim.GetComponent<WeaponSender>().WeaponDisable();
     }
 
     public void OnHitExit()
@@ -324,5 +325,6 @@ public class ActorController : MonoBehaviour
     {
         pi.inputEnable = false;
         planarVec = Vector3.zero;
+        anim.GetComponent<WeaponSender>().WeaponDisable();
     }
 }

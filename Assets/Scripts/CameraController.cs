@@ -82,7 +82,7 @@ public class CameraController : MonoBehaviour
             }
 
             if (lockTarget.am && lockTarget.am.StateManager.isDie)
-            {//TODO:
+            {
                 LockTarget = null;
             }
         }
