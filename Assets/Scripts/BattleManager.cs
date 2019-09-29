@@ -35,15 +35,23 @@ public class BattleManager : IActorManager
 
         Vector3 attackingDir = receiver.transform.position - attacker.transform.position;
         attackingDir.y = 0;
+        Vector3 attackerForward = attacker.transform.forward;
+        attackerForward.y = 0;
+        float attackingAngle = Vector3.Angle(attackingDir, attackerForward);
 
-        Vector3 forward = attacker.transform.forward;
-        forward.y = 0;
 
-        float attackingAngle = Vector3.Angle(attackingDir, forward);
-        //TODO:
+        Vector3 counterDir = -attackingDir;
+        Vector3 receiverForward = receiver.transform.forward;
+        receiverForward.y = 0;
+        float counterAngle1 = Vector3.Angle(receiverForward, counterDir);
+        float counterAngle2 = Vector3.Angle(attackerForward, receiverForward);
+
+        bool attackValid = (attackingAngle < 45f);
+        bool counterValid = (counterAngle1 < 30 && Mathf.Abs(counterAngle2 - 180) < 30); 
+
         if (attackingAngle <= 45f)
         {
-            actorManager.TryDoDamage(targetWc);
+            actorManager.TryDoDamage(targetWc, attackValid, counterValid);
         }
     }
 

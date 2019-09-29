@@ -34,19 +34,25 @@ public class ActorManager : MonoBehaviour
         return temp;
     }
 
-    public void TryDoDamage(WeaponController wc)
+    public void TryDoDamage(WeaponController wc, bool attackValid, bool counterValid)
     {
         if (stateManager.isCounterBackSucceed)
         {
-            wc.weaponManager.actorManager.Stunned();
+            if (counterValid)
+            {
+                wc.weaponManager.actorManager.Stunned();
+            }
         }
         else if (stateManager.isCounterBackFailure)
         {
-            HitOrDie(false);
+            if (attackValid)
+            {
+                HitOrDie(false);
+            }
         }
         else if (stateManager.isImmortal)
-        {//无敌状态
-
+        {
+            //无敌状态
         }
         else if (stateManager.isDefense)
         {
@@ -54,9 +60,11 @@ public class ActorManager : MonoBehaviour
         }
         else
         {
-            HitOrDie(true);
+            if (attackValid)
+            {
+                HitOrDie(true);
+            }
         }
-
     }
 
     public void HitOrDie(bool doHitAnim)
