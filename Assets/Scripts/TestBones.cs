@@ -10,8 +10,7 @@ public class TestBones : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        print(srcMeshRenderer.bones.Length);
-        print(tgtMeshRenderer.bones.Length);
+        tgtMeshRenderer.bones = srcMeshRenderer.bones;
     }
 
     // Update is called once per frame
