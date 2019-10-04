@@ -107,6 +107,7 @@ public class ActorController : MonoBehaviour
             {
                 anim.SetTrigger(jumpRollKey);
             }
+
             canAttack = false;
         }
 
@@ -125,14 +126,13 @@ public class ActorController : MonoBehaviour
             if (!(pi.leftAttack && leftIsShield))
             {
                 anim.SetTrigger(attackKey);
-            }  
+            }
         }
 
         if ((pi.rt || pi.lt) && (CheckState("ground") || CheckState("attackR") || CheckState("attackL") && canAttack))
         {
             if (pi.rt)
             {
-
             }
             else
             {
@@ -326,5 +326,10 @@ public class ActorController : MonoBehaviour
         pi.inputEnable = false;
         planarVec = Vector3.zero;
         anim.GetComponent<WeaponSender>().WeaponDisable();
+    }
+
+    public void OnCounterBackExit()
+    {
+        anim.GetComponent<WeaponSender>().CounterBackDisable();
     }
 }
