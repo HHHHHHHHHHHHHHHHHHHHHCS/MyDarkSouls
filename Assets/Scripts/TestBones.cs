@@ -7,14 +7,9 @@ public class TestBones : MonoBehaviour
     public SkinnedMeshRenderer srcMeshRenderer;
     public SkinnedMeshRenderer tgtMeshRenderer;
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         tgtMeshRenderer.bones = srcMeshRenderer.bones;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
 }
