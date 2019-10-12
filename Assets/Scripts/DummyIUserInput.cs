@@ -5,8 +5,10 @@ using UnityEngine;
 
 public class DummyIUserInput : IUserInput
 {
+    
     private IEnumerator Start()
     {
+
         dUp = 1.0f;
         dRight = 0;
         yield return  new WaitForSeconds(1f);
@@ -16,10 +18,11 @@ public class DummyIUserInput : IUserInput
         dUp = 0f;
         dRight = 0;
     }
+    
 
     private void Update()
     {
-            rightAttack = true;
+        rightAttack = true;
         UpdateDmagDevc(dUp,dRight);
     }
 }

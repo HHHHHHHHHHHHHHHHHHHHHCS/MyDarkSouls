@@ -13,7 +13,7 @@ public class WeaponManager : IActorManager
 
     private void Awake()
     {
-        var senderTs = transform.Find("ybot");
+        var senderTs = transform.Find("Character");
         sender = senderTs.GetComponent<WeaponSender>();
         if (!sender)
         {

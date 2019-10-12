@@ -43,6 +43,7 @@ public class ActorController : MonoBehaviour
     //private int attackLayer; //攻击的Layer
     public bool leftIsShield = true; //左手是否是盾
 
+    //[field: SerializeField]
     public GameObject Model { get; private set; }
 
     public CameraController Camcon { get; private set; }
@@ -60,7 +61,7 @@ public class ActorController : MonoBehaviour
             }
         }
 
-        Model = transform.Find("ybot").gameObject;
+        Model = transform.Find("Character").gameObject;
         Camcon = transform.Find("CameraHandle").GetComponent<CameraController>();
         anim = Model.GetComponent<Animator>();
         rigi = transform.GetComponent<Rigidbody>();
