@@ -5,7 +5,7 @@ ModelImporter:
   internalIDToNameTable:
   - first:
       74: 2207850806306222022
-    second: Noesis Frames
+    second: stabbedFront
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -38,7 +38,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Noesis Frames
+      name: stabbedFront
       takeName: Noesis Frames
       internalID: 2207850806306222022
       firstFrame: 0
