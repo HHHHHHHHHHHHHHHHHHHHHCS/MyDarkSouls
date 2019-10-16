@@ -2313,9 +2313,9 @@ PlayableDirector:
   m_InitialTime: 0
   m_SceneBindings:
   - key: {fileID: 2018010373631199363, guid: dbb4b9f8626ad0348aab18638baa3bb1, type: 2}
-    value: {fileID: 1416613967}
+    value: {fileID: 0}
   - key: {fileID: 6432676796396183898, guid: dbb4b9f8626ad0348aab18638baa3bb1, type: 2}
-    value: {fileID: 119586414}
+    value: {fileID: 0}
   m_ExposedReferences:
     m_References:
     - 1f94aab4bf13a7646893a82ab0dfdfd8: {fileID: 781144299}
@@ -2346,6 +2346,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pd: {fileID: 0}
+  attacker: {fileID: 1416613967}
+  victim: {fileID: 119586414}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
