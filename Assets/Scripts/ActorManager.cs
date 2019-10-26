@@ -128,4 +128,9 @@ public class ActorManager : MonoBehaviour
     {
         stateManager.isCounterBackEnabled = value;
     }
+
+    public void LockUnlockActorController(bool value)
+    {
+        actorController.SetBool("lock", value);
+    }
 }

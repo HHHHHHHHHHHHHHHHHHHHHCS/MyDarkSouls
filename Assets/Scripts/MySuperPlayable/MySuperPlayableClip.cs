@@ -7,11 +7,11 @@ using UnityEngine.Timeline;
 public class MySuperPlayableClip : PlayableAsset, ITimelineClipAsset
 {
     public MySuperPlayableBehaviour template = new MySuperPlayableBehaviour ();
-    public ExposedReference<Camera> myCamera;
+    public ExposedReference<GameObject> myCamera;
 
     public ClipCaps clipCaps
     {
-        get { return ClipCaps.None; }
+        get { return ClipCaps.Blending; }
     }
 
     public override Playable CreatePlayable (PlayableGraph graph, GameObject owner)

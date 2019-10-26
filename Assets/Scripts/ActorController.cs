@@ -288,6 +288,11 @@ public class ActorController : MonoBehaviour
         anim.SetTrigger(name);
     }
 
+    public void SetBool(string boolName, bool value)
+    {
+        anim.SetBool(boolName, value);
+    }
+
     public void OnHitEnter()
     {
         pi.inputEnable = false;

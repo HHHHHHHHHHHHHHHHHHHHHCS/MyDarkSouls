@@ -2316,15 +2316,16 @@ PlayableDirector:
     value: {fileID: 0}
   - key: {fileID: 6432676796396183898, guid: dbb4b9f8626ad0348aab18638baa3bb1, type: 2}
     value: {fileID: 0}
-  - key: {fileID: 1308801232624610528, guid: dbb4b9f8626ad0348aab18638baa3bb1, type: 2}
-    value: {fileID: 705507994}
   - key: {fileID: -1226823043828123890, guid: dbb4b9f8626ad0348aab18638baa3bb1, type: 2}
     value: {fileID: 5281881}
+  - key: {fileID: 1550226175919561098, guid: dbb4b9f8626ad0348aab18638baa3bb1, type: 2}
+    value: {fileID: 781144303}
   m_ExposedReferences:
     m_References:
-    - d72b3175789a6e348bfc39c25fd46d69: {fileID: 963194227}
+    - 8095b31055c38c745b106ed3c786d9c1: {fileID: 781144299}
+    - d72b3175789a6e348bfc39c25fd46d69: {fileID: 5281873}
     - 1f94aab4bf13a7646893a82ab0dfdfd8: {fileID: 781144299}
-    - 84a8444107a10bb4c8fa22d22b1b0071: {fileID: 963194227}
+    - 84a8444107a10bb4c8fa22d22b1b0071: {fileID: 5281873}
 --- !u!4 &697374700
 Transform:
   m_ObjectHideFlags: 0
@@ -2426,7 +2427,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 1.1755302e-38, y: 0, z: 0, w: 9.404242e-38}
+  m_BoundingSphereOverride: {x: 0, y: 1.8486942e+19, z: 5.3e-43, w: 1.3263189e+19}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
