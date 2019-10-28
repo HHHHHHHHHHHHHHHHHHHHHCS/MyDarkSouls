@@ -2323,7 +2323,9 @@ PlayableDirector:
   m_ExposedReferences:
     m_References:
     - 8095b31055c38c745b106ed3c786d9c1: {fileID: 781144299}
+    - fb060f64c4e7d1a4981449590c4e2d92: {fileID: 781144299}
     - d72b3175789a6e348bfc39c25fd46d69: {fileID: 5281873}
+    - b5c1db19172f46149b623a1cdf44843f: {fileID: 781144299}
     - 1f94aab4bf13a7646893a82ab0dfdfd8: {fileID: 781144299}
     - 84a8444107a10bb4c8fa22d22b1b0071: {fileID: 5281873}
 --- !u!4 &697374700

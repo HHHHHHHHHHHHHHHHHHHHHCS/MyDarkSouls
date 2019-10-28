@@ -75,7 +75,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c0edbc2bca59420499f24f6c60b3cdde, type: 3}
-  m_Name: Player Attacker Script
+  m_Name: Player Attack Script
   m_EditorClassIdentifier: 
   m_Version: 3
   m_AnimClip: {fileID: 0}

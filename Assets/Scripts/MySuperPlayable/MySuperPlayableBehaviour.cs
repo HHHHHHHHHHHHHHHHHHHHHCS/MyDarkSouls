@@ -9,6 +9,8 @@ public class MySuperPlayableBehaviour : PlayableBehaviour
     public GameObject myCamera;
     public float myFloat;
 
+    private PlayableDirector pd;
+
     public override void OnPlayableCreate(Playable playable)
     {
         //Debug.Log("OnPlayableCreate");
@@ -17,28 +19,37 @@ public class MySuperPlayableBehaviour : PlayableBehaviour
     public override void OnGraphStart(Playable playable)
     {
         //Debug.Log("OnGraphStart");
-        PlayableDirector pd = playable.GetGraph().GetResolver() as PlayableDirector;
-
-        foreach (var track in pd.playableAsset.outputs)
+        if (Application.isPlaying)
         {
-            if (track.streamName.Contains("Attack Script"))
+            //暂存PD给STOP的时候用
+            pd = playable.GetGraph().GetResolver() as PlayableDirector;
+
+            foreach (var track in pd.playableAsset.outputs)
             {
-                ActorManager am = pd.GetGenericBinding(track.sourceObject) as ActorManager;
-                am.LockUnlockActorController(true);
+                if (track.streamName.Contains("Attack Script"))
+                {
+                    ActorManager am = pd.GetGenericBinding(track.sourceObject) as ActorManager;
+                    am.LockUnlockActorController(true);
+                }
             }
         }
     }
 
     public override void OnGraphStop(Playable playable)
     {
-        PlayableDirector pd = playable.GetGraph().GetResolver() as PlayableDirector;
-        Debug.Log(pd);
-        foreach (var track in pd.playableAsset.outputs)
+        //Debug.Log("OnGraphStop");
+        if (Application.isPlaying)
         {
-            if (track.streamName.Contains("Attack Script"))
+            if (pd)
             {
-                ActorManager am = pd.GetGenericBinding(track.sourceObject) as ActorManager;
-                am.LockUnlockActorController(false);
+                foreach (var track in pd.playableAsset.outputs)
+                {
+                    if (track.streamName.Contains("Attack Script"))
+                    {
+                        ActorManager am = pd.GetGenericBinding(track.sourceObject) as ActorManager;
+                        am.LockUnlockActorController(false);
+                    }
+                }
             }
         }
     }
