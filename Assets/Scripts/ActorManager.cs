@@ -9,6 +9,7 @@ public class ActorManager : MonoBehaviour
     private BattleManager battleManager;
     private WeaponManager weaponManager;
     private StateManager stateManager;
+    private DirectorManager directorManager;
 
     public StateManager StateManager => stateManager;
 
@@ -19,6 +20,7 @@ public class ActorManager : MonoBehaviour
         battleManager = Bind<BattleManager>();
         weaponManager = Bind<WeaponManager>();
         stateManager = Bind<StateManager>();
+        directorManager = Bind<DirectorManager>();
     }
 
     private T Bind<T>(GameObject go = null) where T : IActorManager
