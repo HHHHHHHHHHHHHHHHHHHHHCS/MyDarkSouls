@@ -10,6 +10,7 @@ public class ActorManager : MonoBehaviour
     private WeaponManager weaponManager;
     private StateManager stateManager;
     private DirectorManager directorManager;
+    private InteractionManager interactionManager;
 
     public StateManager StateManager => stateManager;
 
@@ -21,6 +22,7 @@ public class ActorManager : MonoBehaviour
         weaponManager = Bind<WeaponManager>();
         stateManager = Bind<StateManager>();
         directorManager = Bind<DirectorManager>();
+        interactionManager = Bind<InteractionManager>(battleManager.msgSender.gameObject);
     }
 
     private T Bind<T>(GameObject go = null) where T : IActorManager
