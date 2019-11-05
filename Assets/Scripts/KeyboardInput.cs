@@ -12,6 +12,7 @@ public class KeyboardInput : IUserInput
     public KeyCode keyB = KeyCode.Space; //jump
     public KeyCode keyC = KeyCode.J; //leftAttack
     public KeyCode keyD = KeyCode.K; //rightAttack
+    public KeyCode keyE = KeyCode.F; //action
     public KeyCode keyJUp = KeyCode.UpArrow; //camera up
     public KeyCode keyJDown = KeyCode.DownArrow; //camera down
     public KeyCode keyJLeft = KeyCode.LeftArrow; //camera left
@@ -32,10 +33,10 @@ public class KeyboardInput : IUserInput
     public MyButton buttonB = new MyButton();
     public MyButton buttonC = new MyButton();
     public MyButton buttonD = new MyButton();
+    public MyButton buttonE = new MyButton();
     public MyButton buttonJStick = new MyButton();
     public MyButton buttonJLT = new MyButton();
     public MyButton buttonJRT = new MyButton();
-
 
 
     private void Update()
@@ -44,6 +45,7 @@ public class KeyboardInput : IUserInput
         buttonB.Tick(Input.GetKey(keyB));
         buttonC.Tick(Input.GetKey(mouseEnable ? mouseLeftAttack : keyC));
         buttonD.Tick(Input.GetKey(mouseEnable ? mouseRightAttack : keyD));
+        buttonE.Tick(Input.GetKey(keyE));
         buttonJStick.Tick(Input.GetKey(keyJStick));
         buttonJLT.Tick(Input.GetKey(keyJLT));
         buttonJRT.Tick(Input.GetKey(keyJRT));
@@ -88,9 +90,11 @@ public class KeyboardInput : IUserInput
         //玩家锁定
         islock = buttonJStick.OnPressed;
         //双击跳跃
-        jump = (buttonA.OnPressed && buttonA.IsExtending)||buttonB.OnPressed;
+        jump = (buttonA.OnPressed && buttonA.IsExtending) || buttonB.OnPressed;
         //短按翻滚
         roll = buttonA.OnReleased && buttonA.IsDelaying;
+        //动作
+        action = buttonE.OnPressed;
 
         isDefense = buttonD.IsPressing;
 

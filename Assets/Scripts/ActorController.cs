@@ -5,6 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class ActorController : MonoBehaviour
 {
+    public delegate void OnActionDelegate();
+
     private readonly int forwardKey = Animator.StringToHash("forward");
     private readonly int jumpKey = Animator.StringToHash("jump");
     private readonly int jumpRollKey = Animator.StringToHash("jumpRoll");
@@ -42,6 +44,8 @@ public class ActorController : MonoBehaviour
 
     //private int attackLayer; //攻击的Layer
     public bool leftIsShield = true; //左手是否是盾
+
+    public event OnActionDelegate OnAction;
 
     //[field: SerializeField]
     public GameObject Model { get; private set; }
@@ -145,6 +149,11 @@ public class ActorController : MonoBehaviour
                 {
                 }
             }
+        }
+
+        if (pi.action)
+        {
+            OnAction?.Invoke();
         }
 
         float weight = 0;

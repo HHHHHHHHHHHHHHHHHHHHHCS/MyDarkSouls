@@ -233,6 +233,7 @@ MonoBehaviour:
   jUp: 0
   jRight: 0
   roll: 0
+  action: 0
   isDefense: 0
   leftAttack: 0
   lt: 0
@@ -253,6 +254,7 @@ MonoBehaviour:
   keyB: 32
   keyC: 106
   keyD: 107
+  keyE: 102
   keyJUp: 273
   keyJDown: 274
   keyJLeft: 276
@@ -287,6 +289,7 @@ MonoBehaviour:
   jUp: 0
   jRight: 0
   roll: 0
+  action: 0
   isDefense: 0
   leftAttack: 0
   lt: 0
@@ -1928,6 +1931,7 @@ MonoBehaviour:
   jUp: 0
   jRight: 0
   roll: 0
+  action: 0
   isDefense: 0
   leftAttack: 0
   lt: 0
@@ -2830,6 +2834,7 @@ MonoBehaviour:
   jUp: 0
   jRight: 0
   roll: 0
+  action: 0
   isDefense: 0
   leftAttack: 0
   lt: 0
@@ -5482,7 +5487,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1484270874}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0.5}
+  m_LocalPosition: {x: 0, y: 1, z: -0.6}
   m_LocalScale: {x: 0.75, y: 1, z: 1.25}
   m_Children: []
   m_Father: {fileID: 119586413}

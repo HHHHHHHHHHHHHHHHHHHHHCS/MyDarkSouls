@@ -16,6 +16,7 @@ public abstract class IUserInput:MonoBehaviour
     //public bool attack; //是否在攻击
     public bool roll; //是否在翻滚
 
+    public bool action; //动作
     public bool isDefense; //是否在防御
     public bool leftAttack;//是否左手攻击
     public bool lt;

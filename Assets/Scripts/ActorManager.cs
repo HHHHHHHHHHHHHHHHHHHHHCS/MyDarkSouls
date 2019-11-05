@@ -23,6 +23,8 @@ public class ActorManager : MonoBehaviour
         stateManager = Bind<StateManager>();
         directorManager = Bind<DirectorManager>();
         interactionManager = Bind<InteractionManager>(battleManager.msgSender.gameObject);
+
+        actorController.OnAction += DoAction;
     }
 
     private T Bind<T>(GameObject go = null) where T : IActorManager
@@ -136,5 +138,10 @@ public class ActorManager : MonoBehaviour
     public void LockUnlockActorController(bool value)
     {
         actorController.SetBool("lock", value);
+    }
+
+    public void DoAction()
+    {
+        Debug.Log("Do Action");
     }
 }

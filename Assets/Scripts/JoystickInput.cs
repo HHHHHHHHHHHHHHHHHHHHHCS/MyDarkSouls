@@ -72,6 +72,8 @@ public class JoystickInput : IUserInput
         jump = buttonA.OnPressed && buttonA.IsExtending;
         //短按翻滚
         roll = buttonA.OnReleased && buttonA.IsDelaying;
+        //动作
+        action = buttonC.OnPressed;
 
 
         isDefense = buttonLB.IsPressing;
