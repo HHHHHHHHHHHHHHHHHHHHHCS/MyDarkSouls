@@ -30,7 +30,7 @@ public class ActorController : MonoBehaviour
 
 
     public IUserInput pi;
-    private Animator anim;
+    public Animator anim;
     private Rigidbody rigi;
     private Vector3 planarVec; //平面移动的量
     private Vector3 thrustVec; //高度移动的量

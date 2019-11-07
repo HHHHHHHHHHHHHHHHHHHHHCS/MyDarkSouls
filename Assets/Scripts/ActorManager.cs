@@ -5,11 +5,13 @@ using UnityEngine;
 
 public class ActorManager : MonoBehaviour
 {
+    private static DirectorManager directorManager;
+
     [HideInInspector] public ActorController actorController;
     private BattleManager battleManager;
     private WeaponManager weaponManager;
     private StateManager stateManager;
-    private DirectorManager directorManager;
+    private EventCasterManager eventCasterManager;
     private InteractionManager interactionManager;
 
     public StateManager StateManager => stateManager;
@@ -21,7 +23,12 @@ public class ActorManager : MonoBehaviour
         battleManager = Bind<BattleManager>();
         weaponManager = Bind<WeaponManager>();
         stateManager = Bind<StateManager>();
-        directorManager = Bind<DirectorManager>();
+        if (directorManager == null)
+        {
+            eventCasterManager = Bind<EventCasterManager>(transform.Find("Character").DeepFind("Caster")?.gameObject);
+            directorManager = Bind<DirectorManager>(GameObject.Find("Director"));
+        }
+
         interactionManager = Bind<InteractionManager>(battleManager.msgSender.gameObject);
 
         actorController.OnAction += DoAction;
@@ -30,7 +37,7 @@ public class ActorManager : MonoBehaviour
     private T Bind<T>(GameObject go = null) where T : IActorManager
     {
         go = go ?? gameObject;
-        T temp = GetComponent<T>();
+        T temp = go.GetComponent<T>();
         if (temp == null)
         {
             temp = go.AddComponent<T>();
@@ -142,6 +149,12 @@ public class ActorManager : MonoBehaviour
 
     public void DoAction()
     {
-        Debug.Log("Do Action");
+        if (interactionManager.overlapEcastms.Count != 0)
+        {
+            if (interactionManager.overlapEcastms[0].eventName == "frontStab")
+            {
+                directorManager.PlayFrontStab(this, interactionManager.overlapEcastms[0].actorManager);
+            }
+        }
     }
 }
