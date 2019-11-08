@@ -23,12 +23,8 @@ public class ActorManager : MonoBehaviour
         battleManager = Bind<BattleManager>();
         weaponManager = Bind<WeaponManager>();
         stateManager = Bind<StateManager>();
-        if (directorManager == null)
-        {
-            eventCasterManager = Bind<EventCasterManager>(transform.Find("Character").DeepFind("Caster")?.gameObject);
-            directorManager = Bind<DirectorManager>(GameObject.Find("Director"));
-        }
-
+        eventCasterManager = Bind<EventCasterManager>(transform.Find("Character").DeepFind("Caster")?.gameObject);
+        directorManager = Bind<DirectorManager>(GameObject.Find("Director"));
         interactionManager = Bind<InteractionManager>(battleManager.msgSender.gameObject);
 
         actorController.OnAction += DoAction;

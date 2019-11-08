@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
+using Object = UnityEngine.Object;
 
 [RequireComponent(typeof(PlayableDirector))]
 public class DirectorManager : IActorManager
@@ -11,15 +12,13 @@ public class DirectorManager : IActorManager
     private PlayableDirector pd;
 
     [Header("=== Timeline assets ===")] public TimelineAsset frontStab;
- 
+
 
     private void Awake()
     {
         pd = GetComponent<PlayableDirector>();
         pd.playOnAwake = false;
         //pd.playableAsset = Instantiate(frontStab);
-
-
     }
 
     public void PlayFrontStab(ActorManager attacker, ActorManager victim)
@@ -28,29 +27,25 @@ public class DirectorManager : IActorManager
 
         foreach (var track in pd.playableAsset.outputs)
         {
-            if (track.streamName.Contains("Attacker"))
+            Object obj = null;
+            switch (track.streamName)
             {
-                if (track.streamName.Contains("Script"))
-                {
-                    pd.SetGenericBinding(track.sourceObject, attacker);
-                }
-                else
-                {
-                    pd.SetGenericBinding(track.sourceObject, attacker.actorController.anim);
-                }
+                case "Attacker Animation":
+                    obj = attacker.actorController.anim;
+                    break;
+                case "Attacker Script":
+                    obj = attacker;
+                    break;
+                case "Victim Animation":
+                    obj = victim.actorController.anim;
+                    break;
+                case "Victim Script":
+                    obj = victim;
+                    break;
             }
-            else if (track.streamName.Contains("Victim"))
-            {
-                if (track.streamName.Contains("Script"))
-                {
-                    pd.SetGenericBinding(track.sourceObject, victim);
-                }
-                else
-                {
-                    Debug .Log(victim.actorController);
-                    pd.SetGenericBinding(track.sourceObject, victim.actorController.anim);
-                }
-            }
+
+            if (obj != null)
+                pd.SetGenericBinding(track.sourceObject, obj);
         }
 
         pd.Play();
