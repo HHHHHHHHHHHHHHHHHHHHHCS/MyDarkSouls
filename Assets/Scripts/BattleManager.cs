@@ -30,6 +30,11 @@ public class BattleManager : IActorManager
     {
         var targetWc = go.transform.parent.GetComponent<WeaponController>();
 
+        if (targetWc == null)
+        {
+            return;
+        }
+
         GameObject attacker = targetWc.weaponManager.actorManager.actorController.Model;
         GameObject receiver = actorManager.actorController.Model;
 

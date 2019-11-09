@@ -11,7 +11,6 @@ public class ActorManager : MonoBehaviour
     private BattleManager battleManager;
     private WeaponManager weaponManager;
     private StateManager stateManager;
-    private EventCasterManager eventCasterManager;
     private InteractionManager interactionManager;
 
     public StateManager StateManager => stateManager;
@@ -23,7 +22,6 @@ public class ActorManager : MonoBehaviour
         battleManager = Bind<BattleManager>();
         weaponManager = Bind<WeaponManager>();
         stateManager = Bind<StateManager>();
-        eventCasterManager = Bind<EventCasterManager>(transform.Find("Character").DeepFind("Caster")?.gameObject);
         directorManager = Bind<DirectorManager>(GameObject.Find("Director"));
         interactionManager = Bind<InteractionManager>(battleManager.msgSender.gameObject);
 

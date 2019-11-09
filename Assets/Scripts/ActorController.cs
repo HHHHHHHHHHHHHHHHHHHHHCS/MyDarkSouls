@@ -347,4 +347,10 @@ public class ActorController : MonoBehaviour
     {
         anim.GetComponent<WeaponSender>().CounterBackDisable();
     }
+
+    public void OnLockEnter()
+    {
+        pi.inputEnable = false;
+        planarVec = Vector3.zero;
+    }
 }
