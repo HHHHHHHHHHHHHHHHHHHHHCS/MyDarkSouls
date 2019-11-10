@@ -25,10 +25,43 @@ public class DirectorManager : IActorManager
     {
         pd.playableAsset = Instantiate(frontStab);
 
-        foreach (var track in pd.playableAsset.outputs)
+        TimelineAsset timeline = (TimelineAsset) pd.playableAsset;
+
+        foreach (var track in timeline.GetOutputTracks())
         {
             Object obj = null;
-            switch (track.streamName)
+
+            switch (track.name)
+            {
+                case "Attacker Animation":
+                    obj = attacker.actorController.anim;
+                    break;
+                case "Attacker Script":
+                    obj = attacker;
+                    foreach (var clip in track.GetClips())
+                    {
+                        MySuperPlayableClip myClip = clip.asset as MySuperPlayableClip;
+                        MySuperPlayableBehaviour myBehav = myClip.template;
+                        myBehav.myFloat = 777;  
+                    }
+                    break;
+                case "Victim Animation":
+                    obj = victim.actorController.anim;
+                    break;
+                case "Victim Script":
+                    obj = victim;
+                    break;
+            }
+
+            if (obj != null)
+                pd.SetGenericBinding(track, obj);
+        }
+
+        /*
+        foreach (var trackBinding in pd.playableAsset.outputs)
+        {
+            Object obj = null;
+            switch (trackBinding.streamName)
             {
                 case "Attacker Animation":
                     obj = attacker.actorController.anim;
@@ -45,8 +78,9 @@ public class DirectorManager : IActorManager
             }
 
             if (obj != null)
-                pd.SetGenericBinding(track.sourceObject, obj);
+                pd.SetGenericBinding(trackBinding.sourceObject, obj);
         }
+        */
 
         pd.Play();
     }
