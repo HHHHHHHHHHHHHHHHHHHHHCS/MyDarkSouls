@@ -27,6 +27,9 @@ public class DirectorManager : IActorManager
 
         TimelineAsset timeline = (TimelineAsset) pd.playableAsset;
 
+        // 强行执行一次插值 , 把值初始一次
+        pd.Evaluate();
+
         foreach (var track in timeline.GetOutputTracks())
         {
             Object obj = null;
@@ -43,13 +46,20 @@ public class DirectorManager : IActorManager
                         MySuperPlayableClip myClip = clip.asset as MySuperPlayableClip;
                         MySuperPlayableBehaviour myBehav = myClip.template;
                         myBehav.myFloat = 777;  
+                        pd.SetReferenceValue(myClip.actorManager.exposedName,attacker);
                     }
                     break;
                 case "Victim Animation":
                     obj = victim.actorController.anim;
                     break;
                 case "Victim Script":
-                    obj = victim;
+                    foreach (var clip in track.GetClips())
+                    {
+                        MySuperPlayableClip myClip = clip.asset as MySuperPlayableClip;
+                        MySuperPlayableBehaviour myBehav = myClip.template;
+                        myBehav.myFloat = 6666;
+                        pd.SetReferenceValue(myClip.actorManager.exposedName, victim);
+                    }
                     break;
             }
 

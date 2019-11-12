@@ -6,7 +6,7 @@ using UnityEngine.Timeline;
 [Serializable]
 public class MySuperPlayableBehaviour : PlayableBehaviour
 {
-    public GameObject myCamera;
+    public ActorManager actorManager;
     public float myFloat;
 
     private PlayableDirector pd;
@@ -57,11 +57,13 @@ public class MySuperPlayableBehaviour : PlayableBehaviour
     public override void OnBehaviourPlay(Playable playable, FrameData info)
     {
         //Debug.Log("OnBehaviourPlay");
+        actorManager.LockUnlockActorController(true);
     }
 
     public override void OnBehaviourPause(Playable playable, FrameData info)
     {
         //Debug.Log("OnBehaviourPause");
+        actorManager.LockUnlockActorController(false);
     }
 
     public override void PrepareFrame(Playable playable, FrameData info)
