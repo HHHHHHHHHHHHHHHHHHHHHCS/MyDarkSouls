@@ -22,7 +22,7 @@ public class ActorManager : MonoBehaviour
         battleManager = Bind<BattleManager>();
         weaponManager = Bind<WeaponManager>();
         stateManager = Bind<StateManager>();
-        directorManager = Bind<DirectorManager>(GameObject.Find("Director"));
+        directorManager = GameObject.Find("Director").GetComponent<DirectorManager>();
         interactionManager = Bind<InteractionManager>(battleManager.msgSender.gameObject);
 
         actorController.OnAction += DoAction;

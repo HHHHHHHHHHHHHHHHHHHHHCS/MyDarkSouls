@@ -2313,7 +2313,7 @@ PlayableDirector:
   m_GameObject: {fileID: 697374698}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: dbb4b9f8626ad0348aab18638baa3bb1, type: 2}
+  m_PlayableAsset: {fileID: 0}
   m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
@@ -2361,7 +2361,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db2d105417a712e4bb4ee3c44fe49cdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actorManager: {fileID: 0}
+  actorManager: {fileID: 5281881}
   frontStab: {fileID: 11400000, guid: dbb4b9f8626ad0348aab18638baa3bb1, type: 2}
 --- !u!1 &705507993
 GameObject:

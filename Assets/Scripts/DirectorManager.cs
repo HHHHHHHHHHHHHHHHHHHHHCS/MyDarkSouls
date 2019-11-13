@@ -23,12 +23,16 @@ public class DirectorManager : IActorManager
 
     public void PlayFrontStab(ActorManager attacker, ActorManager victim)
     {
+        if (pd.playableAsset != null)
+        {
+            return;
+        }
+
         pd.playableAsset = Instantiate(frontStab);
 
         TimelineAsset timeline = (TimelineAsset) pd.playableAsset;
 
-        // 强行执行一次插值 , 把值初始一次
-        pd.Evaluate();
+
 
         foreach (var track in timeline.GetOutputTracks())
         {
@@ -67,31 +71,10 @@ public class DirectorManager : IActorManager
                 pd.SetGenericBinding(track, obj);
         }
 
-        /*
-        foreach (var trackBinding in pd.playableAsset.outputs)
-        {
-            Object obj = null;
-            switch (trackBinding.streamName)
-            {
-                case "Attacker Animation":
-                    obj = attacker.actorController.anim;
-                    break;
-                case "Attacker Script":
-                    obj = attacker;
-                    break;
-                case "Victim Animation":
-                    obj = victim.actorController.anim;
-                    break;
-                case "Victim Script":
-                    obj = victim;
-                    break;
-            }
-
-            if (obj != null)
-                pd.SetGenericBinding(trackBinding.sourceObject, obj);
-        }
-        */
+        // 强行执行一次插值 , 把值初始一次
+        pd.Evaluate();
 
         pd.Play();
+
     }
 }

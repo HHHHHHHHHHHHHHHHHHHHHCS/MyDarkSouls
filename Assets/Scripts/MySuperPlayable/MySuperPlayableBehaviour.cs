@@ -19,45 +19,23 @@ public class MySuperPlayableBehaviour : PlayableBehaviour
     public override void OnGraphStart(Playable playable)
     {
         //Debug.Log("OnGraphStart");
-        if (Application.isPlaying)
-        {
-            //暂存PD给STOP的时候用
-            pd = playable.GetGraph().GetResolver() as PlayableDirector;
-
-            foreach (var track in pd.playableAsset.outputs)
-            {
-                if (track.streamName.Contains("Attack Script"))
-                {
-                    ActorManager am = pd.GetGenericBinding(track.sourceObject) as ActorManager;
-                    am.LockUnlockActorController(true);
-                }
-            }
-        }
+        //进来的是存PD  因为知道Graph 和 Resolver
+        pd = playable.GetGraph().GetResolver() as PlayableDirector;
     }
 
     public override void OnGraphStop(Playable playable)
     {
         //Debug.Log("OnGraphStop");
-        if (Application.isPlaying)
+        //停止的时候已经获取不到Graph 和 Resolver了
+        if (pd)
         {
-            if (pd)
-            {
-                foreach (var track in pd.playableAsset.outputs)
-                {
-                    if (track.streamName.Contains("Attack Script"))
-                    {
-                        ActorManager am = pd.GetGenericBinding(track.sourceObject) as ActorManager;
-                        am.LockUnlockActorController(false);
-                    }
-                }
-            }
+            pd.playableAsset = null;
         }
     }
 
     public override void OnBehaviourPlay(Playable playable, FrameData info)
     {
         //Debug.Log("OnBehaviourPlay");
-        actorManager.LockUnlockActorController(true);
     }
 
     public override void OnBehaviourPause(Playable playable, FrameData info)
@@ -69,6 +47,7 @@ public class MySuperPlayableBehaviour : PlayableBehaviour
     public override void PrepareFrame(Playable playable, FrameData info)
     {
         //Debug.Log("PrepareFrame");
+        actorManager.LockUnlockActorController(true);
     }
 
     public override void OnPlayableDestroy(Playable playable)
