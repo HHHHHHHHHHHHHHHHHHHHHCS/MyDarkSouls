@@ -49,7 +49,9 @@ public class DirectorManager : IActorManager
                     {
                         MySuperPlayableClip myClip = clip.asset as MySuperPlayableClip;
                         MySuperPlayableBehaviour myBehav = myClip.template;
-                        myBehav.myFloat = 777;  
+                        myBehav.myFloat = 777;
+                        //给他一个单独的KEY 防止地址重复
+                        myClip.actorManager.exposedName = System.Guid.NewGuid().ToString();
                         pd.SetReferenceValue(myClip.actorManager.exposedName,attacker);
                     }
                     break;
@@ -62,6 +64,7 @@ public class DirectorManager : IActorManager
                         MySuperPlayableClip myClip = clip.asset as MySuperPlayableClip;
                         MySuperPlayableBehaviour myBehav = myClip.template;
                         myBehav.myFloat = 6666;
+                        myClip.actorManager.exposedName = System.Guid.NewGuid().ToString();
                         pd.SetReferenceValue(myClip.actorManager.exposedName, victim);
                     }
                     break;

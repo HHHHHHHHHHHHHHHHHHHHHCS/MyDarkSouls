@@ -18,8 +18,6 @@ public class MySuperPlayableClip : PlayableAsset, ITimelineClipAsset
     {
         var playable = ScriptPlayable<MySuperPlayableBehaviour>.Create(graph, template);
         MySuperPlayableBehaviour clone = playable.GetBehaviour();
-        //给他一个单独的KEY 防止地址重复
-        actorManager.exposedName = GetInstanceID().ToString();
         clone.actorManager = actorManager.Resolve(graph.GetResolver());
         return playable;
     }
