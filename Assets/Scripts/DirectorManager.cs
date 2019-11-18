@@ -80,4 +80,10 @@ public class DirectorManager : IActorManager
         pd.Play();
 
     }
+
+    public void OpenBox()
+    {
+        Debug.Log("OPEN");
+    }
+
 }

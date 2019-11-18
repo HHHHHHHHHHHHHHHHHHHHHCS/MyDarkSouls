@@ -8,6 +8,12 @@ public class ActorManager : MonoBehaviour
     private static DirectorManager directorManager;
 
     [HideInInspector] public ActorController actorController;
+
+    public bool needBattle = true;
+    public bool needWeapon = true;
+    public bool needState = true;
+
+
     private BattleManager battleManager;
     private WeaponManager weaponManager;
     private StateManager stateManager;
@@ -17,13 +23,18 @@ public class ActorManager : MonoBehaviour
 
     private void Awake()
     {
-        actorController = GetComponent<ActorController>();
-
-        battleManager = Bind<BattleManager>();
-        weaponManager = Bind<WeaponManager>();
-        stateManager = Bind<StateManager>();
+        actorController = GetComponent<ActorController>()?.Init();
+        if (needBattle)
+            battleManager = Bind<BattleManager>();
+        if (needWeapon)
+            weaponManager = Bind<WeaponManager>();
+        if (needState)
+            stateManager = Bind<StateManager>();
         directorManager = GameObject.Find("Director").GetComponent<DirectorManager>();
-        interactionManager = Bind<InteractionManager>(battleManager.msgSender.gameObject);
+        if (needBattle)
+            interactionManager = Bind<InteractionManager>(battleManager.msgSender.gameObject);
+        else
+            interactionManager = Bind<InteractionManager>(actorController.Model);
 
         actorController.OnAction += DoAction;
     }
@@ -148,6 +159,10 @@ public class ActorManager : MonoBehaviour
             if (interactionManager.overlapEcastms[0].eventName == "frontStab")
             {
                 directorManager.PlayFrontStab(this, interactionManager.overlapEcastms[0].actorManager);
+            }
+            else if (interactionManager.overlapEcastms[0].eventName == "openBox")
+            {
+                directorManager.OpenBox();
             }
         }
     }

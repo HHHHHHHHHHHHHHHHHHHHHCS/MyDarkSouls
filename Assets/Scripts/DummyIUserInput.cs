@@ -5,23 +5,30 @@ using UnityEngine;
 
 public class DummyIUserInput : IUserInput
 {
+    public bool isStatic = false;
+
     private IEnumerator Start()
     {
-
-        dUp = 1.0f;
-        dRight = 0;
-        yield return  new WaitForSeconds(1f);
-        dUp = 0f;
-        dRight = 1;
-        yield return new WaitForSeconds(1f);
-        dUp = 0f;
-        dRight = 0;
+        if (!isStatic)
+        {
+            dUp = 1.0f;
+            dRight = 0;
+            yield return new WaitForSeconds(1f);
+            dUp = 0f;
+            dRight = 1;
+            yield return new WaitForSeconds(1f);
+            dUp = 0f;
+            dRight = 0;
+        }
     }
-    
+
 
     private void Update()
     {
-        rightAttack = true;
-        UpdateDmagDevc(dUp,dRight);
+        if (!isStatic)
+        {
+            rightAttack = true;
+            UpdateDmagDevc(dUp, dRight);
+        }
     }
 }

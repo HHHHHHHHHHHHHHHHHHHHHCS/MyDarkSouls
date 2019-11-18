@@ -37,9 +37,7 @@ public class ActorController : MonoBehaviour
     private bool lockPlanar; //锁移动的量
     private bool canAttack = true; //是否可以攻击
     private CapsuleCollider capCol; //玩家的碰撞盒
-#pragma warning disable 414
     private float lerpTarget; // 动画层过渡用
-#pragma warning restore 414
     private Vector3 deltaPos; // 动画位置偏移用
 
     //private int attackLayer; //攻击的Layer
@@ -47,13 +45,12 @@ public class ActorController : MonoBehaviour
 
     public event OnActionDelegate OnAction;
 
-    //[field: SerializeField]
-    public GameObject Model { get; private set; }
+    [field: SerializeField] public GameObject Model { get; private set; }
 
-    public CameraController Camcon { get; private set; }
+    [field: SerializeField] public CameraController Camcon { get; private set; }
 
 
-    private void Awake()
+    public ActorController Init()
     {
         var inputs = transform.GetComponents<IUserInput>();
         foreach (var item in inputs)
@@ -65,19 +62,26 @@ public class ActorController : MonoBehaviour
             }
         }
 
-        Model = transform.Find("Character").gameObject;
-        Camcon = transform.Find("CameraHandle").GetComponent<CameraController>();
+        if (!Model)
+            Model = transform.Find("Character")?.gameObject;
+        if (!Camcon)
+            Camcon = transform.Find("CameraHandle")?.GetComponent<CameraController>();
         anim = Model.GetComponent<Animator>();
         rigi = transform.GetComponent<Rigidbody>();
         capCol = transform.GetComponent<CapsuleCollider>();
 
         //attackLayer = anim.GetLayerIndex("attack");
+        return this;
     }
 
     private void Update()
     {
-        anim.SetBool("defense", pi.isDefense);
+        if (pi is DummyIUserInput input && input.isStatic)
+        {
+            return;
+        }
 
+        anim.SetBool("defense", pi.isDefense);
 
         if (pi.islock)
         {

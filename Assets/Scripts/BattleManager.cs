@@ -11,11 +11,13 @@ public class BattleManager : IActorManager
     private void Awake()
     {
         var senderTs = transform.Find("Sensor");
+
         msgSender = senderTs.GetComponent<BattleMsgSender>();
         if (msgSender == null)
         {
             msgSender = senderTs.gameObject.AddComponent<BattleMsgSender>();
         }
+
 
         msgSender.battleManager = this;
 
@@ -52,7 +54,7 @@ public class BattleManager : IActorManager
         float counterAngle2 = Vector3.Angle(attackerForward, receiverForward);
 
         bool attackValid = (attackingAngle < 45f);
-        bool counterValid = (counterAngle1 < 30 && Mathf.Abs(counterAngle2 - 180) < 30); 
+        bool counterValid = (counterAngle1 < 30 && Mathf.Abs(counterAngle2 - 180) < 30);
 
         if (attackingAngle <= 45f)
         {
