@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
+using Object = UnityEngine.Object;
 
 [Serializable]
 public class MySuperPlayableBehaviour : PlayableBehaviour
@@ -29,7 +30,7 @@ public class MySuperPlayableBehaviour : PlayableBehaviour
         //停止的时候已经获取不到Graph 和 Resolver了
         if (pd)
         {
-            pd.playableAsset = null;
+            Object.Destroy(pd.playableAsset);
         }
     }
 
@@ -41,13 +42,15 @@ public class MySuperPlayableBehaviour : PlayableBehaviour
     public override void OnBehaviourPause(Playable playable, FrameData info)
     {
         //Debug.Log("OnBehaviourPause");
-        actorManager.LockUnlockActorController(false);
+        if (actorManager)
+            actorManager.LockUnlockActorController(false);
     }
 
     public override void PrepareFrame(Playable playable, FrameData info)
     {
         //Debug.Log("PrepareFrame");
-        actorManager.LockUnlockActorController(true);
+        if (actorManager)
+            actorManager.LockUnlockActorController(true);
     }
 
     public override void OnPlayableDestroy(Playable playable)

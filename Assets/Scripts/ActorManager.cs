@@ -30,7 +30,7 @@ public class ActorManager : MonoBehaviour
             weaponManager = Bind<WeaponManager>();
         if (needState)
             stateManager = Bind<StateManager>();
-        directorManager = GameObject.Find("Director").GetComponent<DirectorManager>();
+        directorManager = GameObject.Find("DirectorManager").GetComponent<DirectorManager>();
         if (needBattle)
             interactionManager = Bind<InteractionManager>(battleManager.msgSender.gameObject);
         else
@@ -156,13 +156,17 @@ public class ActorManager : MonoBehaviour
     {
         if (interactionManager.overlapEcastms.Count != 0)
         {
-            if (interactionManager.overlapEcastms[0].eventName == "frontStab")
+            if (interactionManager.overlapEcastms[0].active)
             {
-                directorManager.PlayFrontStab(this, interactionManager.overlapEcastms[0].actorManager);
-            }
-            else if (interactionManager.overlapEcastms[0].eventName == "openBox")
-            {
-                directorManager.OpenBox();
+                if (interactionManager.overlapEcastms[0].eventName == "frontStab")
+                {
+                    directorManager.PlayFrontStab(this, interactionManager.overlapEcastms[0].actorManager);
+                }
+                else if (interactionManager.overlapEcastms[0].eventName == "openBox")
+                {
+                    interactionManager.overlapEcastms[0].active = false;
+                    directorManager.OpenBox(this, interactionManager.overlapEcastms[0].actorManager);
+                }
             }
         }
     }
