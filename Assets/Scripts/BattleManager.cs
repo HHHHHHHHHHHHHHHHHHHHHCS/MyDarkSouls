@@ -46,10 +46,11 @@ public class BattleManager : IActorManager
         attackerForward.y = 0;
         float attackingAngle = Vector3.Angle(attackingDir, attackerForward);
 
-
-        Vector3 counterDir = -attackingDir;
         Vector3 receiverForward = receiver.transform.forward;
         receiverForward.y = 0;
+
+        Vector3 counterDir = -attackingDir;
+
         float counterAngle1 = Vector3.Angle(receiverForward, counterDir);
         float counterAngle2 = Vector3.Angle(attackerForward, receiverForward);
 
@@ -65,5 +66,37 @@ public class BattleManager : IActorManager
     public void DisableMsgSender()
     {
         msgSender.DoDisable();
+    }
+
+    public static bool CheckAnglePlayer(GameObject player, GameObject target, float playerAngleLimit)
+    {
+        Vector3 counterDir = target.transform.position - player.transform.position;
+        counterDir.y = 0;
+
+        Vector3 targetForward = target.transform.forward;
+        targetForward.y = 0;
+
+        Vector3 playerForward = player.transform.forward;
+        playerForward.y = 0;
+
+        float counterAngle1 = Vector3.Angle(playerForward, counterDir);
+        float counterAngle2 = Vector3.Angle(targetForward, playerForward);
+
+        bool counterValid = (counterAngle1 < playerAngleLimit && Mathf.Abs(counterAngle2 - 180f) < playerAngleLimit);
+        return counterValid;
+    }
+
+    public static bool CheckTargetPlayer(GameObject player, GameObject target, float targetAngleLimit)
+    {
+        Vector3 attackingDir = player.transform.position - target.transform.position;
+        attackingDir.y = 0;
+
+        Vector3 targetForward = target.transform.forward;
+        targetForward.y = 0;
+
+        float attackAngle = Vector3.Angle(targetForward, attackingDir);
+
+        bool attackValid = attackAngle < targetAngleLimit;
+        return attackValid;
     }
 }
