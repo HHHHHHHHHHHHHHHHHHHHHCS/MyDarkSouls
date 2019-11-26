@@ -164,8 +164,12 @@ public class ActorManager : MonoBehaviour
                 }
                 else if (interactionManager.overlapEcastms[0].eventName == "openBox")
                 {
-                    interactionManager.overlapEcastms[0].active = false;
-                    directorManager.OpenBox(this, interactionManager.overlapEcastms[0].actorManager);
+                    if (BattleManager.CheckAnglePlayer(actorController.Model,
+                        interactionManager.overlapEcastms[0].actorManager.gameObject, 15))
+                    {
+                        interactionManager.overlapEcastms[0].active = false;
+                        directorManager.OpenBox(this, interactionManager.overlapEcastms[0].actorManager);
+                    }
                 }
             }
         }

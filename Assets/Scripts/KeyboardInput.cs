@@ -18,7 +18,7 @@ public class KeyboardInput : IUserInput
     public KeyCode keyJLeft = KeyCode.LeftArrow; //camera left
     public KeyCode keyJRight = KeyCode.RightArrow; //camera right
     public KeyCode keyJStick = KeyCode.Tab; //camera islock
-    public KeyCode keyJLT = KeyCode.Q; //
+    public KeyCode keyJLT = KeyCode.Q; //counterback
     public KeyCode keyJRT = KeyCode.E; //
 
     [Header("===== Mouse Settings =====")] public bool mouseEnable = false; //mouse rotate camera enable?
