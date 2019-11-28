@@ -156,19 +156,26 @@ public class ActorManager : MonoBehaviour
     {
         if (interactionManager.overlapEcastms.Count != 0)
         {
-            if (interactionManager.overlapEcastms[0].active)
+            var eventObj = interactionManager.overlapEcastms[0];
+
+            if (eventObj.active)
             {
-                if (interactionManager.overlapEcastms[0].eventName == "frontStab")
+                if (eventObj.eventName == "frontStab")
                 {
-                    directorManager.PlayFrontStab(this, interactionManager.overlapEcastms[0].actorManager);
+                    directorManager.PlayFrontStab(this, eventObj.actorManager);
                 }
-                else if (interactionManager.overlapEcastms[0].eventName == "openBox")
+                else if (eventObj.eventName == "openBox")
                 {
+                    var target = eventObj.actorManager.transform;
+
                     if (BattleManager.CheckAnglePlayer(actorController.Model,
-                        interactionManager.overlapEcastms[0].actorManager.gameObject, 15))
+                        target.gameObject, 15))
                     {
-                        interactionManager.overlapEcastms[0].active = false;
-                        directorManager.OpenBox(this, interactionManager.overlapEcastms[0].actorManager);
+                        eventObj.active = false;
+                        transform.position = target.position
+                                             + target.TransformVector(eventObj.offset);
+                        actorController.Model.transform.LookAt(target, Vector3.up);
+                        directorManager.OpenBox(this, eventObj.actorManager);
                     }
                 }
             }
