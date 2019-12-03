@@ -175,7 +175,21 @@ public class ActorManager : MonoBehaviour
                         transform.position = target.position
                                              + target.TransformVector(eventObj.offset);
                         actorController.Model.transform.LookAt(target, Vector3.up);
-                        directorManager.OpenBox(this, eventObj.actorManager);
+                        directorManager.PlayOpenBox(this, eventObj.actorManager);
+                    }
+                }
+                else if (eventObj.eventName == "leverUp")
+                {
+                    var target = eventObj.actorManager.transform;
+
+                    if (BattleManager.CheckAnglePlayer(actorController.Model,
+                        target.gameObject, 15))
+                    {
+                        eventObj.active = false;
+                        transform.position = target.position
+                                             + target.TransformVector(eventObj.offset);
+                        actorController.Model.transform.LookAt(target, Vector3.up);
+                        directorManager.PlayLeverUp(this, eventObj.actorManager);
                     }
                 }
             }

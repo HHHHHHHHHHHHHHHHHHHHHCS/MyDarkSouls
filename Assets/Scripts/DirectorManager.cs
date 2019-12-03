@@ -13,6 +13,7 @@ public class DirectorManager : IActorManager
 
     [Header("=== Timeline assets ===")] public TimelineAsset frontStab;
     public TimelineAsset openBox;
+    public TimelineAsset leverUp;
 
     private void Awake()
     {
@@ -81,7 +82,7 @@ public class DirectorManager : IActorManager
 
     }
 
-    public void OpenBox(ActorManager attacker, ActorManager victim)
+    public void PlayOpenBox(ActorManager attacker, ActorManager victim)
     {
 
         if (pd.state == PlayState.Playing)
@@ -109,9 +110,6 @@ public class DirectorManager : IActorManager
                     foreach (var clip in track.GetClips())
                     {
                         MySuperPlayableClip myClip = clip.asset as MySuperPlayableClip;
-                        MySuperPlayableBehaviour myBehav = myClip.template;
-                        myBehav.myFloat = 777;
-                        //给他一个单独的KEY 防止地址重复
                         myClip.actorManager.exposedName = System.Guid.NewGuid().ToString();
                         pd.SetReferenceValue(myClip.actorManager.exposedName, attacker);
                     }
@@ -123,8 +121,6 @@ public class DirectorManager : IActorManager
                     foreach (var clip in track.GetClips())
                     {
                         MySuperPlayableClip myClip = clip.asset as MySuperPlayableClip;
-                        MySuperPlayableBehaviour myBehav = myClip.template;
-                        myBehav.myFloat = 6666;
                         myClip.actorManager.exposedName = System.Guid.NewGuid().ToString();
                         pd.SetReferenceValue(myClip.actorManager.exposedName, victim);
                     }
@@ -141,4 +137,57 @@ public class DirectorManager : IActorManager
         pd.Play();
     }
 
+    public void PlayLeverUp(ActorManager attacker, ActorManager victim)
+    {
+        if (pd.state == PlayState.Playing)
+        {
+            return;
+        }
+
+        pd.playableAsset = Instantiate(leverUp);
+
+        TimelineAsset timeline = (TimelineAsset)pd.playableAsset;
+
+
+
+        foreach (var track in timeline.GetOutputTracks())
+        {
+            Object obj = null;
+
+            switch (track.name)
+            {
+                case "Player Animation":
+                    obj = attacker.actorController.anim;
+                    break;
+                case "Player Script":
+                    obj = attacker;
+                    foreach (var clip in track.GetClips())
+                    {
+                        MySuperPlayableClip myClip = clip.asset as MySuperPlayableClip;
+                        myClip.actorManager.exposedName = System.Guid.NewGuid().ToString();
+                        pd.SetReferenceValue(myClip.actorManager.exposedName, attacker);
+                    }
+                    break;
+                case "Lever Animation":
+                    obj = victim.actorController.anim;
+                    break;
+                case "Lever Script":
+                    foreach (var clip in track.GetClips())
+                    {
+                        MySuperPlayableClip myClip = clip.asset as MySuperPlayableClip;
+                        myClip.actorManager.exposedName = System.Guid.NewGuid().ToString();
+                        pd.SetReferenceValue(myClip.actorManager.exposedName, victim);
+                    }
+                    break;
+            }
+
+            if (obj != null)
+                pd.SetGenericBinding(track, obj);
+        }
+
+        // 强行执行一次插值 , 把值初始一次
+        pd.Evaluate();
+
+        pd.Play();
+    }
 }
