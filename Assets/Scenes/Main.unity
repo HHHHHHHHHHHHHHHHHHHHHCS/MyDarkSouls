@@ -2666,9 +2666,9 @@ PlayableDirector:
   - key: {fileID: 1803388573732311249, guid: de66d3b16ebbd224fa32ef6595da53f1, type: 2}
     value: {fileID: 896954623}
   - key: {fileID: -1266828556141464789, guid: de66d3b16ebbd224fa32ef6595da53f1, type: 2}
-    value: {fileID: 0}
+    value: {fileID: 5281881}
   - key: {fileID: 7449918578698008751, guid: de66d3b16ebbd224fa32ef6595da53f1, type: 2}
-    value: {fileID: 0}
+    value: {fileID: 421464746}
   m_ExposedReferences:
     m_References:
     - 8095b31055c38c745b106ed3c786d9c1: {fileID: 781144299}
@@ -2689,7 +2689,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &697374701
 MonoBehaviour:
@@ -2796,7 +2796,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &742742281
 GameObject:
@@ -8980,7 +8980,7 @@ MonoBehaviour:
   actorManager: {fileID: 0}
   eventName: leverUp
   active: 1
-  offset: {x: 0, y: 0, z: 1.5}
+  offset: {x: 0, y: 0, z: 1.2}
 --- !u!65 &2023415938
 BoxCollider:
   m_ObjectHideFlags: 0
