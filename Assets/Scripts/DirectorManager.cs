@@ -22,9 +22,12 @@ public class DirectorManager : IActorManager
         //pd.playableAsset = Instantiate(frontStab);
     }
 
+    public bool IsPlaying => pd.state == PlayState.Playing;
+
+    
     public void PlayFrontStab(ActorManager attacker, ActorManager victim)
     {
-        if (pd.state == PlayState.Playing)
+        if (IsPlaying)
         {
             return;
         }
@@ -85,7 +88,7 @@ public class DirectorManager : IActorManager
     public void PlayOpenBox(ActorManager attacker, ActorManager victim)
     {
 
-        if (pd.state == PlayState.Playing)
+        if (IsPlaying)
         {
             return;
         }
@@ -139,7 +142,7 @@ public class DirectorManager : IActorManager
 
     public void PlayLeverUp(ActorManager attacker, ActorManager victim)
     {
-        if (pd.state == PlayState.Playing)
+        if (IsPlaying)
         {
             return;
         }

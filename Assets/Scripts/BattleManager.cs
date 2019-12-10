@@ -57,7 +57,7 @@ public class BattleManager : IActorManager
         //        bool attackValid = (attackingAngle < 45f);
         //        bool counterValid = (counterAngle1 < 30 && Mathf.Abs(counterAngle2 - 180) < 30);
 
-        actorManager.TryDoDamage(targetWc, CheckTargetPlayer(receiver, attacker, 45),
+        actorManager.TryDoDamage(targetWc, CheckTargetPlayer(receiver, attacker, 70),
             CheckAnglePlayer(receiver, attacker, 30));
     }
 

@@ -158,7 +158,7 @@ public class ActorManager : MonoBehaviour
         {
             var eventObj = interactionManager.overlapEcastms[0];
 
-            if (eventObj.active)
+            if (eventObj.active && !directorManager.IsPlaying)
             {
                 if (eventObj.eventName == "frontStab")
                 {
