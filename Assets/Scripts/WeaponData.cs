@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class WeaponData : MonoBehaviour
 {
-    public float atk = 1.0f;
+    public int atk = 1;
 }

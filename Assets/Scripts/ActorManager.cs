@@ -65,7 +65,7 @@ public class ActorManager : MonoBehaviour
         {
             if (attackValid)
             {
-                HitOrDie(false);
+                HitOrDie(wc, false);
             }
         }
         else if (stateManager.isImmortal)
@@ -80,19 +80,19 @@ public class ActorManager : MonoBehaviour
         {
             if (attackValid)
             {
-                HitOrDie(true);
+                HitOrDie(wc, true);
             }
         }
     }
 
-    public void HitOrDie(bool doHitAnim)
+    public void HitOrDie(WeaponController targetCtrl, bool doHitAnim)
     {
         if (stateManager.hp <= 0)
         {
         }
         else
         {
-            DoDamage();
+            DoDamage(targetCtrl.GetAtk());
             if (stateManager.hp > 0)
             {
                 if (doHitAnim)
@@ -112,9 +112,9 @@ public class ActorManager : MonoBehaviour
         actorController.IssueTrigger("stunned");
     }
 
-    public void DoDamage()
+    public void DoDamage(int damage)
     {
-        stateManager.AddHp(-5);
+        stateManager.AddHp(-1 * damage);
     }
 
     public void OnBlocked()

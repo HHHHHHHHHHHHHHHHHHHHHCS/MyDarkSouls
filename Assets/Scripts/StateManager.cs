@@ -7,6 +7,7 @@ public class StateManager : IActorManager
 {
     public int maxHp = 30;
     public int hp = 30;
+    public int baseAtk = 10;
 
     [Header("1st order state flags")] public bool isGround;
     public bool isJump;

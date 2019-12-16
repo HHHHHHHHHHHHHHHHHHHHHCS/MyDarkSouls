@@ -374,8 +374,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actorManager: {fileID: 0}
-  maxHp: 1000
-  hp: 1000
+  maxHp: 30
+  hp: 30
   isGround: 0
   isJump: 0
   isFall: 0
@@ -1791,6 +1791,7 @@ GameObject:
   - component: {fileID: 479026045}
   - component: {fileID: 479026044}
   - component: {fileID: 479026043}
+  - component: {fileID: 479026046}
   m_Layer: 9
   m_Name: Sword
   m_TagString: Weapon
@@ -1871,6 +1872,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 479026041}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &479026046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479026041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6a26c58af56efd49be29ee32a72dcc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  atk: 5
 --- !u!1 &480858052
 GameObject:
   m_ObjectHideFlags: 0
@@ -1975,6 +1989,7 @@ GameObject:
   - component: {fileID: 498428747}
   - component: {fileID: 498428746}
   - component: {fileID: 498428748}
+  - component: {fileID: 498428749}
   m_Layer: 9
   m_Name: Sword
   m_TagString: Weapon
@@ -2055,6 +2070,19 @@ CapsuleCollider:
   m_Height: 1.85
   m_Direction: 2
   m_Center: {x: -0.987218, y: 1.7940407, z: -0.57576025}
+--- !u!114 &498428749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 498428744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6a26c58af56efd49be29ee32a72dcc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  atk: 10
 --- !u!1 &505214922
 GameObject:
   m_ObjectHideFlags: 0
@@ -3573,6 +3601,7 @@ GameObject:
   - component: {fileID: 854059329}
   - component: {fileID: 854059328}
   - component: {fileID: 854059330}
+  - component: {fileID: 854059331}
   m_Layer: 9
   m_Name: Shield
   m_TagString: Untagged
@@ -3652,6 +3681,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.3103514, y: 0.24337837, z: 0.6429698}
   m_Center: {x: 0.9915031, y: 1.8732606, z: -0.029680185}
+--- !u!114 &854059331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 854059326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6a26c58af56efd49be29ee32a72dcc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  atk: 5
 --- !u!1 &864035564
 GameObject:
   m_ObjectHideFlags: 0
@@ -3895,6 +3937,7 @@ GameObject:
   - component: {fileID: 979001221}
   - component: {fileID: 979001220}
   - component: {fileID: 979001219}
+  - component: {fileID: 979001222}
   m_Layer: 9
   m_Name: Sheid
   m_TagString: Untagged
@@ -3974,6 +4017,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 979001217}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &979001222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 979001217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6a26c58af56efd49be29ee32a72dcc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  atk: 1
 --- !u!1 &1014764665
 GameObject:
   m_ObjectHideFlags: 0
