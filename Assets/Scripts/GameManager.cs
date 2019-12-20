@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -36,5 +38,10 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         //var prefab = Resources.Load<GameObject>("Falchion");
+        //Instantiate(prefab);
+        var text = Resources.Load<TextAsset>("ABC");
+        var obj = JObject.Parse(text.text);
+        print(obj["Falchion"]["ATK"].Value<string>());
+
     }
 }
