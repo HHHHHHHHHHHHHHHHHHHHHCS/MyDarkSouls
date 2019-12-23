@@ -9,9 +9,13 @@ public class GameManager : MonoBehaviour
 {
     private static GameManager instance;
 
+    private WeaponDataBase weaponDataBase;
+
     private void Awake()
     {
         CheckGameObject();
+        CheckSingle();
+        InitWeaponDB();
     }
 
     private void CheckSingle()
@@ -39,9 +43,13 @@ public class GameManager : MonoBehaviour
     {
         //var prefab = Resources.Load<GameObject>("Falchion");
         //Instantiate(prefab);
-        var text = Resources.Load<TextAsset>("ABC");
-        var obj = JObject.Parse(text.text);
-        print(obj["Falchion"]["ATK"].Value<string>());
+        //var text = Resources.Load<TextAsset>("ABC");
+        //var obj = JObject.Parse(text.text);
+        //print(obj["Falchion"]["ATK"].Value<string>());
+    }
 
+    private void InitWeaponDB()
+    {
+        weaponDataBase = new WeaponDataBase();
     }
 }
