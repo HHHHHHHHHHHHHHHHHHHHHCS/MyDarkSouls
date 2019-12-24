@@ -10,12 +10,13 @@ public class GameManager : MonoBehaviour
     private static GameManager instance;
 
     private WeaponDataBase weaponDataBase;
+    private WeaponFactory weaponFactory;
 
     private void Awake()
     {
         CheckGameObject();
         CheckSingle();
-        InitWeaponDB();
+
     }
 
     private void CheckSingle()
@@ -46,10 +47,22 @@ public class GameManager : MonoBehaviour
         //var text = Resources.Load<TextAsset>("ABC");
         //var obj = JObject.Parse(text.text);
         //print(obj["Falchion"]["ATK"].Value<string>());
+
+        InitWeaponDB();
+        InitWeaponFactory();
+
+        weaponFactory.CreateWeapon("Falchion");
     }
+
 
     private void InitWeaponDB()
     {
         weaponDataBase = new WeaponDataBase();
     }
+
+    private void InitWeaponFactory()
+    {
+        weaponFactory = new WeaponFactory(weaponDataBase);
+    }
+
 }
