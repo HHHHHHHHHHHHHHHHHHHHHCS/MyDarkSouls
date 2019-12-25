@@ -7,7 +7,7 @@ public class WeaponDataBase
 {
     private string weaponDataBaseFileName = "WeaponData";
 
-    public JObject weaponData;
+    private JObject weaponData;
 
     public JObject WeaponData => weaponData;
 

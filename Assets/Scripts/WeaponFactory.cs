@@ -31,6 +31,10 @@ public class WeaponFactory
         obj.transform.parent = parent;
         obj.transform.position = Vector3.zero;
         obj.transform.rotation = Quaternion.identity;
+
+        WeaponData wData = obj.AddComponent<WeaponData>();
+        wData.atk = weaponDB.GetData<int>(weaponName, "ATK");
+
         return obj;
     }
 }
