@@ -9,6 +9,11 @@ public class GameManager : MonoBehaviour
 {
     private static GameManager instance;
 
+    public static GameManager Instance => instance;
+
+
+    public WeaponManager playerWeaponManger;
+
     private WeaponDataBase weaponDataBase;
     private WeaponFactory weaponFactory;
 
@@ -17,6 +22,18 @@ public class GameManager : MonoBehaviour
         CheckGameObject();
         CheckSingle();
 
+        if (Instance == this)
+        {
+            Cursor.lockState = CursorLockMode.Locked; //hide mouse cursor 
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Cursor.lockState = Cursor.lockState == CursorLockMode.None ? CursorLockMode.Locked : CursorLockMode.None;
+        }
     }
 
     private void CheckSingle()
@@ -50,8 +67,16 @@ public class GameManager : MonoBehaviour
 
         InitWeaponDB();
         InitWeaponFactory();
+    }
 
-        weaponFactory.CreateWeapon("Falchion");
+    private void OnGUI()
+    {
+        if (GUI.Button(new Rect(10, 10, 300, 60), "R: Sword"))
+            weaponFactory.CreateWeaponUpdate("Sword", "R", playerWeaponManger);
+        if (GUI.Button(new Rect(10, 70, 300, 60), "R: Falchion"))
+            weaponFactory.CreateWeaponUpdate("Falchion", "R", playerWeaponManger);
+        if (GUI.Button(new Rect(10, 130, 300, 60), "R: Mace"))
+            weaponFactory.CreateWeaponUpdate("Mace", "R", playerWeaponManger);
     }
 
 
@@ -64,5 +89,4 @@ public class GameManager : MonoBehaviour
     {
         weaponFactory = new WeaponFactory(weaponDataBase);
     }
-
 }

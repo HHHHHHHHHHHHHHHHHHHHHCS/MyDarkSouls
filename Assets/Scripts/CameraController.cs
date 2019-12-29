@@ -53,7 +53,6 @@ public class CameraController : MonoBehaviour
             cameraTS = mainCamera.transform;
             cameraTS.position = transform.position;
 
-            Cursor.lockState = CursorLockMode.Locked; //hide mouse cursor 
             SetLockDot();
         }
     }

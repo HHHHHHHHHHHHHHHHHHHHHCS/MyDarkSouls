@@ -1,10 +1,14 @@
 {
   "Falchion": {
-    "DEF": 7,
+    "DEF": 5,
     "ATK": 15
   },
   "Sword": {
     "ATK": 10,
     "DEF": 10
+  },
+  "Mace": {
+    "ATK": 20,
+    "DEF": 0
   }
 }
